@@ -4,14 +4,16 @@
 // 'glassHopper' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'glassHopper.controllers' is found in controllers.js
-angular.module('glassHopper', ['ionic', 'glassHopper.controllers', 'login'])
+angular.module('glassHopper', ['ionic', 'ngCordova', 'glassHopper.controllers', 'login'])
 
 
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaSplashscreen) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    // $cordovaSplashscreen.hide();
+    console.log("woa")
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
