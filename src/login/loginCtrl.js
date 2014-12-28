@@ -3,23 +3,20 @@ angular.module('login', [])
 .controller('LoginCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
   $scope.loginData = {};
-  $scope.poopSandwich = "poopSandwich for everyone";
-
-  // Create the login modal that we will use later
-  // $ionicModal.fromTemplateUrl('login/login.tpl.html', {
-  //   scope: $scope
-  // }).then(function(modal) {
-  //   $scope.modal = modal;
-  // });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
+  $scope.formTitle = 'Login';
+  $scope.functionName = 'doLogin()';
+  $scope.changeFormToRegister = function() {
+    $scope.formTitle = "Register";
+    $scope.functionName =  "createUser()";
   };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
+  $scope.changeFormToLogin = function() {
+    $scope.formTitle = "Login";
+    $scope.functionName = 'doLogin()';
+  };
+
+  $scope.createUser = function() {
+    console.log('Doing register', $scope.loginData);
   };
 
   // Perform the login action when the user submits the login form

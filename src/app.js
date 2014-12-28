@@ -4,7 +4,7 @@
 // 'glassHopper' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'glassHopper.controllers' is found in controllers.js
-angular.module('glassHopper', ['ionic', 'ngCordova', 'templates', 'glassHopper.controllers', 'login'])
+angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', 'glassHopper.controllers', 'login'])
 
 
 
@@ -26,9 +26,20 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'templates', 'glassHopper.c
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+  .state('landing', {
+    url: "/landing",
+    templateUrl: "login/landing.tpl.html"
+  })
+
   .state('login', {
     url: "/login",
     templateUrl: "login/login.tpl.html",
+    controller: 'LoginCtrl'
+  })
+
+  .state('register', {
+    url: "/register",
+    templateUrl: "login/register.tpl.html",
     controller: 'LoginCtrl'
   })
 
@@ -76,5 +87,5 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'templates', 'glassHopper.c
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/landing');
 });

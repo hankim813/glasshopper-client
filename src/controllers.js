@@ -42,7 +42,6 @@ angular.module('glassHopper.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
-  $scope.poopSandwich = "poopSandwich!!!";
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
