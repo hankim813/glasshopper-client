@@ -9,6 +9,7 @@ angular.module('authFactories', [])
       } else {
         this.isLogged = false;
         delete $localStorage.user;
+        delete $localStorage.token;
       }
     }
   }
@@ -30,7 +31,11 @@ angular.module('authFactories', [])
         delete $localStorage.token;
         delete $localStorage.user;
 
-        // $location.path("/login");
+        $ionicHistory.nextViewOptions({
+            disableAnimate: true,
+            disableBack: true
+        });
+        $location.path("/landing");
       }
 
     }
