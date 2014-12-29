@@ -2,13 +2,6 @@ angular.module('loginCtrl', [])
 
 .controller('LoginController', function($scope, $http, $location, $localStorage, $ionicHistory, UserAuthFactory, AuthenticationFactory) {
 
-  if(AuthenticationFactory.isLogged) {
-    $ionicHistory.nextViewOptions({
-        disableAnimate: true,
-        disableBack: true
-    });
-    $location.path("/app/playlists");
-  }
   // Form data for the login modal
   $scope.loginData = {};
 

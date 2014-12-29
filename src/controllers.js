@@ -1,13 +1,7 @@
 angular.module('glassHopper.controllers', [])
 
 .controller('AppCtrl', function($scope, $location, $ionicHistory, AuthenticationFactory) {
-      if(!AuthenticationFactory.isLogged) {
-        $ionicHistory.nextViewOptions({
-            disableAnimate: true,
-            disableBack: true
-        });
-        $location.path("/landing");
-      }
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {

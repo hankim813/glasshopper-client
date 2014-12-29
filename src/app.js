@@ -7,11 +7,10 @@
 angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', 'glassHopper.controllers','loginRoutes', 'loginCtrl', 'authFactories'])
 
 
-.run(function($rootScope, $ionicPlatform, $cordovaSplashscreen, AuthenticationFactory) {
+.run(function($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    // $cordovaSplashscreen.hide();
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -21,6 +20,31 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', '
     }
 
     AuthenticationFactory.check();
+
+    if (!AuthenticationFactory.isLogged) {
+      $location.path("/landing");
+    } else {
+      $location.path("/app/playlists");
+    };
+
+    // $cordovaSplashscreen.hide();
+
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+      if (!AuthenticationFactory.isLogged) {
+        $ionicHistory.nextViewOptions({
+          disableAnimate: true,
+          disableBack: true
+        });
+        $location.path("/landing");
+      }
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      // if the user is already logged in, take him to the home page
+      if (AuthenticationFactory.isLogged == true && (toState.url === '/login' || toState.url === '/register' || toState.url === '/landing')) {
+        $location.path("/app/playlists");
+      }
+    });
 
   });
 })
