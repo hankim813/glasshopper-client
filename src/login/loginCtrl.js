@@ -1,19 +1,8 @@
-angular.module('login', [])
+angular.module('loginCtrl', [])
 
-.controller('LoginCtrl', function($scope, $ionicModal, $timeout) {
+.controller('LoginController', function($scope, $http, $localStorage) {
   // Form data for the login modal
   $scope.loginData = {};
-  $scope.formTitle = 'Login';
-  $scope.functionName = 'doLogin()';
-  $scope.changeFormToRegister = function() {
-    $scope.formTitle = "Register";
-    $scope.functionName =  "createUser()";
-  };
-
-  $scope.changeFormToLogin = function() {
-    $scope.formTitle = "Login";
-    $scope.functionName = 'doLogin()';
-  };
 
   $scope.createUser = function() {
     console.log('Doing register', $scope.loginData);
@@ -21,12 +10,23 @@ angular.module('login', [])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    console.log('hello Han')
+    $http
+      .post('http://127.0.0.1:3000/api/signin', $scope.loginData)
+      .success(function (data, status, headers, config) {
+        $localStorage.token = data.token;
+        $localStorage.user = data.user;
+        console.log('logged in');
+        console.log($localStorage.user);
+        console.log($localStorage.token);
+      })
+      .error(function (data, status, headers, config) {
+        // Erase the token if the user fails to log in
+        delete $localStorage.token;
+        delete $localStorage.user;
+        console.log('error!');
+        // Handle login errors here
+        $scope.message = data.message;
+      });
   };
 });
