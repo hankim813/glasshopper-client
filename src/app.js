@@ -4,11 +4,10 @@
 // 'glassHopper' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'glassHopper.controllers' is found in controllers.js
-angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', 'glassHopper.controllers','loginRoutes', 'loginCtrl'])
+angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', 'glassHopper.controllers','loginRoutes', 'loginCtrl', 'authFactories'])
 
 
-
-.run(function($ionicPlatform, $cordovaSplashscreen) {
+.run(function($rootScope, $ionicPlatform, $cordovaSplashscreen, AuthenticationFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,13 +19,17 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    AuthenticationFactory.check();
+
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  $httpProvider.interceptors.push('TokenInterceptor');
+
   $stateProvider
-
-
 
   .state('app', {
     url: "/app",
@@ -72,5 +75,5 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', '
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/landing');
+  $urlRouterProvider.otherwise('/app/playlists');
 });
