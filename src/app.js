@@ -30,13 +30,15 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', '
     // $cordovaSplashscreen.hide();
 
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-      if (!AuthenticationFactory.isLogged) {
-        $ionicHistory.nextViewOptions({
-          disableAnimate: true,
-          disableBack: true
-        });
-        $location.path("/landing");
-      }
+      if (toState.name !== 'login' && toState.name !== 'register' && toState.name !== 'landing') {
+        if (!AuthenticationFactory.isLogged) {
+          $ionicHistory.nextViewOptions({
+            disableAnimate: true,
+            disableBack: true
+          });
+          $location.path("/landing");
+        }
+      };
     });
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
