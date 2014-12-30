@@ -17,7 +17,7 @@ angular.module('authFactories', [])
   return auth;
 })
 
-.factory('UserAuthFactory', function($localStorage, $location, $http, AuthenticationFactory) {
+.factory('UserAuthFactory', function($localStorage, $location, $http, $ionicHistory, AuthenticationFactory) {
   return {
     login: function(loginData) {
       return $http.post('http://127.0.0.1:3000/api/signin', loginData);

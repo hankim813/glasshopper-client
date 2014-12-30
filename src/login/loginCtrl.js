@@ -18,7 +18,7 @@ angular.module('loginCtrl', [])
 
     .success(authSuccessCallback)
     .error(authErrorCallback);
-  }
+  };
 
 
   function authSuccessCallback (data) {
@@ -29,6 +29,7 @@ angular.module('loginCtrl', [])
         disableAnimate: true,
         disableBack: true
     });
+    $scope.loginData = {};
     $location.path("/app/playlists");
   }
 

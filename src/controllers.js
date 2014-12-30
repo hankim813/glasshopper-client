@@ -1,7 +1,8 @@
 angular.module('glassHopper.controllers', [])
 
-.controller('AppCtrl', function($scope, $location, $ionicHistory, AuthenticationFactory) {
+.controller('AppCtrl', function($scope, $location, $ionicHistory, AuthenticationFactory, UserAuthFactory) {
 
+  $scope.logout = UserAuthFactory.logout;
 })
 
 .controller('PlaylistsCtrl', function($scope) {
