@@ -25,19 +25,39 @@ angular.module('authFactories', [])
     logout: function() {
 
       if (AuthenticationFactory.isLogged) {
-
         AuthenticationFactory.isLogged = false;
 
-        delete $localStorage.token;
-        delete $localStorage.user;
+        $localStorage.$reset();
 
         $ionicHistory.nextViewOptions({
-            disableAnimate: true,
+            disableAnimate: false,
             disableBack: true
         });
         $location.path("/landing");
       }
 
+    }
+  }
+})
+
+.factory('UserProfileFactory', function($localStorage, $location, $http) {
+  return {
+    create: function(profileData) {
+      return $http.post('http://127.0.0.1:3000/api/signup', profileData);
+    },
+    fbCallback: function(profileData) {
+      return $http.post('http://127.0.0.1:3000/api/fbcallback', profileData);
+    },
+    getFacbookProfile: function() {
+      $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: $localStorage.fbToken, fields: "id,name,email,gender,picture", format: "json" }})
+      .then(function(result) {
+        var fbProfile = result.data;
+        $localStorage.profilePhotoUrl = fbProfile.picture.data.url;
+        delete fbProfile.picture;
+        $localStorage.facebook = fbProfile;
+      }, function(error) {
+        alert(error);
+      });
     }
   }
 })
