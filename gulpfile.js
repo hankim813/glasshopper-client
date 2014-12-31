@@ -37,7 +37,7 @@ var paths = {
   templates: ['./src/**/*.tpl.html']
 };
 
-gulp.task('default', ['sass', 'js', 'vendor', 'templates', 'fonts']);
+gulp.task('default', ['sass', 'js', 'templates', 'fonts']);
 
 
 /*
