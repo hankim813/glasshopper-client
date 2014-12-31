@@ -1,0 +1,17 @@
+{
+  "name": "glasshopper",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "sass",
+    "js",
+    "vendor",
+    "templates",
+    "fonts",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "vendor/**/*",
+    "src/**/*"
+  ]
+}
