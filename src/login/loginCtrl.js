@@ -12,12 +12,6 @@ angular.module('loginCtrl', [])
       .error(authErrorCallback);
   };
 
-  $scope.fbCallback = function() {
-    UserProfileFactory.fbCallback($scope.profileData)
-      .success(authSuccessCallback)
-      .error(authErrorCallback);
-  };
-
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     UserAuthFactory.login($scope.loginData)
@@ -26,23 +20,33 @@ angular.module('loginCtrl', [])
   };
 
   $scope.facebookLogin = function() {
-    console.log("in the function")
       $cordovaOauth.facebook("196511150372923", ["public_profile", "email"]).then(fbSuccessCallback, fbErrorCallback);
   }
 
   function fbSuccessCallback (result) {
-    $localStorage.fbToken              = result.access_token;
-
+    $scope.fbToken         = result.access_token;
     $ionicLoading.show();
 
-    UserProfileFactory.getFacbookProfile();
+    UserProfileFactory.getFbProfile($scope.fbToken)
+      .then(getFbProfileCallback, fbErrorCallback);
 
-    $scope.profileData.profilePhotoUrl = $localStorage.profilePhotoUrl;
-    $scope.profileData.facebook        = $localStorage.facebook;
-    $scope.profileData.facebook.token  = $localStorage.fbToken;
-
-    $scope.fbCallback();
     $ionicLoading.hide();
+  }
+
+  function getFbProfileCallback (result) {
+    saveFbDataToLocalStorage(result.data);
+
+    UserProfileFactory.fbSigninCallback()
+      .success(authSuccessCallback)
+      .error(authErrorCallback);
+  }
+
+  function saveFbDataToLocalStorage (fbProfile) {
+    $localStorage.profilePhotoUrl = fbProfile.picture.data.url;
+    delete fbProfile.picture;
+    $localStorage.facebook        = fbProfile;
+    $localStorage.facebook.token  = $scope.fbToken;
+    delete $scope.fbToken;
   }
 
   function fbErrorCallback (error) {

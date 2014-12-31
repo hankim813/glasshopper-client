@@ -27,7 +27,10 @@ angular.module('authFactories', [])
       if (AuthenticationFactory.isLogged) {
         AuthenticationFactory.isLogged = false;
 
-        $localStorage.$reset();
+        delete $localStorage.profilePhotoUrl;
+        delete $localStorage.facebook;
+        delete $localStorage.token;
+        delete $localStorage.user;
 
         $ionicHistory.nextViewOptions({
             disableAnimate: false,
@@ -45,19 +48,15 @@ angular.module('authFactories', [])
     create: function(profileData) {
       return $http.post('http://127.0.0.1:3000/api/signup', profileData);
     },
-    fbCallback: function(profileData) {
-      return $http.post('http://127.0.0.1:3000/api/fbcallback', profileData);
+    fbSigninCallback: function() {
+      return $http.post('http://127.0.0.1:3000/api/fbcallback',
+        {
+          facebook: $localStorage.facebook,
+          profilePhotoUrl: $localStorage.profilePhotoUrl
+        });
     },
-    getFacbookProfile: function() {
-      $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: $localStorage.fbToken, fields: "id,name,email,gender,picture", format: "json" }})
-      .then(function(result) {
-        var fbProfile = result.data;
-        $localStorage.profilePhotoUrl = fbProfile.picture.data.url;
-        delete fbProfile.picture;
-        $localStorage.facebook = fbProfile;
-      }, function(error) {
-        alert(error);
-      });
+    getFbProfile: function(access_token) {
+      return $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: access_token, fields: "id,name,email,gender,picture", format: "json" }});
     }
   }
 })
