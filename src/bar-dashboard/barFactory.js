@@ -1,5 +1,6 @@
 angular.module('barDashboard.services', [])
 .factory('BarDashboardFactory', function(){
+	
 	var bars = [{
 		id 			: 0,
 		name    : "Blackthorn",
@@ -16,7 +17,7 @@ angular.module('barDashboard.services', [])
 		location: ""
 	}];
 
-	get: function(barId){
+	var get = function(barId){
 		return bars[barId];
 	}
 
