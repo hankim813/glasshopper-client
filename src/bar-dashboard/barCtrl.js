@@ -1,6 +1,6 @@
 angular.module('barCtrl', [])
 
-.controller('BarController', function($scope, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, UserAuthFactory, AuthenticationFactory, UserProfileFactory){
+.controller('barController', function($scope, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, UserAuthFactory, AuthenticationFactory, UserProfileFactory){
 
 	//retrieve a Bar model object
 	//name, address, photoUrl, avgPrice (between 1 - 5), location (array with long and lat values)
