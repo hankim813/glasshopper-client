@@ -4,7 +4,7 @@ angular.module('barRoutes', ['ionic'])
   $stateProvider
 
   .state('barView', {
-    url: "/bar",
+    url: "/barView",
     templateUrl: "bar-dashboard/barView.tpl.html",
     controller: 'barController'
   })
