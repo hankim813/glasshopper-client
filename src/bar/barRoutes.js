@@ -16,5 +16,18 @@ angular.module('barRoutes', ['ionic', 'barModel'])
       }
     }
   })
+  .state('app.barshow', {
+    url     : "/bars/:barId",
+    resolve : { bar : function(barFactory, $stateParams) {
+                  return barFactory.get($stateParams.barId);
+                }
+              },
+    views   : {
+      'menuContent': {
+        templateUrl: "bar/bar.tpl.html",
+        controller: 'BarSingleController'
+      }
+    }
+  });
 
 });
