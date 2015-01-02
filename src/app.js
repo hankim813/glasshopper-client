@@ -24,7 +24,7 @@ if (window.StatusBar) {
     if (!AuthenticationFactory.isLogged) {
       $location.path("/landing");
     } else {
-      $location.path("/barView");
+      $location.path("/app/playlists");
     };
 
     // $cordovaSplashscreen.hide();
