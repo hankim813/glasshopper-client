@@ -3,19 +3,21 @@
 */
 angular.module('reviewCtrl', [])
 .controller('ReviewController', ['$scope', '$ionicModal', '$http', '$location', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'ReviewFactory', function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, ReviewFactory){
+
   $scope.Math      = window.Math;
-  $scope.rawData   = {};
+  $scope.rawData   = { crowdLevel: 1,
+                       noiseLevel: 1,
+                       avgAge: 1
+                     };
   $scope.review    = {};
   $scope.review.author = $localStorage.user.id;
-  // $scope.review.barId = "";
-  // $scope.$watch('review._bar', function(newValue, oldValue, scope) {
-  //     scope.review._bar = newValue;
-  // });
 
 
   $scope.createReview = function() {
-    console.log($scope.rawData);
-    console.log('review', $scope.review);
+    console.log('review', $scope.review.author);
+
+    $scope.prepareStats();
+
     ReviewFactory.create($scope.review)
       .success(reviewSuccessCallback)
       .error(reviewErrorCallback);
@@ -24,51 +26,44 @@ angular.module('reviewCtrl', [])
 
   function reviewSuccessCallback (data) {
     $localStorage.token = data.token;
-    ReviewFactory.isLogged = true;
-    // AuthenticationFactory.isLogged = true;
-
-    // $ionicHistory.nextViewOptions({
-    //     disableBack: true
-    // });
-    // $scope.loginData = {};
-    // $scope.profileData = {};
     $scope.review = {};
-
-    console.log('local storage: ', $localStorage);
-    $location.path("/app/playlists");
   }
 
   function reviewErrorCallback (data, status, headers, config) {
-    // Erase the token if the user fails to log in
-    // delete $localStorage.token;
-    // delete $localStorage.user;
-    // Handle login errors here
-    console.log('data', data);
-    console.log('headers', headers());
     alert(data.message);
   }
 
 
   //needs to happen before creation.
   //massages data from ranges and then stores them in review obj
-  $scope.prepareStats = function (array, val) {
-    var divisor = $scope.Math.floor(100/array.length);
-    return $scope.Math.floor(val/divisor);
+  $scope.prepareStats = function () {
+    // {crowdLevel: "18", noiseLevel: "13", avgAge: "42
+    $scope.review.crowdLevel = $scope.rangeConverter($scope.rawData.crowdLevel);
+    $scope.review.noiseLevel = $scope.rangeConverter($scope.rawData.noiseLevel);
+    $scope.review.avgAge = $scope.rangeConverter($scope.rawData.avgAge);
+    $scope.review.ggRatio = parseInt($scope.rawData.ggRatio);
+    // return ($scope.Math.floor(val/33) + 1);
   };
 
-  $scope.renderStats = function (stringArray, rangeValue) {
-    var sd = $scope.prepareStats(stringArray, rangeValue);
-    for(var i = 0; i < stringArray.length; i++){
-      if(i === sd) {
-        return stringArray[i];
-      }
-        // return stringArray[stringArray.length-1];
+  $scope.rangeConverter = function(val) {
+    return ($scope.Math.floor(val/33) + 1);
+  };
 
-    }
-    return stringArray[stringArray.length-1];
+  $scope.renderAgeRange = function (val) {
+    if($scope.rawData.avgAge <= 40 && $scope.rawData.avgAge > 20 ){
+      return '26-30';
+    }else if($scope.rawData.avgAge <= 60 && $scope.rawData.avgAge > 40){
+      return '31-40';
+    }else if($scope.rawData.avgAge <= 80 && $scope.rawData.avgAge > 60){
+      return '40-50';
+    }else if($scope.rawData.avgAge <= 100 && $scope.rawData.avgAge > 80){
+      return '50+';
+    }else { return '21-25'; }
   };
 
   $scope.renderGgRatio = function (val) {
-    return (val + ' girls : ' + (100-val) + ' guys');
+    if(val >= 0 && val <= 100) {
+      return (val + ' girls : ' + (100-val) + ' guys');
+    }else { return (50 + ' girls : ' + (100-50) + ' guys'); }
   };
 }]);

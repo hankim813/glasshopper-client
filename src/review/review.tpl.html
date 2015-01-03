@@ -23,6 +23,7 @@
               <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel">
               <i class="icon ion-volume-high"></i>
             </div>
+            <div class="item item-divider">{{prepareStats(rawData.noiseLevel)}}</div>
 
               <div class="item item-divider">
                 Crowd Level
@@ -32,6 +33,7 @@
                 <input type="range" name="crowdLevel" min="0" max="100" ng-model="rawData.crowdLevel">
                 <i class="icon ion-ios-people"></i>
               </div>
+              <div class="item item-divider">{{prepareStats(rawData.crowdLevel)}}</div>
 
               <div class="item item-divider">
                 Girl To Guy Ratio
@@ -41,7 +43,7 @@
                   <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio">
                   <i class="icon ion-woman"></i>
               </div>
-                  <div class="item item-divider">{{rawData.ggRatio}}</div>
+              <div class="item item-divider">{{renderGgRatio(rawData.ggRatio)}}</div>
 
               <div class="item item-divider">
                 Age Range
@@ -51,10 +53,10 @@
                 <input type="range" name="avgAge" min="0" max="100" ng-model="rawData.avgAge">
                 <i class="icon ion-ios-people"></i>
               </div>
-              <div class="item item-divider">{{rawData.avgAge}}</div>
+              <div class="item item-divider">{{renderAgeRange(rawData.avgAge)}}</div>
 
               <label class="item" >
-                <button class="button button-block button-positive" type="submit">Submit</button>
+                <button class="button button-block button-positive" type="submit" ng-click="modal.hide()">Submit</button>
               </label>
             </div>
           </form>

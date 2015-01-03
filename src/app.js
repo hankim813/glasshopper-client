@@ -4,10 +4,23 @@
 // 'glassHopper' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'glassHopper.controllers' is found in controllers.js
-angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'ngResource', 'templates', 'glassHopper.controllers','loginRoutes', 'loginCtrl', 'authFactories', 'barModel', 'barRoutes', 'barCtrl'])
+angular.module('glassHopper', [ 'ionic',
+                                'ngCordova',
+                                'ngStorage',
+                                'ngResource',
+                                'templates',
+                                'glassHopper.controllers',
+                                'loginRoutes',
+                                'loginCtrl',
+                                'authFactories',
+                                'barModel',
+                                'barRoutes',
+                                'barCtrl',
+                                'reviewCtrl',
+                                'reviewModel'])
 
 
-.run(function($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
+.run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
