@@ -1,4 +1,5 @@
 angular.module('reviewCtrl', [])
+
 .controller('ReviewController', ['$scope',
                                  '$ionicModal',
                                  '$http',
