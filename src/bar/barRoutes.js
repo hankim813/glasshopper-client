@@ -1,4 +1,4 @@
-angular.module('barRoutes', ['ionic', 'barModel'])
+angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -20,6 +20,10 @@ angular.module('barRoutes', ['ionic', 'barModel'])
     url     : "/bars/:barId",
     resolve : { bar : function(barFactory, $stateParams) {
                   return barFactory.get($stateParams.barId);
+                },
+
+                reviews: function(reviewFactory, $stateParams) {
+                  return reviewFactory.get($stateParams.barId);
                 }
               },
     views   : {
