@@ -25,7 +25,6 @@ angular.module('reviewCtrl', [])
 
 
   function reviewSuccessCallback (data) {
-    $localStorage.token = data.token;
     $scope.review = {};
   }
 
@@ -37,12 +36,10 @@ angular.module('reviewCtrl', [])
   //needs to happen before creation.
   //massages data from ranges and then stores them in review obj
   $scope.prepareStats = function () {
-    // {crowdLevel: "18", noiseLevel: "13", avgAge: "42
     $scope.review.crowdLevel = $scope.rangeConverter($scope.rawData.crowdLevel);
     $scope.review.noiseLevel = $scope.rangeConverter($scope.rawData.noiseLevel);
     $scope.review.avgAge = $scope.rangeConverter($scope.rawData.avgAge);
     $scope.review.ggRatio = parseInt($scope.rawData.ggRatio);
-    // return ($scope.Math.floor(val/33) + 1);
   };
 
   $scope.rangeConverter = function(val) {
