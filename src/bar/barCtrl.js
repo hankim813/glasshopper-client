@@ -6,12 +6,8 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar, reviews){
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar){
   $scope.bar = bar;
-  $scope.reviews = reviews;
-  console.log('Bar:',bar);
-  console.log('Reviews:', reviews);
-
 
   // Create the review modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {

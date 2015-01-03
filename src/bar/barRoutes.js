@@ -20,10 +20,6 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel'])
     url     : "/bars/:barId",
     resolve : { bar : function(barFactory, $stateParams) {
                   return barFactory.get($stateParams.barId);
-                },
-
-                reviews: function(reviewFactory, $stateParams) {
-                  return reviewFactory.get($stateParams.barId);
                 }
               },
     views   : {
