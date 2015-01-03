@@ -1,4 +1,44 @@
 <ion-view view-title="{{bar.name}}">
-  <ion-content>
-  </ion-content>
+<ion-content>
+<!-- BAR PICTURE -->
+<div class="row responsive-md"> <!--break when smaller than a tablet portrait-->
+	<img class="col full-image" ng-src="{{bar.photoUrl}}">
+</div>
+<!-- CHECK-IN -->
+<div class="row">
+	<button class="button button-balanced button-full" ng-click="reviewBar()">
+		Check-In, Dude.
+	</button>
+</div>
+
+<!-- ACTIVITY FEED -->
+  <!-- <div class="list">
+  	<a ng-repeat="item in feed" class="item item-thumbnail-left" href="#">
+  		<img ng-src="{{item.photoUrl}}">
+  		<h2>{{item.title}}</h2>
+  		<p>{{item.summary}}</p>
+  	</a>
+  </div> -->
+
+  <!-- FOOTER TOOLBAR -->
+  <div class="bar bar-footer">
+  	<div class="tabs tabs-icon-top">
+  		<a class="tab-item">
+  			<i class="icon ion-compose"></i>
+  			Comment
+  		</a>
+  		<a class="tab-item">
+  			<i class="icon ion-speedometer"></i>
+  			Review
+  		</a>
+  		<a class="tab-item">
+  			<i class="icon ion-aperture"></i>
+  			Photo
+  		</a>
+  	</div>
+  <!-- <div class="bar bar-footer">
+
+</div> -->
+</div>
+</ion-content>
 </ion-view>

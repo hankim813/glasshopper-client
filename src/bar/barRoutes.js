@@ -1,4 +1,4 @@
-angular.module('barRoutes', ['ionic', 'barModel'])
+angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
