@@ -3,7 +3,6 @@ angular.module('postCtrl', [])
 .controller('PostController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, postFactory, post) {
 
 	$scope.postData = {};
-	console.log("post is" + JSON.stringify(post));
 	$scope.post = post.data;
 
 	$scope.uploadPost = function(){
@@ -17,7 +16,6 @@ angular.module('postCtrl', [])
 
 	function postSuccessCallBack(result){
 		$scope.postData = {};
-		console.log(JSON.stringify(result._id));
 		$location.path("/app/posts/" + result._id);
 	};
 
