@@ -6,7 +6,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, bar, $ionicTabsDelegate){
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, bar, $ionicTabsDelegate, $ionicModal){
 
 
   $scope.bar = bar;
