@@ -1,4 +1,18 @@
 <ion-view view-title="{{bar.name}}">
-  <ion-content>
-  </ion-content>
+<ion-content>
+  <!-- <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()">
+  </ion-refresher> -->
+  
+  <div class="row responsive-md"> <!--break when smaller than a tablet portrait-->
+  	<img class="col full-image" ng-src="{{bar.photoUrl}}">
+  </div>
+  <div class="row responsive-md">
+  	<button class="button button-balanced col-90">
+  		Check-In, Dude.
+  	</button>
+  </div>
+
+</ion-content>
 </ion-view>
