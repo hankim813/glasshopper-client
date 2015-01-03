@@ -1,16 +1,9 @@
-// Ionic glassHopper App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'glassHopper' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'glassHopper.controllers' is found in controllers.js
-
 angular.module('glassHopper', [ 'ionic',
                                 'ngCordova',
                                 'ngStorage',
                                 'ngResource',
                                 'templates',
-                                'glassHopper.controllers',
+                                'appCtrl',
                                 'loginRoutes',
                                 'loginCtrl',
                                 'authFactories',
@@ -41,7 +34,7 @@ angular.module('glassHopper', [ 'ionic',
     if (!AuthenticationFactory.isLogged) {
       $location.path("/landing");
     } else {
-      $location.path("/app/playlists");
+      $location.path("/app/bars");
     };
 
     $cordovaSplashscreen.hide();
@@ -61,7 +54,7 @@ angular.module('glassHopper', [ 'ionic',
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       // if the user is already logged in, take him to the home page
       if (AuthenticationFactory.isLogged == true && (toState.url === '/login' || toState.url === '/register' || toState.url === '/landing')) {
-        $location.path("/app/playlists");
+        $location.path("/app/bars");
       }
     });
   });
@@ -77,45 +70,9 @@ angular.module('glassHopper', [ 'ionic',
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
-      }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
+    controller: 'AppController'
   });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/bars');
 });
