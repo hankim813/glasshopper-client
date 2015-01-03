@@ -2,7 +2,7 @@
 * barCtrl Module
 */
 angular.module('reviewCtrl', [])
-.controller('ReviewController', ['$scope', '$ionicModal', '$http', '$location', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'ReviewFactory', function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, ReviewFactory){
+.controller('ReviewController', ['$scope', '$ionicModal', '$http', '$location', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'reviewFactory', function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
 
   $scope.Math      = window.Math;
   $scope.rawData   = { crowdLevel: 1,
@@ -18,14 +18,14 @@ angular.module('reviewCtrl', [])
 
     $scope.prepareStats();
 
-    ReviewFactory.create($scope.review)
+    reviewFactory.create($scope.review)
       .success(reviewSuccessCallback)
       .error(reviewErrorCallback);
   };
 
 
   function reviewSuccessCallback (data) {
-    $localStorage.token = data.token;
+    //$localStorage.token = data.token;
     $scope.review = {};
   }
 

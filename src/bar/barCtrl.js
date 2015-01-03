@@ -6,10 +6,11 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, bar, $ionicTabsDelegate, $ionicModal){
-
-
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar, reviews){
   $scope.bar = bar;
+  $scope.reviews = reviews;
+  console.log('Bar:',bar);
+  console.log('Reviews:', reviews);
 
 
   // Create the review modal
