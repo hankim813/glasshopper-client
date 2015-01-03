@@ -1,4 +1,4 @@
-angular.module('postRoutes', ['ionic'])
+angular.module('postRoutes', ['ionic', 'postFactories'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -7,7 +7,6 @@ angular.module('postRoutes', ['ionic'])
     url: "/posts",
     resolve: {
       post: function(){
-        console.log("resolving in /posts");
         return {}
       }
     },
@@ -22,10 +21,8 @@ angular.module('postRoutes', ['ionic'])
   .state('app.post', {
     url: "/posts/:postId",
     resolve: {
-      post: function($http, $stateParams) {
-        console.log("resolving in /posts/:postId");
-        console.log($stateParams);
-        return $http.get('http://127.0.0.1:3000/api/posts/' + $stateParams.postId);
+      post: function(postFactory, $stateParams) {
+        return postFactory.fetch($stateParams.postId);
       }
     },
     views: {

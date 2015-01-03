@@ -27,7 +27,7 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', '
       $location.path("/app/playlists");
     };
 
-    // $cordovaSplashscreen.hide();
+    $cordovaSplashscreen.hide();
 
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
       if (toState.name !== 'login' && toState.name !== 'register' && toState.name !== 'landing') {
@@ -47,7 +47,6 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'templates', '
         $location.path("/app/playlists");
       }
     });
-
   });
 })
 
