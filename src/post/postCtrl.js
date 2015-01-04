@@ -2,14 +2,13 @@ angular.module('postCtrl', [])
 
 .controller('PostController', function($scope, $http, $location, $localStorage, postFactory) {
 
-	$scope.postData 	= {};
+	$scope.postData 	= { 
+		barId: $scope.bar._id,
+		userId: $localStorage.user.id
+  };
 
 	$scope.uploadPost = function(){
-		var data 				= $scope.postData;
-		data.userId 		= $localStorage.user.id;
-		data.barId 			= $localStorage.barId;
-
-		postFactory.create(data)
+		postFactory.create($scope.postData)
 			.success(postSuccessCallBack)
 			.error(postErrorCallback);
 	};

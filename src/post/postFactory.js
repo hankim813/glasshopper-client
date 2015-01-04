@@ -4,7 +4,6 @@ angular.module('postFactories', [])
   return {
     
     create	: function(postData) {
-    	console.log(postData);
       return $http.post('http://127.0.0.1:3000/api/posts', postData);
     },
 

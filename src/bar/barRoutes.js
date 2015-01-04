@@ -22,7 +22,6 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
                   return barFactory.get($stateParams.barId);
                 },
                 posts : function(postFactory, $stateParams) {
-                  console.log("BAR ID", $stateParams.barId);
                   return postFactory.getAll($stateParams.barId);
                 }
               },
