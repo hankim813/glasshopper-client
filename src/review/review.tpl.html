@@ -17,6 +17,7 @@
                 <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel">
                 <i class="icon ion-volume-high"></i>
               </div>
+              <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(1)">Next</a>
           </ion-content>
         </ion-tab>
 <!-- CROWD -->
@@ -48,6 +49,7 @@
                 <!-- <input type="range" name="crowdLevel" min="0" max="100" ng-model="rawData.crowdLevel"> -->
                 
               <!-- </div> -->
+              <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
           </ion-content>
         </ion-tab>
 <!-- GIRL/GUY -->
@@ -66,6 +68,7 @@
                     <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio">
                     <i class="icon ion-woman"></i>
                   </div>
+                  <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(3)">Next</a>
           </ion-content>
         </ion-tab>
 <!-- AGE -->
