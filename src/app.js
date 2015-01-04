@@ -1,13 +1,23 @@
-// Ionic glassHopper App
+angular.module('glassHopper', [ 'ionic',
+                                'ngCordova',
+                                'ngStorage',
+                                'ngResource',
+                                'templates',
+                                'appCtrl',
+                                'loginRoutes',
+                                'loginCtrl',
+                                'authFactories',
+                                'barModel',
+                                'barRoutes',
+                                'barCtrl',
+                                'reviewCtrl',
+                                'reviewModel',
+                                'postRoutes',
+                                'postCtrl', 
+                                'postFactories'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'glassHopper' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'glassHopper.controllers' is found in controllers.js
-angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'ngResource', 'templates', 'glassHopper.controllers','loginRoutes', 'loginCtrl', 'authFactories', 'barModel', 'barRoutes', 'barCtrl'])
+.run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
 
-
-.run(function($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -24,10 +34,10 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'ngResource', 
     if (!AuthenticationFactory.isLogged) {
       $location.path("/landing");
     } else {
-      $location.path("/app/playlists");
+      $location.path("/app/bars");
     };
 
-    // $cordovaSplashscreen.hide();
+    $cordovaSplashscreen.hide();
 
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
       if (toState.name !== 'login' && toState.name !== 'register' && toState.name !== 'landing') {
@@ -44,10 +54,9 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'ngResource', 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       // if the user is already logged in, take him to the home page
       if (AuthenticationFactory.isLogged == true && (toState.url === '/login' || toState.url === '/register' || toState.url === '/landing')) {
-        $location.path("/app/playlists");
+        $location.path("/app/bars");
       }
     });
-
   });
 })
 
@@ -61,45 +70,9 @@ angular.module('glassHopper', ['ionic', 'ngCordova', 'ngStorage', 'ngResource', 
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
-      }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
+    controller: 'AppController'
   });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/bars');
 });

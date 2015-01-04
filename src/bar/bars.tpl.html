@@ -1,12 +1,12 @@
 <ion-view view-title="Bars">
-  <ion-content>
+<ion-content>
 <div class="list">
-    <a class="item item-avatar item-icon-right" ng-repeat="bar in bars" href="#/app/bars/{{bar.obj._id}}">
-      <img src=" {{bar.obj.photoUrl}} ">
-      <h2> {{bar.obj.name}} </h2>
-      <p> {{bar.obj.address}} - {{bar.dis.toFixed(2)}} mi.</p>
-      <i class="icon ion-chevron-right"></i>
-    </a>
+	<a class="item item-thumbnail-left" ng-repeat="bar in bars" href="#/app/bars/{{bar.obj._id}}">
+		<img ng-src="{{bar.obj.photoUrl}}">
+		<h2> {{bar.obj.name}} </h2>
+		<p> {{bar.obj.address}} - {{bar.dis.toFixed(2)}} mi.</p>
+		<i class="icon ion-chevron-right"></i>
+	</a>
 </div>
-  </ion-content>
+</ion-content>
 </ion-view>
