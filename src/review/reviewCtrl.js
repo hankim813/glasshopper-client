@@ -15,7 +15,6 @@ angular.module('reviewCtrl', [])
   $scope.createReview   = function() {
     prepareStats();
 
-
     reviewFactory.create($scope.review)
       .success(reviewSuccessCallback)
       .error(reviewErrorCallback);
