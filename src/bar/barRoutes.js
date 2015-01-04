@@ -1,12 +1,18 @@
-angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'])
+angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories','geoModule'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
   .state('app.bars', {
     url     : "/bars",
-    resolve : { bars : function(barFactory) {
-                  return barFactory.findNearby(-122.396892, 37.785449, 0.15);
+    resolve : { bars : function(barFactory, geo) {
+                    return geo.getPosition().then(function(position) {
+                      var pos = {lat: position.coords.latitude,
+                                 lng: position.coords.longitude};
+                      return barFactory.findNearby(pos.lng, pos.lat, 0.25);
+                    }, function(error) {
+                      alert(JSON.stringify(error));
+                    })
                 }
               },
     views   : {

@@ -13,7 +13,7 @@ angular.module('glassHopper', [ 'ionic',
                                 'reviewCtrl',
                                 'reviewModel',
                                 'postRoutes',
-                                'postCtrl', 
+                                'postCtrl',
                                 'postFactories',
                                 'checkinFactories',
                                 'settingsModel',
@@ -21,9 +21,10 @@ angular.module('glassHopper', [ 'ionic',
                                 'userSettingsCtrl',
                                 'crawlRoutes',
                                 'crawlCtrl',
-                                'crawlFactories'])
+                                'crawlFactories',
+                                'geoModule'])
 
-.run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
+.run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, geo) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -34,7 +35,7 @@ if (window.cordova && window.cordova.plugins.Keyboard) {
 if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
-    }
+    };
 
     AuthenticationFactory.check();
 
@@ -64,6 +65,15 @@ if (window.StatusBar) {
         $location.path("/app/home");
       }
     });
+
+    (function(geo) {
+      geo.getPosition().then(function(position) {
+        $localStorage.last_position = {lat: position.coords.latitude,
+                                       lng: position.coords.longitude};
+      }, function(error) {
+        alert("glassHopper needs your location to work");
+      })
+    })(geo);
   });
 })
 

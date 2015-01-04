@@ -3,7 +3,7 @@ angular.module('barCtrl', []).
 controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, bars){
 
   $scope.bars = bars;
-
+  window.scope = $scope;
 }).
 
 controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, bar, posts, aggregate){
