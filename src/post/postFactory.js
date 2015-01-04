@@ -4,11 +4,16 @@ angular.module('postFactories', [])
   return {
     
     create	: function(postData) {
+    	console.log(postData);
       return $http.post('http://127.0.0.1:3000/api/posts', postData);
     },
 
-    fetch		: function(id) {
+    get			: function(id) {
       return $http.get('http://127.0.0.1:3000/api/posts/' + id);
+    },
+
+    getAll	: function(barId) {
+    	return $http.get('http://127.0.0.1:3000/api/posts/bars/' + barId);
     }
   }
 });

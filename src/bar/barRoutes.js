@@ -1,4 +1,4 @@
-angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel'])
+angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -18,8 +18,12 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel'])
   })
   .state('app.barshow', {
     url     : "/bars/:barId",
-    resolve : { bar : function(barFactory, $stateParams) {
+    resolve : { bar   : function(barFactory, $stateParams) {
                   return barFactory.get($stateParams.barId);
+                },
+                posts : function(postFactory, $stateParams) {
+                  console.log("BAR ID", $stateParams.barId);
+                  return postFactory.getAll($stateParams.barId);
                 }
               },
     views   : {

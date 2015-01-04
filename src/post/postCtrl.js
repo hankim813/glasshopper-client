@@ -6,7 +6,8 @@ angular.module('postCtrl', [])
 
 	$scope.uploadPost = function(){
 		var data 				= $scope.postData;
-		data.userId 		= $localStorage.user.id
+		data.userId 		= $localStorage.user.id;
+		data.barId 			= $localStorage.barId;
 
 		postFactory.create(data)
 			.success(postSuccessCallBack)

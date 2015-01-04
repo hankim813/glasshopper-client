@@ -6,8 +6,10 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar){
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar, posts){
+
   $scope.bar = bar;
+  $scope.posts = posts.data;
 
   // Create the review modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
@@ -38,4 +40,9 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $scope.closePostModal = function() {
     $scope.postModal.hide();
   };
+
+  // Temporary Check In, to get other features working
+  $scope.checkInToBar = function() {
+    $localStorage.barId = bar._id;
+  }
 });
