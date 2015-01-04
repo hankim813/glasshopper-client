@@ -32,16 +32,16 @@
         <ion-content>
           <h1>How's the<br>CROWD?</h1>
           <div class="row">
-            <a class="col button" ng-class="{'button-dark': isActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
+            <a class="col button" ng-class="{'button-dark': isCrowdActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-energized': isActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
+            <a class="col button" ng-class="{'button-energized': isCrowdActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-balanced': isActive('poppin')}" ng-click="setActive('poppin')">It's Poppin!</a>
+            <a class="col button" ng-class="{'button-balanced': isCrowdActive('poppin')}" ng-click="setActive('poppin')">It's Poppin!</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-assertive': isActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
+            <a class="col button" ng-class="{'button-assertive': isCrowdActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
           </div>
           <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
         </ion-content>
@@ -79,20 +79,20 @@
         <ion-content>
           <h1>Young &<br>Hip<br>or<br>Old<br>&<br>Busted?</h1>
           <div class="row">
-            <a class="col button" ng-class="{'button-dark': isActive(1)}" ng-click="setActive(1)">21-25 years</a>
+            <a class="col button" ng-class="{'button-dark': isAgeActive(1)}" ng-click="setActive(1)">21-25 years</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-energized': isActive(2)}" ng-click="setActive(2)">26-30 years</a>
+            <a class="col button" ng-class="{'button-energized': isAgeActive(2)}" ng-click="setActive(2)">26-30 years</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-balanced': isActive(3)}" ng-click="setActive(3)">31-40 years</a>
+            <a class="col button" ng-class="{'button-balanced': isAgeActive(3)}" ng-click="setActive(3)">31-40 years</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-assertive': isActive(4)}" ng-click="setActive(4)">40+ years</a>
+            <a class="col button" ng-class="{'button-assertive': isAgeActive(4)}" ng-click="setActive(4)">40+ years</a>
           </div>
 
           <label class="item" >
-              <button class="button button-block button-positive" type="submit" ng-click="modal.hide()" ng-disabled="reviewForm.$invalid">Submit</button>
+              <button class="button button-block button-positive" type="submit" ng-click="modal.hide()" ng-disabled="reviewForm.$invalid || buttonInvalid()">Submit</button>
           </label>
         </ion-content>
       </ion-tab>
