@@ -78,5 +78,4 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $scope.downvote = function(postId) {
     $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
   };
-
 });

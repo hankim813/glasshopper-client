@@ -13,6 +13,14 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
@@ -37,6 +45,7 @@
                         },
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>",
+
                             "count": 1
                         },
                         {
@@ -48,6 +57,7 @@
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
 
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+
                             "count": 1
                         },
                         {
@@ -73,6 +83,13 @@
 
                         {
                             "xml": "true",
+
+                    "ImageIO.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
 
                     "CoreLocation.framework": [
                         {
@@ -167,6 +184,9 @@
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.ionicframework.glasshopper445521"
         },
+        "org.apache.cordova.camera": {
+            "PACKAGE_NAME": "com.ionicframework.glasshopper445521"
+        },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.ionicframework.glasshopper445521"
         },
@@ -195,6 +215,12 @@
             "PACKAGE_NAME": "com.ionicframework.glasshopper445521"
         },
         "org.apache.cordova.geolocation": {
+
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.ionicframework.glasshopper445521"
+        },
+        "org.apache.cordova.file-transfer": {
+
             "PACKAGE_NAME": "com.ionicframework.glasshopper445521"
         },
         "org.apache.cordova.inappbrowser": {
