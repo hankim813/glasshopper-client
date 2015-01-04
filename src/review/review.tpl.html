@@ -4,7 +4,7 @@
       <div class="bar bar-header bar-stable">
         <h1 class="title">Review {{bar.name}}</h1>
         <div class="buttons">
-          <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+          <div class="button button-clear" ng-click="closeReview()"><span class="icon ion-close"></span></div>
         </div>
       </div>
     </div>
@@ -13,7 +13,7 @@
       <div class='col' padding-vertical="true">
         <form ng-submit='createReview()'>
           <div class="list card">
-            <input type="hidden" name="review.bar" ng-init="review.bar=bar._id" ng-model="review.bar">
+            <input type="hidden" ng-init="review.bar=bar._id">
 
             <div class="item item-divider">
               Noise Level
@@ -54,7 +54,7 @@
               <div class="item item-divider">{{renderAgeRange(rawData.avgAge)}}</div>
 
               <label class="item" >
-                <button class="button button-block button-positive" type="submit" ng-click="modal.hide()">Submit</button>
+                <button class="button button-block button-positive" type="submit" ng-click="closeReview()">Submit</button>
               </label>
             </div>
           </form>

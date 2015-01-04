@@ -23,6 +23,7 @@ angular.module('reviewCtrl', [])
 
   function reviewSuccessCallback (data) {
     $scope.review = {};
+    // Should refresh the review averages
   }
 
   function reviewErrorCallback (data, status, headers, config) {
