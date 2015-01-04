@@ -11,9 +11,9 @@ angular.module('reviewCtrl', [])
 
 
   $scope.createReview = function() {
-    console.log('review', $scope.review.author);
 
     $scope.prepareStats();
+    console.log('review', $scope.review);
 
     reviewFactory.create($scope.review)
       .success(reviewSuccessCallback)
@@ -59,5 +59,18 @@ angular.module('reviewCtrl', [])
     if(val >= 0 && val <= 100) {
       return (val + ' girls : ' + (100-val) + ' guys');
     }else { return (50 + ' girls : ' + 50 + ' guys'); }
+  };
+
+  
+  // CROWD BUTTONS
+  $scope.active ='dead';
+  $scope.setActive = function(type){
+    console.log("Setting to type: ", type);
+    $scope.active = type;
+  };
+
+  $scope.isActive = function(type) {
+
+    return type === $scope.active;
   };
 }]);
