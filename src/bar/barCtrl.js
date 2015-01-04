@@ -16,13 +16,12 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
       ggRatio: 55,
       avgNoise: 3,
   }
-//  $scope.reviews = reviews;
-  //console.log('Reviews:', reviews);
 
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
   };
-  // Create the review modal
+
+  // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
     scope: $scope
   }).then(function(modal) {
@@ -76,16 +75,6 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
   $scope.downvote = function(postId) {
     $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
-  };
-
-
-  // Call this functions if you need to manually control the slides
-  $scope.nextSlide = function() {
-    $ionicSlideBoxDelegate.next();
-  };
-
-  $scope.previousSlide = function() {
-    $ionicSlideBoxDelegate.previous();
   };
 
   // Called each time the slide changes
