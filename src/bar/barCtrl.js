@@ -11,7 +11,12 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $scope.bar = bar;
   $scope.posts = posts.data;
 
-
+  $scope.aggregates = {
+      avgCrowd: 3,
+      avgAge: 4,
+      ggRatio: 55,
+      avgNoise: 3,
+  }
 //  $scope.reviews = reviews;
   //console.log('Reviews:', reviews);
 
