@@ -8,7 +8,7 @@ angular.module('postCtrl', [])
   };
 
 	$scope.uploadPost = function(){
-		postFactory.create($scope.postData)
+		postFactory.create($scope.postData, $scope.bar._id)
 			.success(postSuccessCallBack)
 			.error(postErrorCallback);
 	};

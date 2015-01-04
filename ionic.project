@@ -5,12 +5,8 @@
     "sass",
     "js",
     "templates",
-    "fonts",
-    "watch"
+    "fonts"
   ],
   "watchPatterns": [
-    "www/**/*",
-    "vendor/**/*",
-    "src/**/*"
   ]
 }

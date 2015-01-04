@@ -13,8 +13,6 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
 
 //  $scope.reviews = reviews;
-
-  console.log('Bar:',bar);
   //console.log('Reviews:', reviews);
 
   $scope.selectTab = function(index){
@@ -53,5 +51,14 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   // Temporary Check In, to get other features working
   $scope.checkInToBar = function() {
     $localStorage.barId = bar._id;
-  }
+  };
+
+  // Voting feature
+  $scope.upvote = function(postId) {
+    $http.put("http://127.0.0.1:3000/api/votes/up/" + postId);
+  };
+
+  $scope.downvote = function(postId) {
+    $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
+  };
 });
