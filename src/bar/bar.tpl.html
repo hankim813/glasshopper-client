@@ -2,7 +2,7 @@
 <ion-content>
 <!-- BAR PICTURE -->
 
-	<img class="col full-image" ng-src="{{bar.photoUrl}}">
+<img class="col full-image" ng-src="{{bar.photoUrl}}">
 
 <!-- CHECK-IN -->
 <div class="row">
@@ -10,9 +10,7 @@
 		Check-In, Dude.
 	</button>
 </div>
-<div class="row">
-<h1>noise = {{aggregates.avgNoise}}</h1>
-</div>
+
 
 
 <!-- ACTIVITY FEED -->
@@ -28,8 +26,34 @@
   </div>
 
 
+<div class="list card">
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-volume-high"></i>
+    noise = {{aggregates.avgNoise}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-person-stalker"></i>
+    crowd = {{aggregates.avgCrowd}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-clock"></i>
+    age = {{aggregates.avgAge}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-transgender"></i>
+    ratio = {{aggregates.ggRatio}}
+  </a>
+
+</div>
+
 </ion-content>
+
 <ion-footer-bar class="bar-balanced">
   <button class="button button-clear" ng-click="reviewBar()">Review This Bar</button>
 </ion-footer-bar>
+
 </ion-view>
