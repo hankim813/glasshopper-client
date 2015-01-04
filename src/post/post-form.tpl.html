@@ -1,0 +1,23 @@
+<ion-view view-title="New Post">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <form ng-submit="uploadPost()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Nickname</span>
+          <input type="text" ng-model="postData.author">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Content</span>
+          <input type="textarea" ng-model="postData.content">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Post</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
