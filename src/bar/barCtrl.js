@@ -11,6 +11,15 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $scope.bar = bar;
   $scope.posts = posts.data;
 
+
+//  $scope.reviews = reviews;
+
+  console.log('Bar:',bar);
+  //console.log('Reviews:', reviews);
+
+  $scope.selectTab = function(index){
+    $ionicTabsDelegate.select(index);
+  };
   // Create the review modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
     scope: $scope
