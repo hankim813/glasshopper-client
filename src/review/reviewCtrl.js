@@ -1,19 +1,13 @@
-/**
-* barCtrl Module
-*/
 angular.module('reviewCtrl', [])
 .controller('ReviewController', ['$scope', '$ionicModal', '$http', '$location', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'reviewFactory', function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
-
   $scope.Math      = window.Math;
   $scope.rawData   = {};
-  $scope.review    = {};
-  $scope.review.author = $localStorage.user.id;
+  $scope.review         = {};
+  $scope.review.author  = $localStorage.user.id;
 
 
-  $scope.createReview = function() {
-
-    $scope.prepareStats();
-    console.log('review', $scope.review);
+  $scope.createReview   = function() {
+    prepareStats();
 
     reviewFactory.create($scope.review)
       .success(reviewSuccessCallback)
@@ -29,22 +23,21 @@ angular.module('reviewCtrl', [])
     alert(data.message);
   }
 
-
   //needs to happen before creation.
   //massages data from ranges and then stores them in review obj
-  $scope.prepareStats = function () {
-    $scope.review.crowdLevel = $scope.rangeConverter($scope.rawData.crowdLevel);
-    $scope.review.noiseLevel = $scope.rangeConverter($scope.rawData.noiseLevel);
-    $scope.review.avgAge = $scope.rangeConverter($scope.rawData.avgAge);
-    $scope.review.ggRatio = parseInt($scope.rawData.ggRatio);
+  function prepareStats () {
+    $scope.review.crowdLevel  = rangeConverter($scope.rawData.crowdLevel);
+    $scope.review.noiseLevel  = rangeConverter($scope.rawData.noiseLevel);
+    $scope.review.avgAge      = rangeConverter($scope.rawData.avgAge);
+    $scope.review.ggRatio     = parseInt($scope.rawData.ggRatio);
   };
 
-  $scope.rangeConverter = function(val) {
+  function rangeConverter (val) {
     return ($scope.Math.floor(val/33) + 1);
   };
 
   $scope.renderAgeRange = function (val) {
-    if($scope.rawData.avgAge <= 40 && $scope.rawData.avgAge > 20 ){
+    if($scope.rawData.avgAge <= 40 && $scope.rawData.avgAge > 20){
       return '26-30';
     }else if($scope.rawData.avgAge <= 60 && $scope.rawData.avgAge > 40){
       return '31-40';
@@ -58,10 +51,12 @@ angular.module('reviewCtrl', [])
   $scope.renderGgRatio = function (val) {
     if(val >= 0 && val <= 100) {
       return (val + ' girls : ' + (100-val) + ' guys');
-    }else { return (50 + ' girls : ' + 50 + ' guys'); }
+    } else {
+      return (50 + ' girls : ' + (100-50) + ' guys'); 
+    }
   };
 
-  
+
   // CROWD BUTTONS
   $scope.active ='dead';
   $scope.setActive = function(type){

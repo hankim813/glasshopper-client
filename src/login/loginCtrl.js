@@ -3,28 +3,30 @@ angular.module('loginCtrl', [])
 .controller('LoginController', function($scope, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, UserAuthFactory, AuthenticationFactory, UserProfileFactory) {
 
   // Form data for the login modal
-  $scope.loginData = {};
-  $scope.profileData = {};
+  $scope.loginData      = {};
+  $scope.profileData    = {};
 
-  $scope.createUser = function() {
+  $scope.createUser     = function() {
     UserProfileFactory.create($scope.profileData)
       .success(authSuccessCallback)
       .error(authErrorCallback);
   };
 
   // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
+  $scope.doLogin        = function() {
     UserAuthFactory.login($scope.loginData)
       .success(authSuccessCallback)
       .error(authErrorCallback);
   };
 
-  $scope.facebookLogin = function() {
-      $cordovaOauth.facebook("196511150372923", ["public_profile", "email"]).then(fbSuccessCallback, fbErrorCallback);
+  $scope.facebookLogin  = function() {
+    $cordovaOauth.facebook("196511150372923", ["public_profile", "email"])
+      .then(fbSuccessCallback, fbErrorCallback);
   }
 
   function fbSuccessCallback (result) {
-    $scope.fbToken         = result.access_token;
+    $scope.fbToken = result.access_token;
+
     $ionicLoading.show();
 
     UserProfileFactory.getFbProfile($scope.fbToken)
@@ -54,15 +56,19 @@ angular.module('loginCtrl', [])
   }
 
   function authSuccessCallback (data) {
-    $localStorage.token = data.token;
-    $localStorage.user = data.user;
-    AuthenticationFactory.isLogged = true;
+    $localStorage.token             = data.token;
+    $localStorage.user              = data.user;
+
+    AuthenticationFactory.isLogged  = true;
+
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
+    // Clear form fields
     $scope.loginData = {};
     $scope.profileData = {};
-    $location.path("/app/playlists");
+    
+    $location.path("/app/bars");
   }
 
   function authErrorCallback (data, status, headers, config) {
