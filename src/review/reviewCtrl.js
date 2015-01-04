@@ -1,78 +1,131 @@
 angular.module('reviewCtrl', [])
-.controller('ReviewController', ['$scope', '$ionicModal', '$http', '$location', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'reviewFactory', function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
 
-  $scope.Math           = window.Math;
-  $scope.rawData = { 
-    crowdLevel : 1,
-    noiseLevel : 1,
-    avgAge     : 1 
-  };
+.controller('ReviewController', ['$scope',
+                                 '$ionicModal',
+                                 '$http',
+                                 '$location',
+                                 '$localStorage',
+                                 '$ionicHistory',
+                                 '$cordovaOauth',
+                                 '$ionicLoading',
+                                 'reviewFactory',
 
-  $scope.review         = {};
-  $scope.review.author  = $localStorage.user.id;
+    function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
+      $scope.Math           = window.Math;
+      $scope.rawData        = {};
+      $scope.review         = {};
+      $scope.review.author  = $localStorage.user.id;
+      $scope.review.bar     = $scope.bar._id;
+      $scope.activeAge      ='';
+      $scope.activeCrowd    ='';
+      var review = $scope.review;
+      var rawData = $scope.rawData;
+      var toggleBool = true;
+      $scope.submissionText = 'Submit';
 
 
-  $scope.createReview   = function() {
-    prepareStats();
+      $scope.formSubmission = function () {
+        if(toggleBool) {
+          toggleBool = !toggleBool;
+          $scope.submissionText = 'Update Review';
+          createReview();
+        } else {
+          updateReview();
+        }
+      };
 
-    reviewFactory.create($scope.review)
-      .success(reviewSuccessCallback)
-      .error(reviewErrorCallback);
-  };
+      function createReview () {
+        prepareStats();
+
+        reviewFactory.create(review)
+          .success(reviewSuccessCallback)
+          .error(reviewErrorCallback);
+      }
+
+      function updateReview () {
+        prepareStats();
+
+        reviewFactory.update($scope.review.bar, review)
+          .success(reviewUpdateSuccess)
+          .error(reviewUpdateError);
+      }
+
+      // BUTTONS
+      $scope.setActive = function(type){
+        if (typeof type == 'string') {
+          setCrowdValue(type);
+          $scope.activeCrowd = type;
+        } else {
+          setAvgAgeValue(type);
+          $scope.activeAge = type;
+        }
+      };
+
+      $scope.isCrowdActive = function (type) {
+        return type === $scope.activeCrowd;
+      };
+
+      $scope.isAgeActive = function(type) {
+        return type === $scope.activeAge;
+      };
+
+      $scope.buttonInvalid = function () {
+        return $scope.activeCrowd === '' || $scope.activeAge === '';
+      };
+
+      function reviewUpdateSuccess (data) {
+        $scope.review.author  = $localStorage.user.id;
+        $scope.review.bar     = $scope.bar._id;
+      }
+
+      function reviewUpdateError (data, status, headers, config) {
+        alert(data.message);
+      }
 
 
-  function reviewSuccessCallback (data) {
-    $scope.review = {};
-    // Should refresh the review averages
-  }
+      function reviewSuccessCallback (data) {
+        $scope.review.author  = $localStorage.user.id;
+        $scope.review.bar     = $scope.bar._id;
+      }
 
-  function reviewErrorCallback (data, status, headers, config) {
-    alert(data.message);
-  }
+      function reviewErrorCallback (data, status, headers, config) {
+        alert(data.message);
+      }
 
-  //needs to happen before creation.
-  //massages data from ranges and then stores them in review obj
-  function prepareStats () {
-    $scope.review.crowdLevel  = rangeConverter($scope.rawData.crowdLevel);
-    $scope.review.noiseLevel  = rangeConverter($scope.rawData.noiseLevel);
-    $scope.review.avgAge      = rangeConverter($scope.rawData.avgAge);
-    $scope.review.ggRatio     = parseInt($scope.rawData.ggRatio);
-  };
+      function prepareStats () {
+        review.noiseLevel  = rangeConverter(rawData.noiseLevel);
+        review.ggRatio     = parseInt(rawData.ggRatio);
+      }
 
-  function rangeConverter (val) {
-    return ($scope.Math.floor(val/33) + 1);
-  };
+      function rangeConverter (val) {
+        return ($scope.Math.floor(val/33) + 1);
+      }
 
-  $scope.renderAgeRange = function (val) {
-    if($scope.rawData.avgAge <= 40 && $scope.rawData.avgAge > 20){
-      return '26-30';
-    }else if($scope.rawData.avgAge <= 60 && $scope.rawData.avgAge > 40){
-      return '31-40';
-    }else if($scope.rawData.avgAge <= 80 && $scope.rawData.avgAge > 60){
-      return '40-50';
-    }else if($scope.rawData.avgAge <= 100 && $scope.rawData.avgAge > 80){
-      return '50+';
-    }else { return '21-25'; }
-  };
 
-  $scope.renderGgRatio = function (val) {
-    if(val >= 0 && val <= 100) {
-      return (val + ' girls : ' + (100-val) + ' guys');
-    } else { 
-      return (50 + ' girls : ' + (100-50) + ' guys'); 
-    }
-  };
+      //AvgAge Button Data Values
+      function setAvgAgeValue (name) {
+        review.avgAge = name;
+      }
 
-  
-  // CROWD BUTTONS
-  $scope.active ='dead';
-  $scope.setActive = function(type){
-    console.log("Setting to type: ", type);
-    $scope.active = type;
-  };
 
-  $scope.isActive = function(type) {
-
-    return type === $scope.active;
-  };
+      //CROWD Button Data Values
+      function setCrowdValue (name) {
+        switch(name) {
+          case 'dead':
+            review.crowdLevel = 1;
+            break;
+          case 'ok':
+            review.crowdLevel = 2;
+            break;
+          case 'poppin':
+            review.crowdLevel = 3;
+            break;
+          case 'ugh':
+            review.crowdLevel = 4;
+            break;
+          default:
+            review.crowdLevel = 1;
+            break;
+        }
+      }
 }]);

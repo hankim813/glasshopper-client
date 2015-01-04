@@ -7,7 +7,6 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 }).
 
 controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, bar, posts){
-
   $scope.bar = bar;
   $scope.posts = posts.data;
 
@@ -77,5 +76,20 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
   $scope.downvote = function(postId) {
     $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
+  };
+
+
+  // Call this functions if you need to manually control the slides
+  $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+
+  $scope.previousSlide = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+  // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
   };
 });
