@@ -7,7 +7,6 @@ angular.module('postCtrl', [])
 	$scope.uploadPost = function(){
 		var data 				= $scope.postData;
 		data.userId 		= $localStorage.user.id
-		// data.barId = $localStorage.bar.id // WE SHOULD ADD BAR ID
 
 		postFactory.create(data)
 			.success(postSuccessCallBack)
@@ -16,7 +15,7 @@ angular.module('postCtrl', [])
 
 	function postSuccessCallBack(result){
 		$scope.postData = {};
-		$location.path("/app/posts/" + result._id);
+		// Should refresh the activity feed
 	};
 
 	function postErrorCallback (error) {
