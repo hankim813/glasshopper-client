@@ -66,4 +66,17 @@ angular.module('reviewCtrl', [])
       return (val + ' girls : ' + (100-val) + ' guys');
     }else { return (50 + ' girls : ' + (100-50) + ' guys'); }
   };
+
+  
+  // CROWD BUTTONS
+  $scope.active ='dead';
+  $scope.setActive = function(type){
+    console.log("Setting to type: ", type);
+    $scope.active = type;
+  };
+
+  $scope.isActive = function(type) {
+
+    return type === $scope.active;
+  };
 }]);

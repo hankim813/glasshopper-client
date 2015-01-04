@@ -28,12 +28,26 @@
             </div>
           </ion-header-bar>
           <ion-content>
-          <h1>CROWD.</h1>
-              <div class="item range range-assertive">
-                <i class="icon ion-person"></i>
-                <input type="range" name="crowdLevel" min="0" max="100" ng-model="rawData.crowdLevel">
-                <i class="icon ion-ios-people"></i>
-              </div>
+          <h1>How's the<br>CROWD?</h1>
+              <!-- <div class="item range range-assertive"> -->
+                <!-- <i class="icon ion-person"></i> -->
+                  <!-- <div class="button-bar"> -->
+                    <div class="row">
+                      <a class="col button" ng-class="{'button-dark': isActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
+                    </div>
+                    <div class="row">
+                      <a class="col button" ng-class="{'button-energized': isActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
+                    </div>
+                    <div class="row">  
+                      <a class="col button" ng-class="{'button-balanced': isActive('poppin')}" ng-click="setActive('poppin')">It's Poppin!</a>
+                    </div>
+                    <div class="row">  
+                      <a class="col button" ng-class="{'button-assertive': isActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
+                    </div>
+                  <!-- </div> -->
+                <!-- <input type="range" name="crowdLevel" min="0" max="100" ng-model="rawData.crowdLevel"> -->
+                
+              <!-- </div> -->
           </ion-content>
         </ion-tab>
 <!-- GIRL/GUY -->
