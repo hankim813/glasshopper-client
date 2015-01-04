@@ -5,10 +5,7 @@ angular.module('reviewCtrl', [])
 .controller('ReviewController', ['$scope', '$ionicModal', '$http', '$location', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'reviewFactory', function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
 
   $scope.Math      = window.Math;
-  $scope.rawData   = { crowdLevel: 1,
-                       noiseLevel: 1,
-                       avgAge: 1
-                     };
+  $scope.rawData   = {};
   $scope.review    = {};
   $scope.review.author = $localStorage.user.id;
 
@@ -25,7 +22,6 @@ angular.module('reviewCtrl', [])
 
 
   function reviewSuccessCallback (data) {
-    //$localStorage.token = data.token;
     $scope.review = {};
   }
 
@@ -37,12 +33,10 @@ angular.module('reviewCtrl', [])
   //needs to happen before creation.
   //massages data from ranges and then stores them in review obj
   $scope.prepareStats = function () {
-    // {crowdLevel: "18", noiseLevel: "13", avgAge: "42
     $scope.review.crowdLevel = $scope.rangeConverter($scope.rawData.crowdLevel);
     $scope.review.noiseLevel = $scope.rangeConverter($scope.rawData.noiseLevel);
     $scope.review.avgAge = $scope.rangeConverter($scope.rawData.avgAge);
     $scope.review.ggRatio = parseInt($scope.rawData.ggRatio);
-    // return ($scope.Math.floor(val/33) + 1);
   };
 
   $scope.rangeConverter = function(val) {
@@ -64,6 +58,6 @@ angular.module('reviewCtrl', [])
   $scope.renderGgRatio = function (val) {
     if(val >= 0 && val <= 100) {
       return (val + ' girls : ' + (100-val) + ' guys');
-    }else { return (50 + ' girls : ' + (100-50) + ' guys'); }
+    }else { return (50 + ' girls : ' + 50 + ' guys'); }
   };
 }]);
