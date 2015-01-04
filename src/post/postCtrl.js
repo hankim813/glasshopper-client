@@ -2,21 +2,20 @@ angular.module('postCtrl', [])
 
 .controller('PostController', function($scope, $http, $location, $localStorage, postFactory) {
 
-	$scope.postData 	= {};
+	$scope.postData 	= { 
+		barId: $scope.bar._id,
+		userId: $localStorage.user.id
+  };
 
 	$scope.uploadPost = function(){
-		var data 				= $scope.postData;
-		data.userId 		= $localStorage.user.id
-		// data.barId = $localStorage.bar.id // WE SHOULD ADD BAR ID
-
-		postFactory.create(data)
+		postFactory.create($scope.postData)
 			.success(postSuccessCallBack)
 			.error(postErrorCallback);
 	};
 
 	function postSuccessCallBack(result){
 		$scope.postData = {};
-		$location.path("/app/posts/" + result._id);
+		// Should refresh the activity feed
 	};
 
 	function postErrorCallback (error) {

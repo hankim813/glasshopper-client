@@ -6,24 +6,23 @@
 </div>
 <!-- CHECK-IN -->
 <div class="row">
-	<button class="button button-balanced button-full">
+	<button class="button button-balanced button-full" ng-click="checkInToBar()">
 		Check-In, Dude.
 	</button>
 </div>
 
 <!-- ACTIVITY FEED -->
-  <!-- <div class="list">
-  	<a ng-repeat="item in feed" class="item item-thumbnail-left" href="#">
-  		<img ng-src="{{item.photoUrl}}">
-  		<h2>{{item.title}}</h2>
-  		<p>{{item.summary}}</p>
+  <div class="list">
+  	<a ng-repeat="post in posts" class="item item-thumbnail-left" href="#">
+  		<p>{{ post.content }}</p>
+  		<p>@{{ post.author }}</p>
   	</a>
-  </div> -->
+  </div>
 
   <!-- FOOTER TOOLBAR -->
   <div class="bar bar-footer">
   	<div class="tabs tabs-icon-top">
-  		<a class="tab-item">
+  		<a class="tab-item" ng-click="openPostModal()">
   			<i class="icon ion-compose"></i>
   			Comment
   		</a>

@@ -6,8 +6,10 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar){
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar, posts){
+
   $scope.bar = bar;
+  $scope.posts = posts.data;
 
 
 //  $scope.reviews = reviews;
@@ -22,14 +24,34 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
     scope: $scope
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.reviewModal = modal;
   });
 
   $scope.reviewBar = function() {
-    $scope.modal.show();
+    $scope.reviewModal.show();
   };
 
   $scope.closeReview = function() {
-    $scope.modal.hide();
+    $scope.reviewModal.hide();
   };
+
+  // Create the post modal
+  $ionicModal.fromTemplateUrl('post/post-form.tpl.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.postModal = modal;
+  });
+
+  $scope.openPostModal = function() {
+    $scope.postModal.show();
+  };
+
+  $scope.closePostModal = function() {
+    $scope.postModal.hide();
+  };
+
+  // Temporary Check In, to get other features working
+  $scope.checkInToBar = function() {
+    $localStorage.barId = bar._id;
+  }
 });

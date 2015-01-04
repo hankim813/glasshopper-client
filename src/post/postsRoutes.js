@@ -17,7 +17,7 @@ angular.module('postRoutes', ['ionic', 'postFactories'])
     url     : "/posts/:postId",
     resolve : {
       post  : function(postFactory, $stateParams) {
-        return postFactory.fetch($stateParams.postId);
+        return postFactory.get($stateParams.postId);
       }
     },
     views   : {
