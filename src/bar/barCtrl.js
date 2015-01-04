@@ -11,7 +11,7 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
 //  $scope.reviews = reviews;
   console.log('Bar:',bar);
-  console.log('Reviews:', reviews);
+  //console.log('Reviews:', reviews);
 
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
