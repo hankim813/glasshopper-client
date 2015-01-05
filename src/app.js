@@ -34,7 +34,7 @@ angular.module('glassHopper', [ 'ionic',
     if (!AuthenticationFactory.isLogged) {
       $location.path("/landing");
     } else {
-      $location.path("/app/bars");
+      $location.path("/app/home");
     };
 
     $cordovaSplashscreen.hide();
@@ -54,7 +54,7 @@ angular.module('glassHopper', [ 'ionic',
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       // if the user is already logged in, take him to the home page
       if (AuthenticationFactory.isLogged == true && (toState.url === '/login' || toState.url === '/register' || toState.url === '/landing')) {
-        $location.path("/app/bars");
+        $location.path("/app/home");
       }
     });
   });
@@ -71,8 +71,17 @@ angular.module('glassHopper', [ 'ionic',
     abstract: true,
     templateUrl: "templates/menu.html",
     controller: 'AppController'
-  });
+  })
+
+  .state('app.home', {
+    url: "/home",
+    views   : {
+      'menuContent': {
+        templateUrl: "index.tpl.html"
+      }
+    }
+  })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/bars');
+  $urlRouterProvider.otherwise('/app/home');
 });

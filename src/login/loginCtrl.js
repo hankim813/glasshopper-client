@@ -68,7 +68,7 @@ angular.module('loginCtrl', [])
     $scope.loginData = {};
     $scope.profileData = {};
     
-    $location.path("/app/bars");
+    $location.path("/app/home");
   }
 
   function authErrorCallback (data, status, headers, config) {
