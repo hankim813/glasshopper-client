@@ -17,16 +17,10 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
       avgNoise: 3,
   };
 
+  // Sets active tab
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
-    console.log('index', index);
   };
-
-  $scope.onReviewSubmit = function() {
-    $scope.selectTab(0);
-    $scope.closeReview();
-  };
-
 
   // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
@@ -34,6 +28,11 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   }).then(function(modal) {
     $scope.reviewModal = modal;
   });
+
+  $scope.onReviewSubmit = function() {
+    $scope.selectTab(0);
+    $scope.closeReview();
+  };
 
   $scope.reviewBar = function() {
       $scope.reviewModal.show();
@@ -68,7 +67,7 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
         barId     : response.data._bar,
         userId    : response.data._user,
         timestamp : response.data.createdAt
-      }
+      };
       $localStorage.lastCheckin = checkin;
     }, function(error) {
       console.log(error);
