@@ -6,7 +6,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, bar, posts){
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, bar, posts){
 
   $scope.bar = bar;
   $scope.posts = posts.data;
@@ -55,7 +55,19 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
   // Temporary Check In, to get other features working
   $scope.checkInToBar = function() {
-    $localStorage.barId = bar._id;
+    checkinFactory.create({
+      userId: $localStorage.user.id,
+      barId: $scope.bar._id
+    }).then(function(response) {
+      var checkin = {
+        barId     : response.data._bar,
+        userId    : response.data._user,
+        timestamp : response.data.createdAt
+      }
+      $localStorage.lastCheckin = checkin;
+    }, function(error) {
+      console.log(error);
+    });
   };
 
   // Voting feature
