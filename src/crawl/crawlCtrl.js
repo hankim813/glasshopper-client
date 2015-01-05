@@ -1,6 +1,7 @@
 angular.module('crawlCtrl', []).
 
-controller('CrawlController', function($scope, $http, $location, $localStorage, crawlFactory){
+controller('CrawlController', function($scope, $http, $location, $localStorage, $ionicHistory, crawlFactory){
+	$scope.barQuery = "";
 
 	$scope.startCrawl = function() {
 		crawlFactory.create({userId: $localStorage.user.id}).then(function(response) {
@@ -14,10 +15,16 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 			// process query
 			// findGeoloc($scope.barQuery);
 			// then clear form
-			$scope.barQuery = {};
+			$scope.barQuery = "";
+			$ionicHistory.nextViewOptions({
+			    disableAnimate  : false,
+			    disableBack     : true
+			});
+			$location.path('/app/crawls/' + crawl.id);
 
 		}, function(error) {
-			console.log(error);
+			console.log(error.data.message);
+			$location.path('/app/crawls');
 		});
 	};
 
@@ -28,6 +35,49 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 	};
 })
 
-.controller('CurrentCrawlController', function($scope, $http, $location, $localStorage, crawlFactory, currentCrawl) {
+.controller('CurrentCrawlController', function($scope, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory, currentCrawl) {
 
+	// Confirmation Modal
+	$ionicModal.fromTemplateUrl('crawl/confirmationModal.tpl.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.confirmationModal = modal;
+	});
+
+	$scope.openConfirmationModal = function() {
+		$scope.confirmationModal.show();
+	};
+
+	$scope.closeConfirmationModal = function() {
+		$scope.confirmationModal.hide();
+	}
+
+	// be sure to implement the feature where it checks for idleness of the crawl. If the updatedAt date is more than 12 hours from now, then execute endCrawl()
+
+	$scope.endCrawl = function() {
+		crawlFactory.end($localStorage.currentCrawl.id).then(function(response) {
+
+			delete $localStorage.currentCrawl;
+			$ionicHistory.nextViewOptions({
+			    disableAnimate  : false,
+			    disableBack     : true
+			});
+			$scope.confirmationModal.hide();
+			$location.path('/app/crawls');
+		}, function(error) {
+			console.log(error);
+		})
+	};
+})
+
+.controller('CrawlHistoryController', function($scope, $http, $location, $localStorage, crawlFactory, crawls) {
+
+	console.log(crawls);
+	$scope.crawls = crawls.data;
 });
+
+
+
+
+
+

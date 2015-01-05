@@ -12,6 +12,22 @@
       }
     }
   })
+
+  .state('app.crawlHistory', {
+    url     : "/crawls/history",
+    resolve : {
+      crawls: function(crawlFactory) {
+        return crawlFactory.getAll();
+      }
+    },
+    views   : {
+      'menuContent' : {
+        templateUrl : "crawl/history.tpl.html",
+        controller  : "CrawlHistoryController"
+      }
+    }
+  })
+  
   .state('app.currentCrawl', {
   	url 		: "/crawls/:crawlId",
   	resolve : {
