@@ -5,7 +5,13 @@ angular.module('appCtrl', [])
   $scope.logout = UserAuthFactory.logout;
   // Validation to see if you have initialized the crawl
 
-  $scope.currentCrawlUrl = $localStorage.currentCrawl.id;
+  $scope.currentCrawlUrl = function(){
+    if ($localStorage.currentCrawl) {
+      return $localStorage.currentCrawl.id;
+    } else {
+      return "#";
+    };
+  }
 
   $scope.crawlStarted = function() {
     return ($localStorage.currentCrawl !== undefined)
