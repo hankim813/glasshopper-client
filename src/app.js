@@ -15,7 +15,7 @@ angular.module('glassHopper', [ 'ionic',
                                 'postRoutes',
                                 'postCtrl', 
                                 'postFactories',
-                                'checkinFactories'])
+                                'checkinFactories',
                                 'settingsModel',
                                 'settingsRoutes',
                                 'userSettingsCtrl'])
