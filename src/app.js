@@ -14,7 +14,10 @@ angular.module('glassHopper', [ 'ionic',
                                 'reviewModel',
                                 'postRoutes',
                                 'postCtrl', 
-                                'postFactories'])
+                                'postFactories',
+                                'settingsModel',
+                                'settingsRoutes',
+                                'userSettingsCtrl'])
 
 .run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
 
