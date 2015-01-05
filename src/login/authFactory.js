@@ -35,6 +35,8 @@ angular.module('authFactories', [])
         delete $localStorage.facebook;
         delete $localStorage.token;
         delete $localStorage.user;
+        delete $localStorage.lastCheckin;
+        delete $localStorage.currentCrawl;
 
         $ionicHistory.nextViewOptions({
             disableAnimate  : false,
