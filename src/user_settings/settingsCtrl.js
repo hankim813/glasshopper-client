@@ -8,20 +8,16 @@ angular.module('userSettingsCtrl', [])
 
 	$scope.updateSettings = function(){
 		settingsFactory.update($scope.newSettings, $scope.user.id)
-		.success(successCallback)
-		.error(errorCallback);
-	}
+		.success(updateSuccessCallback)
+		.error(updateErrorCallback);
+	};
 
 
-  function successCallback (data) {
-    console.log("successCallback: ", data);
-    // Should refresh the review averages
-  }
+  function updateSuccessCallback (data) {
+  };
 
-  function errorCallback (data, status, headers, config) {
+  function updateErrorCallback (data, status, headers, config) {
     alert(data.message);
-  }
-
-
+  };
 
 }]);
