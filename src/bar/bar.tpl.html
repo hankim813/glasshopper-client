@@ -13,7 +13,7 @@
 
 <!-- ACTIVITY FEED -->
   <div class="list">
-  	<div ng-repeat="post in posts" class="item item-thumbnail-left" href="#">
+  	<div ng-repeat="post in posts" class="item item-thumbnail-left">
   		<p>{{ post.content }}</p>
       <p>@{{ post.author }}</p>
       <a href="#" ng-click="upvote(post._id)">up</a>
