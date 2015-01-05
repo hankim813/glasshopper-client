@@ -1,15 +1,17 @@
 <ion-view view-title="{{bar.name}}">
 <ion-content>
 <!-- BAR PICTURE -->
-<div class="row responsive-md"> <!--break when smaller than a tablet portrait-->
-	<img class="col full-image" ng-src="{{bar.photoUrl}}">
-</div>
+
+<img class="col full-image" ng-src="{{bar.photoUrl}}">
+
 <!-- CHECK-IN -->
 <div class="row">
 	<button class="button button-balanced button-full" ng-click="checkInToBar()">
 		Check-In, Dude.
 	</button>
 </div>
+
+
 
 <!-- ACTIVITY FEED -->
   <div class="list">
@@ -23,21 +25,35 @@
   	</div>
   </div>
 
-  <!-- FOOTER TOOLBAR -->
-  <div class="bar bar-footer">
-  	<div class="tabs tabs-icon-top">
-  		<a class="tab-item" ng-click="openPostModal()">
-  			<i class="icon ion-compose"></i>
-  			Comment
-  		</a>
-  		<a class="tab-item" ng-click="reviewBar()">
-  			<i class="icon ion-speedometer"></i>
-  			Review
-  		</a>
-  	</div>
-  <!-- <div class="bar bar-footer">
 
-</div> -->
+<div class="list card">
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-volume-high"></i>
+    noise = {{aggregates.avgNoise}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-person-stalker"></i>
+    crowd = {{aggregates.avgCrowd}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-clock"></i>
+    age = {{aggregates.avgAge}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-transgender"></i>
+    ratio = {{aggregates.ggRatio}}
+  </a>
+
 </div>
+
 </ion-content>
+
+<ion-footer-bar class="bar-balanced">
+  <button class="button button-clear" ng-click="reviewBar()">Review This Bar</button>
+</ion-footer-bar>
+
 </ion-view>
