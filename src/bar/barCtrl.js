@@ -27,6 +27,7 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
     $scope.closeReview();
   };
 
+
   // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
     scope: $scope

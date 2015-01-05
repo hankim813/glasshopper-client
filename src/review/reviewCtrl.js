@@ -23,7 +23,6 @@ angular.module('reviewCtrl', [])
       $scope.submissionText = 'Submit';
 
 
-
       $scope.formSubmission = function () {
         if(toggleBool) {
           toggleBool = !toggleBool;
