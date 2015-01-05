@@ -1,5 +1,5 @@
  <ion-modal-view ng-controller="ReviewController">
-    <form ng-submit='createReview()'>
+    <form ng-submit='formSubmission()' name="reviewForm">
       <ion-tabs class="tabs-positive">
 
       <!-- NOISE -->
@@ -92,7 +92,7 @@
           </div>
 
           <label class="item" ng-click="onReviewSubmit()">
-              <button class="button button-block button-positive" type="submit"  ng-disabled="reviewForm.$invalid || buttonInvalid()">Submit</button>
+              <button class="button button-block button-positive" type="submit"  ng-disabled="reviewForm.$invalid || buttonInvalid()">{{submissionText}}</button>
           </label>
         </ion-content>
       </ion-tab>

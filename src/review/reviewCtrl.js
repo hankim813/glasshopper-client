@@ -20,14 +20,35 @@ angular.module('reviewCtrl', [])
       $scope.activeCrowd    ='';
       var review = $scope.review;
       var rawData = $scope.rawData;
+      var toggleBool = true;
+      $scope.submissionText = 'Submit';
 
-      $scope.createReview   = function() {
+
+      $scope.formSubmission = function () {
+        if(toggleBool) {
+          toggleBool = !toggleBool;
+          $scope.submissionText = 'Update Review';
+          createReview();
+        } else {
+          updateReview();
+        }
+      };
+
+      function createReview () {
         prepareStats();
 
         reviewFactory.create(review)
           .success(reviewSuccessCallback)
           .error(reviewErrorCallback);
-      };
+      }
+
+      function updateReview () {
+        prepareStats();
+
+        reviewFactory.update($scope.review.bar, review)
+          .success(reviewUpdateSuccess)
+          .error(reviewUpdateError);
+      }
 
       // BUTTONS
       $scope.setActive = function(type){
@@ -52,6 +73,15 @@ angular.module('reviewCtrl', [])
         return $scope.activeCrowd === '' || $scope.activeAge === '';
       };
 
+      function reviewUpdateSuccess (data) {
+        $scope.review.author  = $localStorage.user.id;
+        $scope.review.bar     = $scope.bar._id;
+      }
+
+      function reviewUpdateError (data, status, headers, config) {
+        alert(data.message);
+      }
+
 
       function reviewSuccessCallback (data) {
         $scope.review.author  = $localStorage.user.id;
@@ -61,7 +91,6 @@ angular.module('reviewCtrl', [])
       function reviewErrorCallback (data, status, headers, config) {
         alert(data.message);
       }
-
 
       function prepareStats () {
         review.noiseLevel  = rangeConverter(rawData.noiseLevel);
