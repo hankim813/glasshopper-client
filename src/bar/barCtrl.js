@@ -12,22 +12,7 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
 
-<<<<<<< HEAD
   // Sets active tab
-=======
-
-  $scope.aggregates = {
-      avgCrowd: 3,
-      avgAge: 4,
-      ggRatio: 55,
-      avgNoise: 3,
-  }
-
-//  $scope.reviews = reviews;
-
-  //console.log('Reviews:', reviews);
-
->>>>>>> fixes the footer bar on Bar Dashboard to be bound to the bottom of the screen.
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
   };
@@ -69,7 +54,6 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
   // Temporary Check In, to get other features working
   $scope.checkInToBar = function() {
-
     checkinFactory.create({
       userId: $localStorage.user.id,
       barId: $scope.bar._id
