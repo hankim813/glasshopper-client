@@ -1,0 +1,13 @@
+<ion-view view-title="Bar Crawl History">
+	<ion-content>
+		<div class="list">
+		<h1>past crawls!</h1>
+			<div ng-repeat="crawl in crawls" class="item item-thumbnail-left">
+				<div ng-repeat="bar in crawl.bars">
+				<p> {{bar.name}}</p>
+				<p> {{bar.address}}</p>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>
