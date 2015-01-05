@@ -1,23 +1,31 @@
  <ion-modal-view ng-controller="ReviewController">
-  <form ng-submit='createReview()' name="reviewForm">
-    <ion-tabs class="tabs-positive">
+    <form ng-submit='createReview()'>
+      <ion-tabs class="tabs-positive">
 
       <!-- NOISE -->
-      <ion-tab title="Noise">
-        <ion-header-bar class="bar-positive">
-          <h1 class="title">Review {{bar.name}}</h1>
-          <div class="button button-clear" ng-click="modal.hide()">
-            <span class="icon ion-close"></span>
-          </div>
-        </ion-header-bar>
-        <ion-content>
-        <h1>HOW LOUD IS IT?</h1>
+        <ion-tab title="Noise">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Review {{bar.name}}</h1>
+            <div class="button button-clear" ng-click="closeReview()">
+              <span class="icon ion-close"></span>
+            </div>
+          </ion-header-bar>
+          <ion-content>
+          <h1>HOW LOUD IS IT?</h1>
+            <div class="item range range-positive">
+              <i class="icon ion-volume-low"></i>
+              <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel" required>
+              <i class="icon ion-volume-high"></i>
+            </div>
+            <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(1)">Next</a>
+        </ion-content>
+      </ion-tab>
 
       <!-- CROWD -->
       <ion-tab title="crowd">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
-          <div class="button button-clear" ng-click="modal.hide()">
+          <div class="button button-clear" ng-click="closeReview()">
             <span class="icon ion-close"></span>
           </div>
         </ion-header-bar>
@@ -43,7 +51,7 @@
       <ion-tab title="gg">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
-          <div class="button button-clear" ng-click="modal.hide()">
+          <div class="button button-clear" ng-click="closeReview()">
             <span class="icon ion-close"></span>
           </div>
         </ion-header-bar>
@@ -63,7 +71,7 @@
       <ion-tab title="age">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
-          <div class="button button-clear" ng-click="modal.hide()">
+          <div class="button button-clear" ng-click="closeReview()">
             <span class="icon ion-close"></span>
           </div>
         </ion-header-bar>
@@ -83,8 +91,8 @@
             <a class="col button" ng-class="{'button-assertive': isAgeActive(4)}" ng-click="setActive(4)">40+ years</a>
           </div>
 
-          <label class="item" >
-              <button class="button button-block button-positive" type="submit" ng-click="modal.hide()" ng-disabled="reviewForm.$invalid || buttonInvalid()">Submit</button>
+          <label class="item" ng-click="onReviewSubmit()">
+              <button class="button button-block button-positive" type="submit"  ng-disabled="reviewForm.$invalid || buttonInvalid()">Submit</button>
           </label>
         </ion-content>
       </ion-tab>
