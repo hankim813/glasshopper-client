@@ -1,0 +1,163 @@
+ <ion-modal-view ng-controller="ReviewController">
+    <form ng-submit='createReview()'>
+      <input type="hidden" name="review.bar" ng-init="review.bar=bar._id" ng-model="review.bar">
+  <ion-tabs class="tabs-positive">
+<!-- NOISE -->
+        <ion-tab title="Noise">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Review {{bar.name}}</h1>
+            <div class="button button-clear" ng-click="modal.hide()">
+              <span class="icon ion-close"></span>
+            </div>
+          </ion-header-bar>
+          <ion-content>
+          <h1>HOW LOUD IS IT?</h1>
+              <div class="item range range-positive">
+                <i class="icon ion-volume-low"></i>
+                <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel">
+                <i class="icon ion-volume-high"></i>
+              </div>
+              <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(1)">Next</a>
+          </ion-content>
+        </ion-tab>
+<!-- CROWD -->
+        <ion-tab title="crowd">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Review {{bar.name}}</h1>
+            <div class="button button-clear" ng-click="modal.hide()">
+              <span class="icon ion-close"></span>
+            </div>
+          </ion-header-bar>
+          <ion-content>
+          <h1>How's the<br>CROWD?</h1>
+              <!-- <div class="item range range-assertive"> -->
+                <!-- <i class="icon ion-person"></i> -->
+                  <!-- <div class="button-bar"> -->
+                    <div class="row">
+                      <a class="col button" ng-class="{'button-dark': isActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
+                    </div>
+                    <div class="row">
+                      <a class="col button" ng-class="{'button-energized': isActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
+                    </div>
+                    <div class="row">  
+                      <a class="col button" ng-class="{'button-balanced': isActive('poppin')}" ng-click="setActive('poppin')">It's Poppin!</a>
+                    </div>
+                    <div class="row">  
+                      <a class="col button" ng-class="{'button-assertive': isActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
+                    </div>
+                  <!-- </div> -->
+                <!-- <input type="range" name="crowdLevel" min="0" max="100" ng-model="rawData.crowdLevel"> -->
+                
+              <!-- </div> -->
+              <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
+          </ion-content>
+        </ion-tab>
+<!-- GIRL/GUY -->
+        <ion-tab title="gg">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Review {{bar.name}}</h1>
+            <div class="button button-clear" ng-click="modal.hide()">
+              <span class="icon ion-close"></span>
+            </div>
+          </ion-header-bar>
+
+          <ion-content>
+          <h1>What's the Raysh?!</h1>
+                  <div class="item range range-stables">
+                    <i class="icon ion-man"></i>
+                    <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio">
+                    <i class="icon ion-woman"></i>
+                  </div>
+                  <a class="button icon-right ion-chevron-right button-calm" ng-click="selectTab(3)">Next</a>
+          </ion-content>
+        </ion-tab>
+<!-- AGE -->
+        <ion-tab title="age">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Review {{bar.name}}</h1>
+            <div class="button button-clear" ng-click="modal.hide()">
+              <span class="icon ion-close"></span>
+            </div>
+          </ion-header-bar>
+
+          <ion-content>
+            <h1>Young &<br>Hip<br>or<br>Old<br>&<br>Busted?</h1>
+              <div class="item range range-royal">
+                  <i class="icon ion-egg"></i>
+                  <input type="range" name="avgAge" min="0" max="100" ng-model="rawData.avgAge">
+                  <i class="icon ion-ios-people"></i>
+              </div>
+              <div class="item item-divider">{{renderAgeRange(rawData.avgAge)}}</div>
+              <label class="item" >
+                  <button class="button button-block button-positive" type="submit" ng-click="modal.hide()">Submit</button>
+                </label>
+          </ion-content>
+        </ion-tab>
+  </ion-tabs>
+    </form>
+
+</ion-modal-view> 
+
+  <!--
+    <div class="row">
+      <div class="bar bar-header bar-stable">
+        <h1 class="title">Review {{bar.name}}</h1>
+        <div class="buttons">
+
+          <div class="button button-clear" ng-click="closeReview()"><span class="icon ion-close"></span></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row row-center" style="padding-top:10%;">
+      <div class='col' padding-vertical="true">
+        
+          <div class="list card">
+
+            <input type="hidden" ng-init="review.bar=bar._id">
+
+            <div class="item item-divider">
+              Noise Level
+            </div>
+
+            <div class="item range range-positive">
+              <i class="icon ion-volume-low"></i>
+              <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel">
+              <i class="icon ion-volume-high"></i>
+            </div>
+
+
+              <div class="item item-divider">
+                Crowd Level
+              </div>
+
+              <div class="item range range-assertive">
+                <i class="icon ion-person"></i>
+                <input type="range" name="crowdLevel" min="0" max="100" ng-model="rawData.crowdLevel">
+                <i class="icon ion-ios-people"></i>
+              </div>
+
+
+              <div class="item item-divider">
+                Girl To Guy Ratio
+              </div>
+              
+              <div class="item item-divider">{{renderGgRatio(rawData.ggRatio)}}</div>
+
+              <div class="item item-divider">
+                Age Range
+              </div>
+              
+              <label class="item" >
+                <button class="button button-block button-positive" type="submit" ng-click="closeReview()">Submit</button>
+              </label>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    -->
+
+
+

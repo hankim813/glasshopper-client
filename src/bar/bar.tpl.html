@@ -1,0 +1,43 @@
+<ion-view view-title="{{bar.name}}">
+<ion-content>
+<!-- BAR PICTURE -->
+<div class="row responsive-md"> <!--break when smaller than a tablet portrait-->
+	<img class="col full-image" ng-src="{{bar.photoUrl}}">
+</div>
+<!-- CHECK-IN -->
+<div class="row">
+	<button class="button button-balanced button-full" ng-click="checkInToBar()">
+		Check-In, Dude.
+	</button>
+</div>
+
+<!-- ACTIVITY FEED -->
+  <div class="list">
+  	<div ng-repeat="post in posts" class="item item-thumbnail-left" href="#">
+  		<p>{{ post.content }}</p>
+      <p>@{{ post.author }}</p>
+      <a href="#" ng-click="upvote(post._id)">up</a>
+      <a href="#" ng-click="downvote(post._id)">down</a>
+      <p>points: {{ post.points }}</p>
+      <!-- NOT UPDATING! FIX THIS -->
+  	</div>
+  </div>
+
+  <!-- FOOTER TOOLBAR -->
+  <div class="bar bar-footer">
+  	<div class="tabs tabs-icon-top">
+  		<a class="tab-item" ng-click="openPostModal()">
+  			<i class="icon ion-compose"></i>
+  			Comment
+  		</a>
+  		<a class="tab-item" ng-click="reviewBar()">
+  			<i class="icon ion-speedometer"></i>
+  			Review
+  		</a>
+  	</div>
+  <!-- <div class="bar bar-footer">
+
+</div> -->
+</div>
+</ion-content>
+</ion-view>
