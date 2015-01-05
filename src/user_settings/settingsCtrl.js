@@ -1,9 +1,9 @@
 angular.module('userSettingsCtrl', [])
 
-.controller('SettingsController', ['$scope', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'settingsFactory', function($scope, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, settingsFactory){
+.controller('SettingsController', ['$scope', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'settingsFactory', 'userSettings', function($scope, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, settingsFactory, userSettings){
 	$scope.user = $localStorage.user;
 	$scope.newSettings = {
-		radiusDefinition : $scope.user.searchRadius
+		radiusDefinition : userSettings.searchRadius //grabbed from the server 
 	};
 
 	$scope.updateSettings = function(){
@@ -14,6 +14,7 @@ angular.module('userSettingsCtrl', [])
 
 
   function updateSuccessCallback (data) {
+  	
   };
 
   function updateErrorCallback (data, status, headers, config) {
