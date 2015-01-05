@@ -7,7 +7,6 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 }).
 
 controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, bar, posts){
-
   $scope.bar = bar;
   $scope.posts = posts.data;
 
@@ -16,22 +15,27 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
       avgAge: 4,
       ggRatio: 55,
       avgNoise: 3,
-  }
-//  $scope.reviews = reviews;
-  //console.log('Reviews:', reviews);
+  };
 
+  // Sets active tab
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
   };
-  // Create the review modal
+
+  // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.reviewModal = modal;
   });
 
+  $scope.onReviewSubmit = function() {
+    $scope.selectTab(0);
+    $scope.closeReview();
+  };
+
   $scope.reviewBar = function() {
-    $scope.reviewModal.show();
+      $scope.reviewModal.show();
   };
 
   $scope.closeReview = function() {
@@ -63,7 +67,7 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
         barId     : response.data._bar,
         userId    : response.data._user,
         timestamp : response.data.createdAt
-      }
+      };
       $localStorage.lastCheckin = checkin;
     }, function(error) {
       console.log(error);
