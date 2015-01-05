@@ -16,6 +16,9 @@ angular.module('glassHopper', [ 'ionic',
                                 'postCtrl', 
                                 'postFactories',
                                 'checkinFactories'])
+                                'settingsModel',
+                                'settingsRoutes',
+                                'userSettingsCtrl'])
 
 .run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory) {
 
