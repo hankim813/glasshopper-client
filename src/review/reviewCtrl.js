@@ -89,6 +89,14 @@ angular.module('reviewCtrl', [])
       }
 
       function reviewErrorCallback (data, status, headers, config) {
+        if(status === 404) {
+          $scope.review = {};
+          $scope.rawData = {};
+          $scope.activeAge = '';
+          $scope.activeCrowd = '';
+          $scope.review.author  = $localStorage.user.id;
+          $scope.review.bar     = $scope.bar._id;
+        }
         alert(data.message);
       }
 
