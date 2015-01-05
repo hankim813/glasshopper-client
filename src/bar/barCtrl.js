@@ -15,10 +15,16 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
       avgAge: 4,
       ggRatio: 55,
       avgNoise: 3,
-  }
+  };
 
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
+    console.log('index', index);
+  };
+
+  $scope.onReviewSubmit = function() {
+    $scope.selectTab(0);
+    $scope.closeReview();
   };
 
   // Review Modal
@@ -29,7 +35,7 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   });
 
   $scope.reviewBar = function() {
-    $scope.reviewModal.show();
+      $scope.reviewModal.show();
   };
 
   $scope.closeReview = function() {
@@ -75,10 +81,5 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
 
   $scope.downvote = function(postId) {
     $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
-  };
-
-  // Called each time the slide changes
-  $scope.slideChanged = function(index) {
-    $scope.slideIndex = index;
   };
 });
