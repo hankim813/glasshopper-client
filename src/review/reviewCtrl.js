@@ -23,6 +23,7 @@ angular.module('reviewCtrl', [])
       $scope.submissionText = 'Submit';
 
 
+
       $scope.formSubmission = function () {
         if(toggleBool) {
           toggleBool = !toggleBool;
@@ -72,6 +73,15 @@ angular.module('reviewCtrl', [])
         return $scope.activeCrowd === '' || $scope.activeAge === '';
       };
 
+      function reviewUpdateSuccess (data) {
+        $scope.review.author  = $localStorage.user.id;
+        $scope.review.bar     = $scope.bar._id;
+      }
+
+      function reviewUpdateError (data, status, headers, config) {
+        alert(data.message);
+      }
+
 
       function reviewUpdateSuccess (data) {
         $scope.review.author  = $localStorage.user.id;
@@ -91,7 +101,6 @@ angular.module('reviewCtrl', [])
       function reviewErrorCallback (data, status, headers, config) {
         alert(data.message);
       }
-
 
       function prepareStats () {
         review.noiseLevel  = rangeConverter(rawData.noiseLevel);
