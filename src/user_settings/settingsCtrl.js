@@ -13,7 +13,6 @@ angular.module('userSettingsCtrl', [])
 
 
   function updateSuccessCallback (data) {
-  	console.log("data", data);
   };
 
   function updateErrorCallback (data, status, headers, config) {

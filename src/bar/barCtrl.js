@@ -1,16 +1,15 @@
 angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, userSettings){
 
   $scope.bars;
-
   (function(geo) {
         $ionicLoading.show();
         geo.getPosition().then(function(position) {
           var pos = {lat: position.coords.latitude,
                      lng: position.coords.longitude};
          $ionicLoading.hide();
-          barFactory.findNearby(pos.lng, pos.lat, 0.25).then(function(response) {
+          barFactory.findNearby(pos.lng, pos.lat, userSettings.data.searchRadius).then(function(response) {
             $scope.bars = response.data;
           }, function(error) {
             console.log(error);
