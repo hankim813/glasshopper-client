@@ -14,6 +14,7 @@
   })
 
   .state('app.crawlHistory', {
+    cache   : false,
     url     : "/crawls/history",
     resolve : {
       crawls: function(crawlFactory) {

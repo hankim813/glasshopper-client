@@ -5,14 +5,21 @@ angular.module('appCtrl', [])
   $scope.logout = UserAuthFactory.logout;
   // Validation to see if you have initialized the crawl
 
-  $scope.currentCrawlUrl = "";
-
-  if ($localStorage.currentCrawl) {
-    $scope.currentCrawlUrl = ("/" + $localStorage.currentCrawl.id);
-  }
-
   $scope.crawlStarted = function() {
     return ($localStorage.currentCrawl !== undefined)
+  };
+
+  $scope.fetchCurrentCrawl = function() {
+  	if ($localStorage.currentCrawl) {
+  		$ionicHistory.nextViewOptions({
+  		    disableAnimate  : false,
+  		    disableBack     : true
+  		});
+  		$location.path('/app/crawls/' + $localStorage.currentCrawl.id);
+  	} else {
+  		alert('Something went wrong. Please login again');
+  		UserAuthFactory.logout();
+  	}
   };
 });
 

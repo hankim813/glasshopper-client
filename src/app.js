@@ -71,6 +71,7 @@ if (window.StatusBar) {
         $localStorage.last_position = {lat: position.coords.latitude,
                                        lng: position.coords.longitude};
       }, function(error) {
+        alert(JSON.stringify(error));
         alert("glassHopper needs your location to work");
       })
     })(geo);
