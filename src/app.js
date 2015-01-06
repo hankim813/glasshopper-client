@@ -22,7 +22,8 @@ angular.module('glassHopper', [ 'ionic',
                                 'crawlRoutes',
                                 'crawlCtrl',
                                 'crawlFactories',
-                                'geoModule'])
+                                'geoModule', 
+                                'customFilters'])
 
 .run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, geo) {
 
