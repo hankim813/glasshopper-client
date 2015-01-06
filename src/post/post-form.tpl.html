@@ -11,18 +11,18 @@
 
     <div class="row row-center" style="padding-top:10%;">
       <div class='col' padding-vertical="true">
-        <form ng-submit="uploadPost()">
+        <form ng-submit="uploadPost()" name="postForm">
           <div class="list card">
             <label class="item item-input">
               <span class="input-label">Content</span>
-              <input type="text" ng-model="postData.content">
+              <input type="text" ng-model="postData.content" required>
             </label>
             <label class="item item-input">
               <span class="input-label">Nickname</span>
               <input type="text" ng-model="postData.author">
             </label>
             <label class="item">
-              <button class="button button-block button-positive" type="submit" ng-click="closePostModal()">Post</button>
+              <button class="button button-block button-positive" type="submit" ng-click="closePostModal()" ng-disabled="postForm.$invalid">Post</button>
             </label>
           </div>
         </form>
