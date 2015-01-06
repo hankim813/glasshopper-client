@@ -1,0 +1,101 @@
+ <ion-modal-view ng-controller="ReviewController">
+    <form ng-submit='formSubmission()' name="reviewForm">
+      <ion-tabs class="tabs-positive">
+
+      <!-- NOISE -->
+        <ion-tab title="Noise" on-swipe-left="selectTab(1)">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Review {{bar.name}}</h1>
+            <div class="button button-clear" ng-click="closeReview()">
+              <span class="icon ion-close"></span>
+            </div>
+          </ion-header-bar>
+          <ion-content>
+          <h1>HOW LOUD IS IT?</h1>
+          <div class="item range range-positive">
+            <i class="icon ion-volume-low"></i>
+            <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel" required>
+            <i class="icon ion-volume-high"></i>
+          </div>
+          <a class="button button-outline icon-right ion-chevron-right button-calm p" ng-click="selectTab(1)">Next</a>
+        </ion-content>
+      </ion-tab>
+
+      <!-- CROWD -->
+      <ion-tab title="crowd" on-swipe-left="selectTab(2)">
+        <ion-header-bar class="bar-positive">
+          <h1 class="title">Review {{bar.name}}</h1>
+          <div class="button button-clear" ng-click="closeReview()">
+            <span class="icon ion-close"></span>
+          </div>
+        </ion-header-bar>
+        <ion-content>
+          <h1>How's the CROWD?</h1>
+          <div class="row">
+            <a class="col button" ng-class="{'button-dark': isCrowdActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
+          </div>
+          <div class="row">
+            <a class="col button" ng-class="{'button-energized': isCrowdActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
+          </div>
+          <div class="row">
+            <a class="col button" ng-class="{'button-balanced': isCrowdActive('poppin')}" ng-click="setActive('poppin')">It's Poppin!</a>
+          </div>
+          <div class="row">
+            <a class="col button" ng-class="{'button-assertive': isCrowdActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
+          </div>
+          <a class="button button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
+        </ion-content>
+      </ion-tab>
+
+      <!-- GIRL/GUY -->
+      <ion-tab title="gg" on-swipe-left="selectTab(3)">
+        <ion-header-bar class="bar-positive">
+          <h1 class="title">Review {{bar.name}}</h1>
+          <div class="button button-clear" ng-click="closeReview()">
+            <span class="icon ion-close"></span>
+          </div>
+        </ion-header-bar>
+
+        <ion-content>
+          <h1>What's the Raysh?!</h1>
+          <div class="item range range-stables">
+            <i class="icon ion-man"></i>
+            <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio" required>
+            <i class="icon ion-woman"></i>
+          </div>
+          <a class="button button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(3)">Next</a>
+        </ion-content>
+      </ion-tab>
+
+      <!-- AGE -->
+      <ion-tab title="age">
+        <ion-header-bar class="bar-positive">
+          <h1 class="title">Review {{bar.name}}</h1>
+          <div class="button button-clear" ng-click="closeReview()">
+            <span class="icon ion-close"></span>
+          </div>
+        </ion-header-bar>
+
+        <ion-content>
+          <h1>Young & Hip or Old & Busted?</h1>
+          <div class="row">
+            <a class="col button" ng-class="{'button-dark': isAgeActive(1)}" ng-click="setActive(1)">21-25 years</a>
+          </div>
+          <div class="row">
+            <a class="col button" ng-class="{'button-energized': isAgeActive(2)}" ng-click="setActive(2)">26-30 years</a>
+          </div>
+          <div class="row">
+            <a class="col button" ng-class="{'button-balanced': isAgeActive(3)}" ng-click="setActive(3)">31-40 years</a>
+          </div>
+          <div class="row">
+            <a class="col button" ng-class="{'button-assertive': isAgeActive(4)}" ng-click="setActive(4)">40+ years</a>
+          </div>
+
+          <label class="item" ng-click="onReviewSubmit()">
+              <button class="button button-block button-positive" type="submit"  ng-disabled="reviewForm.$invalid || buttonInvalid()">{{submissionText}}</button>
+          </label>
+        </ion-content>
+      </ion-tab>
+    </ion-tabs>
+  </form>
+</ion-modal-view>

@@ -1,0 +1,58 @@
+<ion-view view-title="{{bar.name}}">
+<ion-content>
+<!-- BAR PICTURE -->
+
+<img class="col full-image" ng-src="{{bar.photoUrl}}">
+
+<!-- CHECK-IN -->
+<div class="row">
+	<button class="button button-balanced button-full" ng-click="checkInToBar()">
+		Check-In, Dude.
+	</button>
+</div>
+
+
+
+<!-- ACTIVITY FEED -->
+  <div class="list">
+  	<div ng-repeat="post in posts" class="item item-thumbnail-left" href="#">
+  		<p>{{ post.content }}</p>
+      <p>@{{ post.author }}</p>
+      <a href="#" ng-click="upvote(post._id)">up</a>
+      <a href="#" ng-click="downvote(post._id)">down</a>
+      <p>points: {{ post.points }}</p>
+      <!-- NOT UPDATING! FIX THIS -->
+  	</div>
+  </div>
+
+
+<div class="list card">
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-volume-high"></i>
+    noise = {{aggregates.noiseLevel.toFixed(2)}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-person-stalker"></i>
+    crowd = {{aggregates.crowdLevel.toFixed(2)}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-clock"></i>
+    age = {{aggregates.avgAge.toFixed(2)}}
+  </a>
+
+  <a href="#" class="item item-icon-left">
+    <i class="icon ion-transgender"></i>
+    ratio = {{aggregates.ggRatio.toFixed(2)}}
+  </a>
+</div>
+
+</ion-content>
+
+<ion-footer-bar class="bar-balanced">
+  <button class="button button-clear" ng-click="reviewBar()">Review This Bar</button>
+</ion-footer-bar>
+
+</ion-view>
