@@ -40,15 +40,17 @@ angular.module('reviewCtrl', [])
       function createReview () {
         prepareStats();
 
-        reviewFactory.create(review)
+        reviewFactory.create(review.bar, review)
           .success(reviewSuccessCallback)
           .error(reviewErrorCallback);
       }
 
       // Create Review success callback
       function reviewSuccessCallback (data) {
-        $scope.review.author  = $localStorage.user.id;
-        $scope.review.bar     = $scope.bar._id;
+        console.log(data._id);
+        review.id      = data._id;
+        review.author  = $localStorage.user.id;
+        // $scope.review.bar     = $scope.bar._id;
       }
 
       // Create Review error callback
@@ -60,7 +62,7 @@ angular.module('reviewCtrl', [])
       function updateReview () {
         prepareStats();
 
-        reviewFactory.update($scope.review.bar, review)
+        reviewFactory.update(review.bar, review.id, review)
           .success(reviewUpdateSuccess)
           .error(reviewUpdateError);
       }
@@ -79,8 +81,8 @@ angular.module('reviewCtrl', [])
 
       // Update Review success callback
       function reviewUpdateSuccess (data) {
-        $scope.review.author  = $localStorage.user.id;
-        $scope.review.bar     = $scope.bar._id;
+        review.author  = $localStorage.user.id;
+        review.bar     = $scope.bar._id;
       }
 
       // Update Review error callback
