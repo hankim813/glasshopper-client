@@ -20,21 +20,34 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
         })
     })(geo);
 
-}).
+})
 
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, bar, posts, aggregate){
+.controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, bar, posts, aggregate){
 
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
+  $scope.reviewButtonText = '';
 
-  $scope.updateReviews = function() {
+  // refreshes dashboard information
+  $scope.updateDash = function() {
     reviewFactory.fetchAggregate($scope.bar._id)
       .success(function (data) {
         $scope.aggregates = data[0];
       })
-      .error(function (data) { alert(data.message); });
+      .error(function (data) {
+        alert(data.message);
+      });
+
+    postFactory.getAll($scope.bar._id)
+      .success(function (data) {
+        $scope.posts = data;
+      })
+      .error(function (data) {
+        alert(data.message);
+      });
+
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };

@@ -1,7 +1,7 @@
 <ion-view view-title="{{bar.name}}">
 <ion-content>
 <!-- Pull Refresh -->
-  <ion-refresher pulling-text="Pull to refresh" on-refresh="updateReviews()">
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
   </ion-refresher>
 <!-- BAR PICTURE -->
 <img class="col full-image" ng-src="{{bar.photoUrl}}">
@@ -39,29 +39,30 @@
   	</div>
   </div>
 
+  <div class="item center" ng-hide="aggregates.noiseLevel">
+    <p>No reviews yet...</p>
+  </div>
+  <div class="list card" ng-show="aggregates.noiseLevel">
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-volume-high"></i>
+      noise = {{aggregates.noiseLevel.toFixed(2)}}
+    </a>
 
-<div class="list card">
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-person-stalker"></i>
+      crowd = {{aggregates.crowdLevel.toFixed(2)}}
+    </a>
 
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-volume-high"></i>
-    noise = {{aggregates.noiseLevel.toFixed(2)}}
-  </a>
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-clock"></i>
+      age = {{aggregates.avgAge.toFixed(2)}}
+    </a>
 
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-person-stalker"></i>
-    crowd = {{aggregates.crowdLevel.toFixed(2)}}
-  </a>
-
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-clock"></i>
-    age = {{aggregates.avgAge.toFixed(2)}}
-  </a>
-
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-transgender"></i>
-    ratio = {{aggregates.ggRatio.toFixed(2)}}
-  </a>
-</div>
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-transgender"></i>
+      ratio = {{aggregates.ggRatio.toFixed(2)}}
+    </a>
+  </div>
 
 </ion-content>
 
