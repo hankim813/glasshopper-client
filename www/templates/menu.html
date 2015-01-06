@@ -24,6 +24,15 @@
         <ion-item nav-clear menu-close href="#/app/bars">
           Bars
         </ion-item>
+        <ion-item nav-clear menu-close href="#/app/crawls" ng-hide="crawlStarted()">
+          Start Your Crawl
+        </ion-item>
+        <ion-item nav-clear menu-close ng-show="crawlStarted()" ng-href="#/app/crawls{{currentCrawlUrl}}">
+          Current Crawl
+        </ion-item>
+        <ion-item nav-clear menu-close ng-href="#/app/crawls/history">
+          Crawl History
+        </ion-item>
         <ion-item nav-clear menu-close ng-click="logout()">
           Logout
         </ion-item>

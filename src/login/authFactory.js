@@ -20,7 +20,7 @@ angular.module('authFactories', [])
   return auth;
 })
 
-.factory('UserAuthFactory', function($localStorage, $location, $http, $ionicHistory, AuthenticationFactory) {
+.factory('UserAuthFactory', function($localStorage, $location, $http, $ionicHistory, AuthenticationFactory, crawlFactory) {
   return {
 
     login: function(loginData) {
@@ -33,8 +33,17 @@ angular.module('authFactories', [])
 
         delete $localStorage.profilePhotoUrl;
         delete $localStorage.facebook;
-        delete $localStorage.token;
         delete $localStorage.user;
+        delete $localStorage.lastCheckin;
+        // close current crawl
+        if ($localStorage.currentCrawl) {
+          crawlFactory.end($localStorage.currentCrawl.id).then(function(response) {
+            delete $localStorage.currentCrawl;
+          }, function(err) {
+            console.log("ERROR ",err);
+          });
+        }
+        delete $localStorage.token;
 
         $ionicHistory.nextViewOptions({
             disableAnimate  : false,

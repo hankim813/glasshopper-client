@@ -16,6 +16,7 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
       }
     }
   })
+
   .state('app.barshow', {
     url     : "/bars/:barId",
     resolve : { bar       : function(barFactory, $stateParams) {
@@ -35,5 +36,4 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
       }
     }
   });
-
 });

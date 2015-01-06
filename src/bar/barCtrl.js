@@ -7,6 +7,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 }).
 
 controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, bar, posts, aggregate){
+
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
@@ -51,7 +52,34 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
     $scope.postModal.hide();
   };
 
-  // Temporary Check In, to get other features working
+  // Validation that will be used to see if you can interact with the activity feed or not
+
+  $scope.ifCheckedIn = function() {
+    return ($localStorage.lastCheckin.barId === bar._id);
+  };
+
+  // Validation that will be used to see if you can check in 
+  $scope.AllowedToCheckIn = function() {
+    // the "checkin" button should be enabled if you are:
+    // 1) geolocation authenticated to be nearby
+    // 2) if you have initialized the bar crawl.
+    // If you are nearby but haven't yet initialized a crawl, you can still checkin, we will initialize a crawl, and insert that bar into the crawl for you for better ux experience. 
+    return ifNearby();
+  };
+
+  // Validate current loc with bar's loc
+  function ifNearby() {
+    // ping location 
+    // if loc matches bar loc, execute crawlStarted(), and handle logic thereafter
+    // return boolean value
+  };
+
+  // Validation to see if you have initialized the crawl
+  function crawlStarted() {
+    return ($localStorage.currentCrawl !== undefined)
+  };
+
+  // Check In Feature
   $scope.checkInToBar = function() {
     checkinFactory.create({
       userId: $localStorage.user.id,
@@ -76,4 +104,5 @@ controller('BarSingleController', function($scope, $http, $location, $ionicHisto
   $scope.downvote = function(postId) {
     $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
   };
+
 });
