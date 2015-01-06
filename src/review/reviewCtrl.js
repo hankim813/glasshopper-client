@@ -42,16 +42,16 @@ angular.module('reviewCtrl', [])
       };
 
       //Get Aggregates
-      // function getAggs () {
-      //   reviewFactory.fetchAggregate(review.bar)
-      //     .success(function (data) {
-      //       console.log('review controller - reviews get route:', data);
-      //       $scope.aggregates = data[0];
-      //     })
-      //     .error(function (data) {
-      //       alert(data.message);
-      //     });
-      // }
+      function getAggs () {
+        reviewFactory.fetchAggregate(review.bar)
+          .success(function (data) {
+            console.log('review controller - reviews get route:', data);
+            $scope.aggregates = data[0];
+          })
+          .error(function (data) {
+            alert(data.message);
+          });
+      }
 
       // Create Review
       function createReview () {
@@ -67,6 +67,8 @@ angular.module('reviewCtrl', [])
         review.id      = data._id;
         review.author  = $localStorage.user.id;
         $scope.review.bar     = $scope.bar._id;
+
+        getAggs();
       }
 
       // Create Review error callback

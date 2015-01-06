@@ -8,26 +8,32 @@ angular.module('postCtrl', [])
   };
 
 	$scope.uploadPost   = function(){
+		console.log(1);
 		postFactory.create($scope.postData, $scope.bar._id)
 			.success(postSuccessCallBack)
 			.error(postErrorCallback);
+	};
 
+	function getPosts () {
+		console.log(3);
     postFactory.getAll($scope.bar._id)
       .success(function (data) {
+        console.log(4);
         console.log('post controller - posts get route', data);
         $scope.posts  = data;
       })
       .error(function (data) {
         alert(data.message);
       });
-	};
+	}
 
 	function postSuccessCallBack(result){
+		console.log(2);
 		$scope.postData   = {
 			barId: $scope.bar._id,
 			userId: $localStorage.user.id
     };
-    // Should refresh the activity feed
+    getPosts();
 	}
 
   function postErrorCallback (error) {

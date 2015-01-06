@@ -67,6 +67,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   $scope.onReviewSubmit = function() {
     $scope.selectTab(0);
     $scope.closeReview();
+
     reviewFactory.fetchAggregate($scope.bar._id)
       .success(function (data) {
         console.log('bar controller - reviews get route:', data);
@@ -98,6 +99,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
   $scope.onPostSubmit = function () {
     $scope.closePostModal();
+
     postFactory.getAll($scope.bar._id)
       .success(function (data) {
         console.log('bar controller - posts get route:', data);
