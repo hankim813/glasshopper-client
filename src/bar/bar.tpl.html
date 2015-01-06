@@ -1,7 +1,9 @@
 <ion-view view-title="{{bar.name}}">
 <ion-content>
+<!-- Pull Refresh -->
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="updateReviews()">
+  </ion-refresher>
 <!-- BAR PICTURE -->
-
 <img class="col full-image" ng-src="{{bar.photoUrl}}">
 
 <!-- CHECK-IN -->

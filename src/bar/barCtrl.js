@@ -22,11 +22,22 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
+
 controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, bar, posts, aggregate){
 
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
+
+  $scope.updateReviews = function() {
+    reviewFactory.fetchAggregate($scope.bar._id)
+      .success(function (data) {
+        $scope.aggregates = data[0];
+      })
+      .error(function (data) { alert(data.message); });
+    $scope.$broadcast('scroll.refreshComplete');
+    $scope.$apply();
+  };
 
   // Sets active tab
   $scope.selectTab = function(index){
