@@ -47,10 +47,9 @@ angular.module('reviewCtrl', [])
 
       // Create Review success callback
       function reviewSuccessCallback (data) {
-        console.log(data._id);
         review.id      = data._id;
         review.author  = $localStorage.user.id;
-        // $scope.review.bar     = $scope.bar._id;
+        $scope.review.bar     = $scope.bar._id;
       }
 
       // Create Review error callback

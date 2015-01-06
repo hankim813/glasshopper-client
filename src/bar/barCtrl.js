@@ -6,16 +6,10 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
 }).
 
-controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, bar, posts){
+controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, bar, posts, aggregate){
   $scope.bar = bar;
   $scope.posts = posts.data;
-
-  $scope.aggregates = {
-      avgCrowd: 3,
-      avgAge: 4,
-      ggRatio: 55,
-      avgNoise: 3,
-  };
+  $scope.aggregates = aggregate.data[0];
 
   // Sets active tab
   $scope.selectTab = function(index){
