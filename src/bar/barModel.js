@@ -11,8 +11,6 @@ angular.module('barModel', [])
                       { lng     : lng,
                         lat     : lat,
                         radius  : radius }
-      }).then(function(response) {
-        return response.data;
       });
     },
 

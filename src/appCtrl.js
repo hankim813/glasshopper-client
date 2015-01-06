@@ -6,7 +6,7 @@ angular.module('appCtrl', [])
   // Validation to see if you have initialized the crawl
 
   $scope.currentCrawlUrl = "";
-  
+
   if ($localStorage.currentCrawl) {
     $scope.currentCrawlUrl = ("/" + $localStorage.currentCrawl.id);
   }
