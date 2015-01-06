@@ -75,6 +75,7 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 .controller('CrawlHistoryController', function($scope, $http, $location, $localStorage, crawlFactory, crawls) {
 
 	$scope.crawls = crawls.data;
+	console.log($scope.crawls);
 });
 
 

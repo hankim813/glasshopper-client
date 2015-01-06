@@ -42,6 +42,8 @@ angular.module('authFactories', [])
           }, function(err) {
             console.log("ERROR ",err);
           });
+        } else {
+          delete $localStorage.currentCrawl;
         }
         delete $localStorage.token;
 

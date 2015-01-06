@@ -14,7 +14,10 @@ angular.module('postCtrl', [])
 	};
 
 	function postSuccessCallBack(result){
-		$scope.postData = {};
+		$scope.postData 	= { 
+			barId: $scope.bar._id,
+			userId: $localStorage.user.id
+	  };
 		// Should refresh the activity feed
 	};
 
