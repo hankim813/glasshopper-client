@@ -12,11 +12,11 @@ angular.module('crawlFactories',[])
 		},
 
 		getAll	: function() {
-			return $http.get('http://127.0.0.1:300/api/crawls/users/' + $localStorage.user.id)
+			return $http.get('http://127.0.0.1:3000/api/crawls/users/' + $localStorage.user.id)
 		},
 
 		end			: function(crawlId) {
-			return $http.put('http://127.0.0.1:3000/api/crawls/' + crawlId, {});
+			return $http.put('http://127.0.0.1:3000/api/crawls/' + crawlId, {access_token: $localStorage.token});
 		}
 	}
 });

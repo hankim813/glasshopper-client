@@ -27,7 +27,7 @@
       }
     }
   })
-  
+
   .state('app.currentCrawl', {
   	url 		: "/crawls/:crawlId",
   	resolve : {
