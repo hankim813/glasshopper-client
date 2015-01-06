@@ -7,7 +7,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
   (function(geo) {
         $ionicLoading.show();
-        geo.getPosition().then(function(position) {
+        geo.getHighAccuracyPosition().then(function(position) {
           var pos = {lat: position.coords.latitude,
                      lng: position.coords.longitude};
          $ionicLoading.hide();
