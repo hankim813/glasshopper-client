@@ -1,9 +1,25 @@
-angular.module('barCtrl', []).
+angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, bars){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo){
 
-  $scope.bars = bars;
-  window.scope = $scope;
+  $scope.bars;
+
+  (function(geo) {
+        $ionicLoading.show();
+        geo.getPosition().then(function(position) {
+          var pos = {lat: position.coords.latitude,
+                     lng: position.coords.longitude};
+         $ionicLoading.hide();
+          barFactory.findNearby(pos.lng, pos.lat, 0.25).then(function(response) {
+            $scope.bars = response.data;
+          }, function(error) {
+            console.log(error);
+          });
+        }, function(error) {
+          alert(JSON.stringify(error));
+        })
+    })(geo);
+
 }).
 
 controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, bar, posts, aggregate){

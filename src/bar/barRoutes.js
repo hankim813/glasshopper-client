@@ -5,16 +5,6 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
 
   .state('app.bars', {
     url     : "/bars",
-    resolve : { bars : function(barFactory, geo) {
-                    return geo.getPosition().then(function(position) {
-                      var pos = {lat: position.coords.latitude,
-                                 lng: position.coords.longitude};
-                      return barFactory.findNearby(pos.lng, pos.lat, 0.25);
-                    }, function(error) {
-                      alert(JSON.stringify(error));
-                    })
-                }
-              },
     views   : {
       'menuContent': {
         templateUrl: "bar/bars.tpl.html",
