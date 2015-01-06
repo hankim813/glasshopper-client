@@ -32,10 +32,26 @@ angular.module('reviewCtrl', [])
           toggleBool = !toggleBool;
           $scope.submissionText = 'Update Review';
           createReview();
+          // getAggs();
         } else {
           updateReview();
+          // getAggs();
         }
+
+        // $scope.apply();
       };
+
+      //Get Aggregates
+      // function getAggs () {
+      //   reviewFactory.fetchAggregate(review.bar)
+      //     .success(function (data) {
+      //       console.log('review controller - reviews get route:', data);
+      //       $scope.aggregates = data[0];
+      //     })
+      //     .error(function (data) {
+      //       alert(data.message);
+      //     });
+      // }
 
       // Create Review
       function createReview () {

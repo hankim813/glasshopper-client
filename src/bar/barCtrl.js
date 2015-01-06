@@ -67,6 +67,15 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   $scope.onReviewSubmit = function() {
     $scope.selectTab(0);
     $scope.closeReview();
+    reviewFactory.fetchAggregate($scope.bar._id)
+      .success(function (data) {
+        console.log('bar controller - reviews get route:', data);
+        $scope.aggregates = data[0];
+      })
+      .error(function (data) {
+        alert(data.message);
+      });
+    // $scope.apply()
   };
 
   $scope.reviewBar = function() {
@@ -74,7 +83,10 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   };
 
   $scope.closeReview = function() {
+
     $scope.reviewModal.hide();
+
+    // $location.reload();
   };
 
   // Create the post modal
@@ -83,6 +95,18 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   }).then(function(modal) {
     $scope.postModal = modal;
   });
+
+  $scope.onPostSubmit = function () {
+    $scope.closePostModal();
+    postFactory.getAll($scope.bar._id)
+      .success(function (data) {
+        console.log('bar controller - posts get route:', data);
+        $scope.posts = data;
+      })
+      .error(function (data) {
+        alert(data.message);
+      });
+  };
 
   $scope.openPostModal = function() {
     $scope.postModal.show();
@@ -98,7 +122,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     return ($localStorage.lastCheckin.barId === bar._id);
   };
 
-  // Validation that will be used to see if you can check in 
+  // Validation that will be used to see if you can check in
   $scope.AllowedToCheckIn = function() {
     // the "checkin" button should be enabled if you are:
     // 1) geolocation authenticated to be nearby
@@ -109,14 +133,14 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
   // Validate current loc with bar's loc
   function ifNearby() {
-    // ping location 
+    // ping location
     // if loc matches bar loc, execute crawlStarted(), and handle logic thereafter
     // return boolean value
   };
 
   // Validation to see if you have initialized the crawl
   function crawlStarted() {
-    return ($localStorage.currentCrawl !== undefined)
+    return ($localStorage.currentCrawl !== undefined);
   };
 
   // Check In Feature
