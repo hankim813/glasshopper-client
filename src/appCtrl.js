@@ -1,6 +1,6 @@
 angular.module('appCtrl', [])
 
-.controller('AppController', function($scope, $location, $ionicHistory, $localStorage, AuthenticationFactory, UserAuthFactory) {
+.controller('AppController', function($scope, $location, $state, $stateParams, $ionicHistory, $localStorage, AuthenticationFactory, UserAuthFactory) {
 
   $scope.logout = UserAuthFactory.logout;
   // Validation to see if you have initialized the crawl
@@ -15,7 +15,8 @@ angular.module('appCtrl', [])
   		    disableAnimate  : false,
   		    disableBack     : true
   		});
-  		$location.path('/app/crawls/' + $localStorage.currentCrawl.id);
+      $state.go('app.crawls', {crawlId: $localStorage.currentCrawl.id});
+  		// $location.path('/app/crawls/' + $localStorage.currentCrawl.id);
   	} else {
   		alert('Something went wrong. Please login again');
   		UserAuthFactory.logout();
