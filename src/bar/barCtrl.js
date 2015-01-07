@@ -7,7 +7,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
   (function(geo) {
         $ionicLoading.show();
-        geo.getPosition().then(function(position) {
+        geo.getHighAccuracyPosition().then(function(position) {
           var pos = {lat: position.coords.latitude,
                      lng: position.coords.longitude};
          $ionicLoading.hide();
@@ -72,14 +72,12 @@ function shoveIntoArray (bar) {
 
 })
 
-.controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, bar, posts, aggregate){
+.controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
 
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
   $scope.reviewButtonText = '';
-
-
 
   // refreshes dashboard information
   $scope.updateDash = function() {
@@ -103,14 +101,10 @@ function shoveIntoArray (bar) {
     $scope.$apply();
   };
 
-
-
   // Sets active tab
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
   };
-
-
 
   // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
@@ -142,28 +136,26 @@ function shoveIntoArray (bar) {
     $scope.postModal.hide();
   };
 
+  $scope.checkinButtonMsg = "Check In!";
+  // Can't check in unless you are you at least 200ft away from the bar
+  (function(){
+    if ($stateParams.distance > 0.04) {
 
+      $scope.ifNotNearBy = true;
+      $scope.checkinButtonMsg = "Too far away to check in!";
 
-  // Validation that will be used to see if you can interact with the activity feed or not
-  $scope.ifCheckedIn = function() {
-    return ($localStorage.lastCheckin.barId === bar._id);
-  };
+    } else if ($localStorage.lastCheckin && $localStorage.lastCheckin.barId === bar._id) {
 
-  // Validation that will be used to see if you can check in
-  $scope.AllowedToCheckIn = function() {
-    // the "checkin" button should be enabled if you are:
-    // 1) geolocation authenticated to be nearby
-    // 2) if you have initialized the bar crawl.
-    // If you are nearby but haven't yet initialized a crawl, you can still checkin, we will initialize a crawl, and insert that bar into the crawl for you for better ux experience.
-    return ifNearby();
-  };
+      $scope.ifNotNearBy = true;
+      $scope.checkinButtonMsg = "Checked In!";
 
-  // Validate current loc with bar's loc
-  function ifNearby() {
-    // ping location
-    // if loc matches bar loc, execute crawlStarted(), and handle logic thereafter
-    // return boolean value
-  }
+    } else {
+
+      $scope.ifNotNearBy = false;
+      $scope.checkinButtonMsg = "Check In!";
+
+    }
+  })();
 
   // Validation to see if you have initialized the crawl
   function crawlStarted() {
@@ -172,19 +164,90 @@ function shoveIntoArray (bar) {
 
   // Check In Feature
   $scope.checkInToBar = function() {
-    checkinFactory.create({
-      userId: $localStorage.user.id,
-      barId: $scope.bar._id
-    }).then(function(response) {
-      var checkin = {
-        barId     : response.data._bar,
-        userId    : response.data._user,
-        timestamp : response.data.createdAt
-      };
-      $localStorage.lastCheckin = checkin;
-    }, function(error) {
-      console.log(error);
-    });
+    // have you started a crawl yet?
+    if (crawlStarted()) {
+
+      // okay, fetch the crawl from DB
+      crawlFactory.get($localStorage.currentCrawl.id).then(function(crawl){
+
+        // create a checkin in the DB
+        checkinFactory.create({
+          userId: $localStorage.user.id,
+          barId: $scope.bar._id
+        }).then(function(checkin) {
+
+          // store the checkin data in localstorage
+          var massagedCheckin = {
+            barId     : checkin.data._bar,
+            userId    : checkin.data._user,
+            timestamp : checkin.data.createdAt
+          };
+          $localStorage.lastCheckin = massagedCheckin;
+          // store the checkin into the crawl's DB
+          crawlFactory.storeCheckin(crawl.data._id, checkin.data._id).then(function(response) {
+
+            // update the currentCrawl in localstorage
+              $localStorage.currentCrawl.checkins.push(response.data._checkins.slice(-1)[0]);
+          }, function(error) {
+            console.log("crawlFactory storeBar", error);
+          });
+
+        }, function(error) {
+          console.log("checkinFactory create", error);
+        });
+
+      }, function(error) {
+        console.log("crawlFactory get", error);
+      });
+
+      // disable the checkin button
+      $scope.ifNotNearBy    = true;
+    } else {
+
+      // if you haven't created a crawl yet
+      crawlFactory.create($localStorage.user.id).then(function(crawl) {
+
+        // store the crawl in the local storage
+        var massagedCrawl = {
+          id      : crawl.data._id,
+          leader  : crawl.data._leader,
+          checkins    : crawl.data._checkins
+        };
+        $localStorage.currentCrawl = massagedCrawl;
+
+        // create a checkin in the DB
+        checkinFactory.create({
+          userId: $localStorage.user.id,
+          barId: $scope.bar._id
+        }).then(function(checkin) {
+
+          // store the checkin data in localstorage
+          var massagedCheckin = {
+            barId     : checkin.data._bar,
+            userId    : checkin.data._user,
+            timestamp : checkin.data.createdAt
+          };
+          $localStorage.lastCheckin = massagedCheckin;
+
+          // store the checkin into the crawl's DB
+          crawlFactory.storeCheckin(crawl.data._id, checkin.data._id).then(function(response) {
+
+            // update the currentCrawl in localstorage
+              $localStorage.currentCrawl.checkins.push(response.data._checkins.slice(-1)[0]);
+          }, function(error) {
+            console.log("crawlFactory storeBar", error);
+          });
+
+        }, function(error) {
+          console.log("checkinFactory create", error);
+        });
+
+      }, function(error) {
+        console.log("crawlFactory create", error);
+      });
+    }
+    // disable the checkin button
+    $scope.ifNotNearBy    = true;
   };
 
   // Voting feature
@@ -414,12 +477,10 @@ function shoveIntoArray (bar) {
     return $scope.activeCrowd === '' || $scope.activeAge === '';
   };
 
-
   //AvgAge Button Data Values
   function setAvgAgeValue (name) {
     review.avgAge = name;
   }
-
 
   //CROWD Button Data Values
   function setCrowdValue (name) {

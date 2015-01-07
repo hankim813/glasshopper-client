@@ -4,7 +4,7 @@ angular.module('crawlFactories',[])
 	return {
 
 		create	: function(userId) {
-			return $http.post('http://127.0.0.1:3000/api/crawls/', userId);
+			return $http.post('http://127.0.0.1:3000/api/crawls/', {data: userId, access_token: $localStorage.token});
 		},
 
 		get 		: function(crawlId) {
@@ -17,6 +17,10 @@ angular.module('crawlFactories',[])
 
 		end			: function(crawlId) {
 			return $http.put('http://127.0.0.1:3000/api/crawls/' + crawlId, {access_token: $localStorage.token});
+		},
+
+		storeCheckin: function(crawlId, checkinId) {
+			return $http.put('http://127.0.0.1:3000/api/crawls/' + crawlId + "/checkins/" + checkinId);
 		}
 	}
 });

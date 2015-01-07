@@ -5,12 +5,14 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 
 	$scope.startCrawl = function() {
 		crawlFactory.create({userId: $localStorage.user.id}).then(function(response) {
+
 			// save current crawl data to localstorage for easy access across the app
 			var crawl = {
 				id 			: response.data._id,
 				leader	: response.data._leader,
-				bars 		: response.data._bars
+				checkins 		: response.data._checkins
 			};
+
 			$localStorage.currentCrawl = crawl;
 
 			// process query
@@ -60,6 +62,7 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 		crawlFactory.end($localStorage.currentCrawl.id).then(function(response) {
 
 			delete $localStorage.currentCrawl;
+			delete $localStorage.lastCheckin;
 			$ionicHistory.nextViewOptions({
 			    disableAnimate  : false,
 			    disableBack     : true
