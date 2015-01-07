@@ -13,7 +13,8 @@
     "lodash": "~2.4.1",
     "ngstorage": "~0.3.0",
     "fontawesome": "~4.2.0",
-    "angular-google-maps": "~2.0.12"
+    "angular-google-maps": "~2.0.12",
+    "ngAutocomplete": "git://github.com/stefanosc/ngAutocomplete.git#master"
   },
   "resolutions": {
     "angular": "~1.3"

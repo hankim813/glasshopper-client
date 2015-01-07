@@ -1,8 +1,8 @@
 angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, userSettings){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, userSettings, BarService){
 
-  $scope.bars;
+  $scope.bars = BarService.bars;
   // $scope.bars = AppController.BarService
 
   (function(geo) {
