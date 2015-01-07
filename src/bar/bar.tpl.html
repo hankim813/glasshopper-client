@@ -1,8 +1,8 @@
 <ion-view view-title="{{bar.name}}">
 <ion-content>
 <!-- Pull Refresh -->
-  <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
-  </ion-refresher>
+<ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
+</ion-refresher>
 <!-- BAR PICTURE -->
 <img class="col full-image" ng-src="{{bar.photoUrl}}">
 
@@ -27,63 +27,54 @@
   </div>
 </div>
 
-  <!-- FOOTER TOOLBAR -->
-  <div class="row">
-    <div class="bar bar-footer">
-    	<div class="tabs tabs-icon-top">
-    		<a class="tab-item" ng-click="openPostModal()">
-    			<i class="icon ion-compose"></i>
-    			Comment
-    		</a>
-    		<a class="tab-item" ng-click="reviewBar()">
-    			<i class="icon ion-speedometer"></i>
-    			Review
-    		</a>
-    	</div>
-    </div>
+<div class="row" ng-hide="aggregates.noiseLevel">
+  <div class="item center">
+    <p>No reviews yet...</p>
+  </div>
+</div>
+
+<!-- AGGREGATES -->
+<div class="row">
+  <div class="item center" ng-hide="aggregates.noiseLevel">
+    <p>No reviews yet...</p>
   </div>
 
-  <div class="row" ng-hide="aggregates.noiseLevel">
-    <div class="item center">
-      <p>No reviews yet...</p>
-    </div>
+  <div class="list card" ng-show="aggregates.noiseLevel">
+
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-volume-high"></i>
+      noise = {{ aggregates.noiseLevel | rounded }}
+    </a>
+
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-person-stalker"></i>
+      crowd = {{aggregates.crowdLevel | rounded}}
+    </a>
+
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-clock"></i>
+      age = {{aggregates.avgAge | rounded}}
+    </a>
+
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-transgender"></i>
+      ratio = {{aggregates.ggRatio | rounded}}
+    </a>
   </div>
-
-
-  <div class="row">
-    <div class="item center" ng-hide="aggregates.noiseLevel">
-      <p>No reviews yet...</p>
-    </div>
-
-    <div class="list card" ng-show="aggregates.noiseLevel">
-
-      <a href="#" class="item item-icon-left">
-        <i class="icon ion-volume-high"></i>
-        noise = {{ aggregates.noiseLevel | rounded }}
-      </a>
-
-      <a href="#" class="item item-icon-left">
-        <i class="icon ion-person-stalker"></i>
-        crowd = {{aggregates.crowdLevel | rounded}}
-      </a>
-
-      <a href="#" class="item item-icon-left">
-        <i class="icon ion-clock"></i>
-        age = {{aggregates.avgAge | rounded}}
-      </a>
-
-      <a href="#" class="item item-icon-left">
-        <i class="icon ion-transgender"></i>
-        ratio = {{aggregates.ggRatio | rounded}}
-      </a>
-    </div>
-  </div>
-
+</div>
 </ion-content>
-
-<ion-footer-bar class="bar-balanced">
-  <button class="button button-clear" ng-click="reviewBar()">Review This Bar</button>
-  <button class="button button-clear" ng-click="openPostModal()">What's on your mind?</button>
+<!-- FOOTER TOOLBAR -->
+<ion-footer-bar>
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="openPostModal()">
+    <i class="icon ion-compose"></i>
+    Comment
+  </a>
+  <a class="tab-item" ng-click="reviewBar()">
+    <i class="icon ion-speedometer"></i>
+    Review
+  </a>
+</div>
 </ion-footer-bar>
 
 </ion-view>
