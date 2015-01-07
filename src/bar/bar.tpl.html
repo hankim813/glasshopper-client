@@ -26,7 +26,7 @@
   </div>
 
   <!-- FOOTER TOOLBAR -->
-  <div class="bar bar-footer">
+  <div class="bar">
   	<div class="tabs tabs-icon-top">
   		<a class="tab-item" ng-click="openPostModal()">
   			<i class="icon ion-compose"></i>
@@ -38,6 +38,7 @@
   		</a>
   	</div>
   </div>
+</div>
 
   <div class="item center" ng-hide="aggregates.noiseLevel">
     <p>No reviews yet...</p>
@@ -45,25 +46,25 @@
 
 <div class="list card" ng-show="aggregates.noiseLevel">
 
-  <a href="#" class="item item-icon-left">
+  <div class="item item-icon-left">
     <i class="icon ion-volume-high"></i>
     noise = {{ aggregates.noiseLevel | rounded }}
-  </a>
+  </div>
 
-  <a href="#" class="item item-icon-left">
+  <div class="item item-icon-left">
     <i class="icon ion-person-stalker"></i>
     crowd = {{aggregates.crowdLevel | rounded}}
-  </a>
+  </div>
 
-  <a href="#" class="item item-icon-left">
+  <div class="item item-icon-left">
     <i class="icon ion-clock"></i>
     age = {{aggregates.avgAge | rounded}}
-  </a>
+  </div>
 
-  <a href="#" class="item item-icon-left">
+  <div class="item item-icon-left">
     <i class="icon ion-transgender"></i>
     ratio = {{aggregates.ggRatio | rounded}}
-  </a>
+  </div>
 </div>
 
 </ion-content>
