@@ -28,9 +28,36 @@ angular.module('glassHopper', [ 'ionic',
                                 'ngAutocomplete',
                                 'searchModule'])
 
-.service('BarService', function () {
-    return {};
+.factory('BarData', function () {
+    var data = {};
+    return {
+      getBars: function () {
+        return data.bars;
+      },
+      clearBars: function () {
+        delete data.bars;
+      },
+      setBars: function (bars) {
+        return data.bars = bars;
+      }
+    }
 })
+
+.factory('SearchData', [ function(){
+    var data = {};
+    return {
+      getCoords: function () {
+        return data.coords;
+      },
+      clearCoords: function () {
+        delete data.coords;
+      },
+      setCoords: function (coords) {
+        return data.coords = coords;
+      }
+    }
+}])
+
 
 .run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, geo) {
 
@@ -56,6 +83,8 @@ if (window.StatusBar) {
     $cordovaSplashscreen.hide();
 
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+        console.log(fromParams);
+        console.log(toParams);
       if (toState.name !== 'login' && toState.name !== 'register' && toState.name !== 'landing') {
         if (!AuthenticationFactory.isLogged) {
           $ionicHistory.nextViewOptions({

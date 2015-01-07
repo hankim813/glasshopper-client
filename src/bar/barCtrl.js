@@ -1,24 +1,32 @@
 angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, userSettings, BarService){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, userSettings, SearchData){
 
-  $scope.bars = BarService.bars;
-  // $scope.bars = AppController.BarService
 
   (function(geo) {
-        $ionicLoading.show();
-        geo.getHighAccuracyPosition().then(function(position) {
-          var pos = {lat: position.coords.latitude,
-                     lng: position.coords.longitude};
-         $ionicLoading.hide();
-          barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
-            $scope.bars = response.data;
+        if (SearchData.getCoords()) {
+            barFactory.findNearby(SearchData.getCoords().lng, SearchData.getCoords().lat, $localStorage.user.searchRadius).then(function(response) {
+              $scope.bars = response.data;
+            }, function(error) {
+              console.log(error);
+            });
+            SearchData.clearCoords();
+        } else {
+          $ionicLoading.show();
+          geo.getHighAccuracyPosition().then(function(position) {
+            var pos = {lat: position.coords.latitude,
+                       lng: position.coords.longitude};
+           $ionicLoading.hide();
+            barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
+              $scope.bars = response.data;
+            }, function(error) {
+              console.log(error);
+            });
           }, function(error) {
-            console.log(error);
+            alert(JSON.stringify(error));
+            $ionicLoading.hide();
           });
-        }, function(error) {
-          alert(JSON.stringify(error));
-        });
+        }
     })(geo);
 
   // refreshes dashboard information
@@ -55,9 +63,11 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
             $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
             console.log(error);
+           $ionicLoading.hide();
           });
         }, function(error) {
           alert(JSON.stringify(error));
+         $ionicLoading.hide();
         });
     })(geo);
 
@@ -76,8 +86,6 @@ function shoveIntoArray (bar) {
                latitude  : location[1] };
     ret.onClick = function() {
                 ret.show = !ret.show;
-                console.log(ret.name);
-                console.log("Clicked!");
               };
     ret.show = false;
   return ret;

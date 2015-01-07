@@ -1,22 +1,13 @@
 angular.module('searchModule', [])
 
-.controller('SearchController', function ($scope, $http, $location, $ionicHistory, $localStorage, BarService, barFactory) {
+.controller('SearchController', function ($scope, $http, $location, $ionicHistory, $localStorage, $state, barFactory, SearchData) {
 
 
-  $scope.bars = BarService.bars;
-
-  $scope.details = function(poop){
-    barFactory.findNearby(poop.geometry.location.D, poop.geometry.location.k, 0.25).then(function(response) {
-            $scope.bars = response.data;
-          }, function(error) {
-            console.log(error);
-          });
-    console.log('callb poop ', poop.geometry);
+  $scope.details = function(place){
+    SearchData.setCoords({ lat: place.geometry.location.k,
+                           lng: place.geometry.location.D});
+    $state.go("app.bars");
   };
-
-
-  window.scope = $scope;
-
 
 })
 
