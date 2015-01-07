@@ -11,7 +11,7 @@
 
     <div class="row row-center" style="padding-top:10%;">
       <div class='col' padding-vertical="true">
-        <form ng-submit="uploadPost()" name="postForm">
+        <form ng-submit="onPostSubmit()" name="postForm">
           <div class="list card">
             <label class="item item-input">
               <span class="input-label">Content</span>
@@ -21,9 +21,7 @@
               <span class="input-label">Nickname</span>
               <input type="text" ng-model="postData.author">
             </label>
-            <label class="item">
-              <button class="button button-block button-positive" type="submit" ng-click="closePostModal()" ng-disabled="postForm.$invalid">Post</button>
-            </label>
+              <button class="button button-block button-positive" type="submit" ng-disabled="postForm.$invalid">Post</button>
           </div>
         </form>
   </ion-content>
