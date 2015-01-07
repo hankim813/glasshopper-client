@@ -11,7 +11,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           var pos = {lat: position.coords.latitude,
                      lng: position.coords.longitude};
          $ionicLoading.hide();
-          barFactory.findNearby(pos.lng, pos.lat, userSettings.data.searchRadius).then(function(response) {
+          barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
             $scope.bars = response.data;
           }, function(error) {
             console.log(error);
@@ -51,7 +51,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           var pos = {latitude: position.coords.latitude,
                      longitude: position.coords.longitude};
          $ionicLoading.hide();
-          barFactory.findNearby(pos.longitude, pos.latitude, 0.25).then(function(response) {
+          barFactory.findNearby(pos.longitude, pos.latitude, $localStorage.user.searchRadius).then(function(response) {
             $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
             console.log(error);
