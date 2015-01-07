@@ -22,20 +22,22 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     })(geo);
 
   // refreshes dashboard information
-  // $scope.updateBars = function() {
-  //   reviewFactory.findNearby()
-  //     .success(function (data) {
-  //       $scope.aggregates = data;
-  //     })
-  //     .error(function (data) {
-  //       alert(data.message);
-  //     });
-
-  //   $scope.$broadcast('scroll.refreshComplete');
-  //   $scope.$apply();
-  // };
-
-  // console.log($scope.bars);
+  $scope.updateBars = function() {
+        geo.getHighAccuracyPosition().then(function(position) {
+          var pos = {lat: position.coords.latitude,
+                     lng: position.coords.longitude};
+          barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
+            $scope.bars = response.data;
+            bars = response.data;
+          }, function(error) {
+            console.log(error);
+          });
+        }, function(error) {
+          alert(JSON.stringify(error));
+        });
+    $scope.$broadcast('scroll.refreshComplete');
+    $scope.$apply();
+  };
 })
 
 .controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
@@ -56,14 +58,14 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           });
         }, function(error) {
           alert(JSON.stringify(error));
-        })
+        });
     })(geo);
 
 function thaiMassageBars (bars) {
   var result = [];
   for (var i = bars.length - 1; i >= 0; i--) {
     result.unshift(shoveIntoArray(bars[i].obj));
-  };
+  }
   return result;
 }
 
