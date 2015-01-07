@@ -123,7 +123,7 @@ function shoveIntoArray (bar) {
   //Check if you are checked into the bar
   $scope.isCheckedIn = function() {
     if($localStorage.lastCheckin){
-      return $scope.bar._id === $localStorage.lastCheckin.barId;
+      return bar._id === $localStorage.lastCheckin.barId;
     }else {
       return false;
     }
@@ -225,6 +225,7 @@ function shoveIntoArray (bar) {
         });
 
       }, function(error) {
+        // console.log($localStorage.currentCrawl);
         console.log("crawlFactory get", error);
       });
 
