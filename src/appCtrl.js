@@ -4,8 +4,9 @@ angular.module('appCtrl', [])
 
   $scope.bars;
   $scope.logout = UserAuthFactory.logout;
+  console.log("LocalStorage: ", $localStorage);
+  $scope.user = $localStorage.user;
   // Validation to see if you have initialized the crawl
-
   $scope.crawlStarted = function() {
     return ($localStorage.currentCrawl !== undefined)
   };

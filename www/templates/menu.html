@@ -13,13 +13,19 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">GlassHopper</h1>
-    </ion-header-bar>
+    
     <ion-content>
       <ion-list>
-        <ion-item nav-clear menu-close ui-sref="app.settings" ui-sref-active="item-balanced" class="item item-avatar">
-          <img ng-src="/img/profile.png">
+      
+      <a class="item item-avatar" menu-close href="#/app/settings">
+        <img ng-src="{{(user.profilePhotoUrl || '/img/profile.png')}}">
+        <h2>{{user.name}}</h2>
+        <p>{{(user.rank || 'Cocktail Napkin')}}</p>
+      </a>
+        <!-- <i class="icon ion-gear-a"></i> -->
+        <!-- <h3 class="padding-top">Neil</h3> -->
+      
+        <ion-item nav-clear menu-close ui-sref="app.settings" ui-sref-active="item-balanced">
           My Profile
         </ion-item>
         <ion-item nav-clear menu-close ui-sref="app.bars" ui-sref-active="item-balanced">
