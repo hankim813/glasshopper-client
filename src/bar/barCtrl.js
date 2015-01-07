@@ -28,11 +28,9 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   $scope.bars = [];
 
   (function(geo) {
-        $ionicLoading.show();
         geo.getPosition().then(function(position) {
           var pos = {latitude: position.coords.latitude,
                      longitude: position.coords.longitude};
-         $ionicLoading.hide();
           barFactory.findNearby(pos.longitude, pos.latitude, 0.25).then(function(response) {
             $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
