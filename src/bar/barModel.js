@@ -1,8 +1,7 @@
 angular.module('barModel', [])
 
-.factory('barFactory', function($localStorage, $location, $http) {
+.factory('barFactory', function barFactory ($localStorage, $location, $http) {
   return {
-
     findNearby: function(lng,lat,radius) {
       return $http(
                   { url         : 'http://127.0.0.1:3000/api/bars/nearby',
@@ -11,7 +10,11 @@ angular.module('barModel', [])
                       { lng     : lng,
                         lat     : lat,
                         radius  : radius }
-      });
+      }).then(
+        function(response) {
+          barFactory.bars = response.data;
+        },
+        function(error) {});
     },
 
     get: function(barId) {
@@ -19,8 +22,9 @@ angular.module('barModel', [])
                   { url         : 'http://127.0.0.1:3000/api/bars/'+barId,
                     method      : 'GET'
       }).then(function(response) {
-        return response.data;
+        barFactory.bar = response.data;
       });
     }
   }
+
 });
