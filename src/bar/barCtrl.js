@@ -22,7 +22,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     })(geo);
 })
 
-.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo, userSettings){
+.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
 
   $scope.window = $window;
   $scope.bars = [];
@@ -33,7 +33,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           var pos = {latitude: position.coords.latitude,
                      longitude: position.coords.longitude};
          $ionicLoading.hide();
-          barFactory.findNearby(pos.longitude, pos.latitude, userSettings.data.searchRadius).then(function(response) {
+          barFactory.findNearby(pos.longitude, pos.latitude, 0.25).then(function(response) {
             $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
             console.log(error);
