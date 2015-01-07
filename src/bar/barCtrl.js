@@ -22,9 +22,9 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     })(geo);
 })
 
-.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, barFactory, geo, userSettings){
+.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo, userSettings){
 
-  window.scope = $scope;
+  $scope.window = $window;
   $scope.bars = [];
 
   (function(geo) {
@@ -34,7 +34,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
                      longitude: position.coords.longitude};
          $ionicLoading.hide();
           barFactory.findNearby(pos.longitude, pos.latitude, userSettings.data.searchRadius).then(function(response) {
-            $scope.bars = massageBars(response.data);
+            $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
             console.log(error);
           });
@@ -43,23 +43,27 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
         })
     })(geo);
 
-function massageBars (bars) {
+function thaiMassageBars (bars) {
   var result = [];
   for (var i = bars.length - 1; i >= 0; i--) {
-    result.unshift(bars[i].obj);
-    var location = result[0].loc;
-    result[0].loc = {longitude : location[0],
-                     latitude  : location[1] };
-    result[0].onClick = function() {
-                this.show = !this.show;
-                console.log("Clicked!");
-              };
-    result[0].show = false;
+    result.unshift(shoveIntoArray(bars[i].obj));
   };
   return result;
 }
 
-
+function shoveIntoArray (bar) {
+    var ret = bar;
+    var location = ret.loc;
+    ret.loc = {longitude : location[0],
+               latitude  : location[1] };
+    ret.onClick = function() {
+                ret.show = !ret.show;
+                console.log(ret.name);
+                console.log("Clicked!");
+              };
+    ret.show = false;
+  return ret;
+}
 
   $scope.mapOptions = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
   // uiGmapGoogleMapApi.then(function(maps) {
