@@ -35,7 +35,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   //   $scope.$apply();
   // };
 
-  console.log($scope.bars);
+  // console.log($scope.bars);
 })
 
 .controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
