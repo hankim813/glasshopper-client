@@ -3,8 +3,11 @@ angular.module('userSettingsCtrl', [])
 .controller('SettingsController', ['$scope', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'settingsFactory', 'userSettings', function($scope, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, settingsFactory, userSettings){
 	$scope.user = $localStorage.user;
 	$scope.newSettings = {
-		radiusDefinition : userSettings.data.searchRadius || 0.1 //grabbed from the server 
+		radiusDefinition : userSettings.data.searchRadius //grabbed from the server 
 	};
+	
+	console.log("searchRadius on localStorage: ", $localStorage.user.searchRadius);
+	console.log("searchRadius from server: ", userSettings.data.searchRadius);
 
 	$scope.updateSettings = function(){
 		settingsFactory.update($scope.newSettings, $scope.user.id)
