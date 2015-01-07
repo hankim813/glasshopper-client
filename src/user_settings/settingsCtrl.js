@@ -5,6 +5,7 @@ angular.module('userSettingsCtrl', [])
 	$scope.newSettings = {
 		radiusDefinition : userSettings.data.searchRadius || 0.1//grabbed from the server 
 	};
+
 	$scope.updateSettings = function(){
 		settingsFactory.update($scope.newSettings, $scope.user.id)
 		.success(updateSuccessCallback)
@@ -13,10 +14,11 @@ angular.module('userSettingsCtrl', [])
 
 
   function updateSuccessCallback (data) {
-  };
+    $localStorage.user.searchRadius = data.searchRadius;
+  }
 
   function updateErrorCallback (data, status, headers, config) {
     alert(data.message);
-  };
+  }
 
 }]);

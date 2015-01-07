@@ -20,6 +20,24 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           alert(JSON.stringify(error));
         });
     })(geo);
+
+  // refreshes dashboard information
+  $scope.updateBars = function() {
+        geo.getHighAccuracyPosition().then(function(position) {
+          var pos = {lat: position.coords.latitude,
+                     lng: position.coords.longitude};
+          barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
+            $scope.bars = response.data;
+            bars = response.data;
+          }, function(error) {
+            console.log(error);
+          });
+        }, function(error) {
+          alert(JSON.stringify(error));
+        });
+    $scope.$broadcast('scroll.refreshComplete');
+    $scope.$apply();
+  };
 })
 
 .controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
@@ -40,14 +58,14 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           });
         }, function(error) {
           alert(JSON.stringify(error));
-        })
+        });
     })(geo);
 
 function thaiMassageBars (bars) {
   var result = [];
   for (var i = bars.length - 1; i >= 0; i--) {
     result.unshift(shoveIntoArray(bars[i].obj));
-  };
+  }
   return result;
 }
 
@@ -99,6 +117,16 @@ function shoveIntoArray (bar) {
 
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
+  };
+
+
+  //Check if you are checked into the bar
+  $scope.isCheckedIn = function() {
+    if($localStorage.lastCheckin){
+      return bar._id === $localStorage.lastCheckin.barId;
+    }else {
+      return false;
+    }
   };
 
   // Sets active tab
