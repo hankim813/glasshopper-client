@@ -18,22 +18,22 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item nav-clear menu-close href="#/app/settings">
+        <ion-item nav-clear menu-close ui-sref="app.settings" ui-sref-active="item-balanced">
           My Profile
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/bars">
+        <ion-item nav-clear menu-close ui-sref="app.bars" ui-sref-active="item-balanced">
           Bars
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/crawls" ng-hide="crawlStarted()">
+        <ion-item nav-clear menu-close ui-sref="app.crawls" ng-hide="crawlStarted()" ui-sref-active="item-balanced">
           Start Your Crawl
         </ion-item>
-        <ion-item nav-clear menu-close ng-show="crawlStarted()" ng-click="fetchCurrentCrawl()">
+        <ion-item nav-clear menu-close ng-show="crawlStarted()" ng-click="fetchCurrentCrawl()" ui-sref-active="item-balanced">
           Current Crawl
         </ion-item>
-        <ion-item nav-clear menu-close ng-href="#/app/crawls/history">
+        <ion-item nav-clear menu-close ui-sref="app.crawlHistory" ui-sref-active="item-balanced">
           Crawl History
         </ion-item>
-        <ion-item nav-clear menu-close ng-click="logout()">
+        <ion-item nav-clear menu-close ng-click="logout()" ui-sref-active="item-balanced">
           Logout
         </ion-item>
       </ion-list>

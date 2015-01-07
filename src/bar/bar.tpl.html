@@ -14,6 +14,7 @@
 </div>
 
 <!-- ACTIVITY FEED -->
+<div class="row-center">
   <div class="list">
   	<div ng-repeat="post in posts | reverse" class="item item-thumbnail-left">
   		<p>{{ post.content }}</p>
@@ -24,47 +25,59 @@
       <!-- NOT UPDATING! FIX THIS -->
     </div>
   </div>
+</div>
 
   <!-- FOOTER TOOLBAR -->
-  <div class="bar bar-footer">
-  	<div class="tabs tabs-icon-top">
-  		<a class="tab-item" ng-click="openPostModal()">
-  			<i class="icon ion-compose"></i>
-  			Comment
-  		</a>
-  		<a class="tab-item" ng-click="reviewBar()">
-  			<i class="icon ion-speedometer"></i>
-  			Review
-  		</a>
-  	</div>
+  <div class="row">
+    <div class="bar bar-footer">
+    	<div class="tabs tabs-icon-top">
+    		<a class="tab-item" ng-click="openPostModal()">
+    			<i class="icon ion-compose"></i>
+    			Comment
+    		</a>
+    		<a class="tab-item" ng-click="reviewBar()">
+    			<i class="icon ion-speedometer"></i>
+    			Review
+    		</a>
+    	</div>
+    </div>
   </div>
 
-  <div class="item center" ng-hide="aggregates.noiseLevel">
-    <p>No reviews yet...</p>
+  <div class="row" ng-hide="aggregates.noiseLevel">
+    <div class="item center">
+      <p>No reviews yet...</p>
+    </div>
   </div>
 
-<div class="list card" ng-show="aggregates.noiseLevel">
 
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-volume-high"></i>
-    noise = {{ aggregates.noiseLevel | rounded }}
-  </a>
+  <div class="row">
+    <div class="item center" ng-hide="aggregates.noiseLevel">
+      <p>No reviews yet...</p>
+    </div>
 
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-person-stalker"></i>
-    crowd = {{aggregates.crowdLevel | rounded}}
-  </a>
+    <div class="list card" ng-show="aggregates.noiseLevel">
 
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-clock"></i>
-    age = {{aggregates.avgAge | rounded}}
-  </a>
+      <a href="#" class="item item-icon-left">
+        <i class="icon ion-volume-high"></i>
+        noise = {{ aggregates.noiseLevel | rounded }}
+      </a>
 
-  <a href="#" class="item item-icon-left">
-    <i class="icon ion-transgender"></i>
-    ratio = {{aggregates.ggRatio | rounded}}
-  </a>
-</div>
+      <a href="#" class="item item-icon-left">
+        <i class="icon ion-person-stalker"></i>
+        crowd = {{aggregates.crowdLevel | rounded}}
+      </a>
+
+      <a href="#" class="item item-icon-left">
+        <i class="icon ion-clock"></i>
+        age = {{aggregates.avgAge | rounded}}
+      </a>
+
+      <a href="#" class="item item-icon-left">
+        <i class="icon ion-transgender"></i>
+        ratio = {{aggregates.ggRatio | rounded}}
+      </a>
+    </div>
+  </div>
 
 </ion-content>
 
