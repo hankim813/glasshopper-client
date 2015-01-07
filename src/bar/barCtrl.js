@@ -379,6 +379,7 @@ function shoveIntoArray (bar) {
   function reviewUpdateSuccess (data) {
     review.author  = $localStorage.user.id;
     review.bar     = $scope.bar._id;
+    getAggs();
   }
 
   // Update Review error callback
