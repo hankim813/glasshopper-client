@@ -3,7 +3,7 @@ angular.module('userSettingsCtrl', [])
 .controller('SettingsController', ['$scope', '$localStorage', '$ionicHistory', '$cordovaOauth', '$ionicLoading', 'settingsFactory', 'userSettings', function($scope, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, settingsFactory, userSettings){
 	$scope.user = $localStorage.user;
 	$scope.newSettings = {
-		radiusDefinition : userSettings.data.searchRadius || 0.1//grabbed from the server 
+		radiusDefinition : userSettings.data.searchRadius || 0.1 //grabbed from the server 
 	};
 
 	$scope.updateSettings = function(){
@@ -18,7 +18,8 @@ angular.module('userSettingsCtrl', [])
   }
 
   function updateErrorCallback (data, status, headers, config) {
-    alert(data.message);
+		console.log("Error Saving SearchRadius to server, defaulting to 0.25 mi radius");    
+    $localStorage.user.searchRadius = 0.25;
   }
 
 }]);
