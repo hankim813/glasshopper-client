@@ -20,6 +20,22 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
           alert(JSON.stringify(error));
         });
     })(geo);
+
+  // refreshes dashboard information
+  // $scope.updateBars = function() {
+  //   reviewFactory.findNearby()
+  //     .success(function (data) {
+  //       $scope.aggregates = data;
+  //     })
+  //     .error(function (data) {
+  //       alert(data.message);
+  //     });
+
+  //   $scope.$broadcast('scroll.refreshComplete');
+  //   $scope.$apply();
+  // };
+
+  console.log($scope.bars);
 })
 
 .controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
