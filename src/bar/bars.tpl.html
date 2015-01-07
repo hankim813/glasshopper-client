@@ -7,7 +7,8 @@
 	<a class="item item-thumbnail-left" ng-repeat="bar in bars" ui-sref="app.barshow({ barId: bar.obj._id, distance: bar.dis })">
 		<img ng-src="{{bar.obj.photoUrl}}">
 		<h2> {{bar.obj.name}} </h2>
-		<p> {{bar.obj.address}} - {{bar.dis.toFixed(3)}} mi.</p>
+		<p> {{bar.obj.address}} </p>
+		<p> {{bar.dis.toFixed(3)}} mi. </p>
 		<i class="icon ion-chevron-right"></i>
 	</a>
 </div>
