@@ -16,7 +16,7 @@ angular.module('appCtrl', [])
   		    disableAnimate  : false,
   		    disableBack     : true
   		});
-      $state.go('app.crawls', {crawlId: $localStorage.currentCrawl.id});
+      $state.go('app.currentCrawl', {crawlId: $localStorage.currentCrawl.id});
   		// $location.path('/app/crawls/' + $localStorage.currentCrawl.id);
   	} else {
   		alert('Something went wrong. Please login again');

@@ -79,8 +79,6 @@ function shoveIntoArray (bar) {
   $scope.aggregates = aggregate.data[0];
   $scope.reviewButtonText = '';
 
-
-
   // refreshes dashboard information
   $scope.updateDash = function() {
     reviewFactory.fetchAggregate($scope.bar._id)
@@ -103,14 +101,10 @@ function shoveIntoArray (bar) {
     $scope.$apply();
   };
 
-
-
   // Sets active tab
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
   };
-
-
 
   // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
@@ -142,12 +136,24 @@ function shoveIntoArray (bar) {
     $scope.postModal.hide();
   };
 
+  $scope.checkinButtonMsg = "Check In!";
   // Can't check in unless you are you at least 200ft away from the bar
   (function(){
-    if ($stateParams.distance > 0.04 || ($localStorage.lastCheckin && $localStorage.lastCheckin.barId === bar._id)) {
+    if ($stateParams.distance > 0.04) {
+
       $scope.ifNotNearBy = true;
+      $scope.checkinButtonMsg = "Too far away to check in!";
+
+    } else if ($localStorage.lastCheckin && $localStorage.lastCheckin.barId === bar._id) {
+
+      $scope.ifNotNearBy = true;
+      $scope.checkinButtonMsg = "Checked In!";
+
     } else {
+
       $scope.ifNotNearBy = false;
+      $scope.checkinButtonMsg = "Check In!";
+
     }
   })();
 
@@ -471,12 +477,10 @@ function shoveIntoArray (bar) {
     return $scope.activeCrowd === '' || $scope.activeAge === '';
   };
 
-
   //AvgAge Button Data Values
   function setAvgAgeValue (name) {
     review.avgAge = name;
   }
-
 
   //CROWD Button Data Values
   function setCrowdValue (name) {
