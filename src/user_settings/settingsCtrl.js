@@ -5,9 +5,6 @@ angular.module('userSettingsCtrl', [])
 	$scope.newSettings = {
 		radiusDefinition : userSettings.data.searchRadius //grabbed from the server 
 	};
-	
-	console.log("searchRadius on localStorage: ", $localStorage.user.searchRadius);
-	console.log("searchRadius from server: ", userSettings.data.searchRadius);
 
 	$scope.updateSettings = function(){
 		settingsFactory.update($scope.newSettings, $scope.user.id)
