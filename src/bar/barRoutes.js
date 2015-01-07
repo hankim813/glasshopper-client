@@ -28,7 +28,8 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
   })
 
   .state('app.barshow', {
-    url     : "/bars/:barId",
+    cache   : false,
+    url     : "/bars/:barId/:distance",
     resolve : { bar       : function(barFactory, $stateParams) {
                   return barFactory.get($stateParams.barId);
                 },
