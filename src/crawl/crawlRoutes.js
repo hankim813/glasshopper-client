@@ -30,12 +30,8 @@
   })
 
   .state('app.currentCrawl', {
+    cache   : false,
   	url 		: "/crawls/:crawlId",
-  	resolve : {
-  		currentCrawl: function(crawlFactory, $stateParams) {
-  			return crawlFactory.get($stateParams.crawlId);
-  		}
-  	},
   	views	  : {
   		'menuContent'	: {
   			templateUrl : "crawl/show.tpl.html",

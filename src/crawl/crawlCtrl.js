@@ -39,7 +39,21 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 	};
 })
 
-.controller('CurrentCrawlController', function($scope, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory, currentCrawl) {
+.controller('CurrentCrawlController', function($scope, $stateParams, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
+
+	(function(){
+		$scope.checkins = [];
+			crawlFactory.get($stateParams.crawlId).then(function(populatedCrawl) {
+				console.log(populatedCrawl.data._checkins.length);
+				console.log(populatedCrawl.data._checkins);
+				console.log(populatedCrawl.data._checkins[0]);
+        for (var i = 0; i < populatedCrawl.data._checkins.length; i++) {
+          $scope.checkins.push(populatedCrawl.data._checkins[i]); 
+        }
+      }, function(error) {
+        console.log(error);
+      });
+	})();
 
 	// Confirmation Modal
 	$ionicModal.fromTemplateUrl('crawl/confirmationModal.tpl.html', {
@@ -55,6 +69,8 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 	$scope.closeConfirmationModal = function() {
 		$scope.confirmationModal.hide();
 	}
+
+
 
 	// be sure to implement the feature where it checks for idleness of the crawl. If the updatedAt date is more than 12 hours from now, then execute endCrawl()
 
@@ -79,6 +95,8 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 
 	$scope.crawls = crawls.data;
 	console.log($scope.crawls);
+
+
 });
 
 
