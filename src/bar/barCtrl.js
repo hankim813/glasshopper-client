@@ -225,7 +225,6 @@ function shoveIntoArray (bar) {
         });
 
       }, function(error) {
-        // console.log($localStorage.currentCrawl);
         console.log("crawlFactory get", error);
       });
 
