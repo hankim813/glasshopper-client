@@ -97,6 +97,8 @@ function shoveIntoArray (bar) {
   $scope.aggregates = aggregate.data[0];
   $scope.reviewButtonText = '';
 
+  console.log($localStorage);
+
   // refreshes dashboard information
   $scope.updateDash = function() {
     reviewFactory.fetchAggregate($scope.bar._id)
@@ -117,6 +119,16 @@ function shoveIntoArray (bar) {
 
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
+  };
+
+
+  //Check if you are checked into the bar
+  $scope.isCheckedIn = function() {
+    if($localStorage.lastCheckin){
+      return $scope.bar._id === $localStorage.lastCheckin.barId;
+    }else {
+      return false;
+    }
   };
 
   // Sets active tab
