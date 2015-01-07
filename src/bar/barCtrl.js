@@ -271,7 +271,7 @@ function shoveIntoArray (bar) {
             // update the currentCrawl in localstorage
               $localStorage.currentCrawl.checkins.push(response.data._checkins.slice(-1)[0]);
           }, function(error) {
-            console.log("crawlFactory storeBar", error);
+            console.log("crawlFactory storeCheckin", error);
           });
 
         }, function(error) {
