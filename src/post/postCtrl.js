@@ -1,7 +1,12 @@
 angular.module('postCtrl', [])
 
 .controller('PostController', function($scope, $http, $location, $localStorage, postFactory) {
+	// MOVED TO BAR CONTROLLER
 
+  // $scope.postData     = {
+  //   barId: $scope.bar._id,
+  //   userId: $localStorage.user.id
+  // };
 	// $scope.postData     = {
 	// 	barId: $scope.bar._id,
 	// 	userId: $localStorage.user.id

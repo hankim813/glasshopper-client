@@ -10,12 +10,14 @@ angular.module('reviewCtrl', [])
                                  '$ionicLoading',
                                  'reviewFactory',
 
-    function($scope, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
+    function($scope, $parent, $ionicModal, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, reviewFactory){
+      //MOVED TO BAR CONTROLLER
+
+
       // $scope.rawData        = {};
       // $scope.review         = {};
       // $scope.review.author  = $localStorage.user.id;
       // $scope.review.bar     = $scope.bar._id;
-
       // $scope.activeAge      ='';
       // $scope.activeCrowd    ='';
       // $scope.submissionText = 'Submit';

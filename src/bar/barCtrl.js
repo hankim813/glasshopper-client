@@ -28,6 +28,8 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   $scope.aggregates = aggregate.data[0];
   $scope.reviewButtonText = '';
 
+
+
   // refreshes dashboard information
   $scope.updateDash = function() {
     reviewFactory.fetchAggregate($scope.bar._id)
@@ -50,10 +52,14 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     $scope.$apply();
   };
 
+
+
   // Sets active tab
   $scope.selectTab = function(index){
     $ionicTabsDelegate.select(index);
   };
+
+
 
   // Review Modal
   $ionicModal.fromTemplateUrl('review/review.tpl.html', {
@@ -67,10 +73,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   };
 
   $scope.closeReview = function() {
-
     $scope.reviewModal.hide();
-
-    // $location.reload();
   };
 
   // Create the post modal
@@ -88,11 +91,14 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     $scope.postModal.hide();
   };
 
-  // Validation that will be used to see if you can interact with the activity feed or not
 
+
+  // Validation that will be used to see if you can interact with the activity feed or not
   $scope.ifCheckedIn = function() {
     return ($localStorage.lastCheckin.barId === bar._id);
   };
+
+
 
   // Validation that will be used to see if you can check in
   $scope.AllowedToCheckIn = function() {
@@ -142,36 +148,48 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   };
 
 
-  //--------------- POST CONTROLLER START ----------------------
 
-  //Wrap all the async calls under the function called on form submit
-    // onPostSubmit:
-      // 1. create the post
-      // 2. close the modal
-      // 3. update bar dash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //--------------- POST CONTROLLER START ----------------------
   $scope.postData     = {
     barId: $scope.bar._id,
     userId: $localStorage.user.id
   };
 
+  //creates post and closes post modal
   $scope.onPostSubmit = function () {
     $scope.uploadPost();
     $scope.closePostModal();
   };
 
+  // makes request to POST route
   $scope.uploadPost   = function(){
-    console.log(1);
     postFactory.create($scope.postData, $scope.bar._id)
       .success(postSuccessCallBack)
       .error(postErrorCallback);
   };
 
+  // makes request to GET route
   function getPosts () {
-    console.log(3);
     postFactory.getAll($scope.bar._id)
       .success(function (data) {
-        console.log(4);
-        console.log('post controller - posts get route', data);
         $scope.posts  = data;
       })
       .error(function (data) {
@@ -179,8 +197,9 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
       });
   }
 
+  // Successful response from POST route stores bar and user
+  // and makes a request to the GET route (for live update)
   function postSuccessCallBack(result){
-    console.log(2);
     $scope.postData   = {
       barId: $scope.bar._id,
       userId: $localStorage.user.id
@@ -188,184 +207,190 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     getPosts();
   }
 
+  // Post Error  Callback
   function postErrorCallback (error) {
-    console.log('error');
+    alert('error');
   }
 
-  //--------------- REVIEW CONTROLLER START ----------------------
 
-  //Wrap all the async calls under the function called on form submit
-    // onReviewSubmit:
-      // 1. create the review
-      // 2. close the modal
-      // 3. set active tab to 0
-      // 4. update bar dash
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //--------------- REVIEW START ----------------------
+  $scope.rawData        = {};
+  $scope.review         = {};
+  $scope.review.author  = $localStorage.user.id;
+  $scope.review.bar     = $scope.bar._id;
+  $scope.activeAge      ='';
+  $scope.activeCrowd    ='';
+  $scope.submissionText = 'Submit';
+
+  var math              = window.Math;
+  var review            = $scope.review;
+  var rawData           = $scope.rawData;
+  var toggleBool        = true;
+
+  // Submit review, close modal, and set tab index to 0
   $scope.onReviewSubmit = function() {
-    $scope.reviewToggleSubmission();
+    $scope.formSubmissionToggle();
     $scope.closeReview();
     $scope.selectTab(0);
-
-    // reviewFactory.fetchAggregate($scope.bar._id)
-    //   .success(function (data) {
-    //     console.log('bar controller - reviews get route:', data);
-    //     $scope.aggregates = data[0];
-    //   })
-    //   .error(function (data) {
-    //     alert(data.message);
-    //   });
   };
 
 
-    $scope.rawData        = {};
-    $scope.review         = {};
-    $scope.review.author  = $localStorage.user.id;
+  // Toggle submission from Create Review to Update Review
+  $scope.formSubmissionToggle = function () {
+    if(toggleBool) {
+      toggleBool = !toggleBool;
+      $scope.submissionText = 'Update Review';
+      createReview();
+    } else {
+      updateReview();
+    }
+  };
+
+  //Get Aggregates
+  function getAggs () {
+    reviewFactory.fetchAggregate(review.bar)
+      .success(function (data) {
+        console.log('review controller - reviews get route:', data);
+        $scope.aggregates = data[0];
+      })
+      .error(function (data) {
+        alert(data.message);
+      });
+  }
+
+  // Create Review
+  function createReview () {
+    prepareStats();
+
+    reviewFactory.create(review.bar, review)
+      .success(reviewSuccessCallback)
+      .error(reviewErrorCallback);
+  }
+
+  // Create Review success callback
+  function reviewSuccessCallback (data) {
+    review.id      = data._id;
+    review.author  = $localStorage.user.id;
     $scope.review.bar     = $scope.bar._id;
 
-    $scope.activeAge      ='';
-    $scope.activeCrowd    ='';
-    $scope.submissionText = 'Submit';
+    getAggs();
+  }
 
-    var math              = window.Math;
-    var review            = $scope.review;
-    var rawData           = $scope.rawData;
-    var toggleBool        = true;
+  // Create Review error callback
+  function reviewErrorCallback (data, status, headers, config) {
+    alert(data.message);
+  }
+
+  // Update Review
+  function updateReview () {
+    prepareStats();
+
+    reviewFactory.update(review.bar, review.id, review)
+      .success(reviewUpdateSuccess)
+      .error(reviewUpdateError);
+  }
+
+  // Converts raw noise level to 1-4.
+  // Converts ggRatio string into an Integer
+  function prepareStats () {
+    review.noiseLevel  = rangeConverter(rawData.noiseLevel);
+    review.ggRatio     = parseInt(rawData.ggRatio);
+  }
+
+  // Turns 0-100 into 1-4
+  function rangeConverter (val) {
+    return (math.floor(val/33) + 1);
+  }
+
+  // Update Review success callback
+  function reviewUpdateSuccess (data) {
+    review.author  = $localStorage.user.id;
+    review.bar     = $scope.bar._id;
+  }
+
+  // Update Review error callback
+  function reviewUpdateError (data, status, headers, config) {
+    alert(data.message);
+  }
 
 
-    // Toggle submission from Create Review to Update Review
-    $scope.reviewToggleSubmission = function () {
-      if(toggleBool) {
-        toggleBool = !toggleBool;
-        $scope.submissionText = 'Update Review';
-        createReview();
-      } else {
-        updateReview();
-      }
-    };
-
-    //Get Aggregates
-    function getAggs () {
-      reviewFactory.fetchAggregate(review.bar)
-        .success(function (data) {
-          console.log('review controller - reviews get route:', data);
-          $scope.aggregates = data[0];
-        })
-        .error(function (data) {
-          alert(data.message);
-        });
+  // Set Active Button
+  $scope.setActive = function(type){
+    if (typeof type == 'string') {
+      setCrowdValue(type);
+      $scope.activeCrowd = type;
+    } else {
+      setAvgAgeValue(type);
+      $scope.activeAge = type;
     }
+  };
 
-    // Create Review
-    function createReview () {
-      prepareStats();
+  // Returns true if button is active
+  $scope.isCrowdActive = function (type) {
+    return type === $scope.activeCrowd;
+  };
 
-      reviewFactory.create(review.bar, review)
-        .success(reviewSuccessCallback)
-        .error(reviewErrorCallback);
+  // Returns true if button is active
+  $scope.isAgeActive = function(type) {
+    return type === $scope.activeAge;
+  };
+
+  // Buttons are invalid if no active button is chosen
+  $scope.buttonInvalid = function () {
+    return $scope.activeCrowd === '' || $scope.activeAge === '';
+  };
+
+
+  //AvgAge Button Data Values
+  function setAvgAgeValue (name) {
+    review.avgAge = name;
+  }
+
+
+  //CROWD Button Data Values
+  function setCrowdValue (name) {
+    switch(name) {
+      case 'dead':
+        review.crowdLevel = 1;
+        break;
+      case 'ok':
+        review.crowdLevel = 2;
+        break;
+      case 'poppin':
+        review.crowdLevel = 3;
+        break;
+      case 'ugh':
+        review.crowdLevel = 4;
+        break;
+      default:
+        review.crowdLevel = 1;
+        break;
     }
-
-    // Create Review success callback
-    function reviewSuccessCallback (data) {
-      review.id      = data._id;
-      review.author  = $localStorage.user.id;
-      $scope.review.bar     = $scope.bar._id;
-
-      getAggs();
-    }
-
-    // Create Review error callback
-    function reviewErrorCallback (data, status, headers, config) {
-      alert(data.message);
-    }
-
-    // Update Review
-    function updateReview () {
-      prepareStats();
-
-      reviewFactory.update(review.bar, review.id, review)
-        .success(reviewUpdateSuccess)
-        .error(reviewUpdateError);
-    }
-
-    // Converts raw noise level to 1-4.
-    // Converts ggRatio string into an Integer
-    function prepareStats () {
-      review.noiseLevel  = rangeConverter(rawData.noiseLevel);
-      review.ggRatio     = parseInt(rawData.ggRatio);
-    }
-
-    // Turns 0-100 into 1-4
-    function rangeConverter (val) {
-      return (math.floor(val/33) + 1);
-    }
-
-    // Update Review success callback
-    function reviewUpdateSuccess (data) {
-      review.author  = $localStorage.user.id;
-      review.bar     = $scope.bar._id;
-
-      getAggs();
-    }
-
-    // Update Review error callback
-    function reviewUpdateError (data, status, headers, config) {
-      alert(data.message);
-    }
-
-
-    // Set Active Button
-    $scope.setActive = function(type){
-      if (typeof type == 'string') {
-        setCrowdValue(type);
-        $scope.activeCrowd = type;
-      } else {
-        setAvgAgeValue(type);
-        $scope.activeAge = type;
-      }
-    };
-
-    // Returns true if button is active
-    $scope.isCrowdActive = function (type) {
-      return type === $scope.activeCrowd;
-    };
-
-    // Returns true if button is active
-    $scope.isAgeActive = function(type) {
-      return type === $scope.activeAge;
-    };
-
-    // Buttons are invalid if no active button is chosen
-    $scope.buttonInvalid = function () {
-      return $scope.activeCrowd === '' || $scope.activeAge === '';
-    };
-
-
-    //AvgAge Button Data Values
-    function setAvgAgeValue (name) {
-      review.avgAge = name;
-    }
-
-
-    //CROWD Button Data Values
-    function setCrowdValue (name) {
-      switch(name) {
-        case 'dead':
-          review.crowdLevel = 1;
-          break;
-        case 'ok':
-          review.crowdLevel = 2;
-          break;
-        case 'poppin':
-          review.crowdLevel = 3;
-          break;
-        case 'ugh':
-          review.crowdLevel = 4;
-          break;
-        default:
-          review.crowdLevel = 1;
-          break;
-      }
-    }
+  }
 
 
 });
