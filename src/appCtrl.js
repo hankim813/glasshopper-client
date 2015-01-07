@@ -2,6 +2,7 @@ angular.module('appCtrl', [])
 
 .controller('AppController', function($scope, $location, $state, $stateParams, $ionicHistory, $localStorage, AuthenticationFactory, UserAuthFactory) {
 
+  $scope.bars;
   $scope.logout = UserAuthFactory.logout;
   // Validation to see if you have initialized the crawl
 

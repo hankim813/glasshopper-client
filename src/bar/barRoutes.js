@@ -17,6 +17,16 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
     }
   })
 
+  .state('app.barsMap', {
+    url     : "/bars/map",
+    views   : {
+      'menuContent': {
+        templateUrl: "bar/barsMap.tpl.html",
+        controller: 'BarMapController'
+      }
+    }
+  })
+
   .state('app.barshow', {
     url     : "/bars/:barId",
     resolve : { bar       : function(barFactory, $stateParams) {

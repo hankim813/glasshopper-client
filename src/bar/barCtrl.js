@@ -3,6 +3,8 @@ angular.module('barCtrl', ['ionic']).
 controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, userSettings){
 
   $scope.bars;
+  // $scope.bars = AppController.BarService
+
   (function(geo) {
         $ionicLoading.show();
         geo.getPosition().then(function(position) {
@@ -20,6 +22,55 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     })(geo);
 })
 
+.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo, userSettings){
+
+  $scope.window = $window;
+  $scope.bars = [];
+
+  (function(geo) {
+        $ionicLoading.show();
+        geo.getPosition().then(function(position) {
+          var pos = {latitude: position.coords.latitude,
+                     longitude: position.coords.longitude};
+         $ionicLoading.hide();
+          barFactory.findNearby(pos.longitude, pos.latitude, userSettings.data.searchRadius).then(function(response) {
+            $scope.bars = thaiMassageBars(response.data);
+          }, function(error) {
+            console.log(error);
+          });
+        }, function(error) {
+          alert(JSON.stringify(error));
+        })
+    })(geo);
+
+function thaiMassageBars (bars) {
+  var result = [];
+  for (var i = bars.length - 1; i >= 0; i--) {
+    result.unshift(shoveIntoArray(bars[i].obj));
+  };
+  return result;
+}
+
+function shoveIntoArray (bar) {
+    var ret = bar;
+    var location = ret.loc;
+    ret.loc = {longitude : location[0],
+               latitude  : location[1] };
+    ret.onClick = function() {
+                ret.show = !ret.show;
+                console.log(ret.name);
+                console.log("Clicked!");
+              };
+    ret.show = false;
+  return ret;
+}
+
+  $scope.mapOptions = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+  // uiGmapGoogleMapApi.then(function(maps) {
+  //   console.log(maps);
+  // });
+
+})
 
 .controller('BarSingleController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, bar, posts, aggregate){
 
@@ -98,14 +149,12 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     return ($localStorage.lastCheckin.barId === bar._id);
   };
 
-
-
   // Validation that will be used to see if you can check in
   $scope.AllowedToCheckIn = function() {
     // the "checkin" button should be enabled if you are:
     // 1) geolocation authenticated to be nearby
     // 2) if you have initialized the bar crawl.
-    // If you are nearby but haven't yet initialized a crawl, you can still checkin, we will initialize a crawl, and insert that bar into the crawl for you for better ux experience. 
+    // If you are nearby but haven't yet initialized a crawl, you can still checkin, we will initialize a crawl, and insert that bar into the crawl for you for better ux experience.
     return ifNearby();
   };
 

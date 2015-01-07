@@ -22,8 +22,13 @@ angular.module('glassHopper', [ 'ionic',
                                 'crawlRoutes',
                                 'crawlCtrl',
                                 'crawlFactories',
-                                'geoModule', 
-                                'customFilters'])
+                                'geoModule',
+                                'customFilters',
+                                'uiGmapgoogle-maps'])
+
+.service('BarService', function () {
+    return {};
+})
 
 .run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, geo) {
 
@@ -69,8 +74,8 @@ if (window.StatusBar) {
 
     (function(geo) {
       geo.getPosition().then(function(position) {
-        $localStorage.last_position = {lat: position.coords.latitude,
-                                       lng: position.coords.longitude};
+        $localStorage.last_position = {latitude: position.coords.latitude,
+                                       longitude: position.coords.longitude};
       }, function(error) {
         alert(JSON.stringify(error));
         alert("glassHopper needs your location to work");
@@ -79,7 +84,13 @@ if (window.StatusBar) {
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function(uiGmapGoogleMapApiProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+
+  uiGmapGoogleMapApiProvider.configure({
+    key: 'AIzaSyCnGPgN8OsQ4HinCVpHx0rxtjtltJYoVpE',
+    v: '3.17',
+    libraries: 'places,geometry'
+  });
 
   $httpProvider.interceptors.push('TokenInterceptor');
 
