@@ -97,8 +97,6 @@ function shoveIntoArray (bar) {
   $scope.aggregates = aggregate.data[0];
   $scope.reviewButtonText = '';
 
-  console.log($localStorage);
-
   // refreshes dashboard information
   $scope.updateDash = function() {
     reviewFactory.fetchAggregate($scope.bar._id)
