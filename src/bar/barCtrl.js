@@ -304,7 +304,14 @@ function shoveIntoArray (bar) {
 
   // VISUALIZATIONS
   $scope.visualize = function() {
-    $('.donut').peity('donut', { width: 48 });
+    $('.crowd').peity('donut', { width: 48 });
+    $('.age').peity('donut', { width: 48 });
+    $('.gender').peity('donut', { width: 48 });
+    $('.volume-bar').peity('bar', {
+      width: 48,
+      height: 48,
+      fill: ["cyan", "green", "magenta", "yellow", "black"]
+      })
   };
 
 
