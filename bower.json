@@ -14,7 +14,7 @@
     "ngstorage": "~0.3.0",
     "fontawesome": "~4.2.0",
     "angular-google-maps": "~2.0.12",
-    "ngAutocomplete": "git://github.com/stefanosc/ngAutocomplete.git#master"
+    "ion-google-place": "git://github.com/stefanosc/ion-google-place.git#glasshopper"
   },
   "resolutions": {
     "angular": "~1.3"

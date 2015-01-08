@@ -8,15 +8,18 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <a class="ion-google-place button button-icon icon ion-ios-search-strong" service="places" ng-model="location" ion-google-place></a>
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    
+
     <ion-content>
       <ion-list>
-      
+
       <a class="item item-avatar" menu-close href="#/app/settings">
         <img ng-src="{{(user.profilePhotoUrl || './img/beer.png')}}">
         <h2>{{user.name}}</h2>
@@ -24,7 +27,7 @@
       </a>
         <!-- <i class="icon ion-gear-a"></i> -->
         <!-- <h3 class="padding-top">Neil</h3> -->
-      
+
         <ion-item nav-clear menu-close ui-sref="app.settings" ui-sref-active="item-balanced">
           My Profile
         </ion-item>
