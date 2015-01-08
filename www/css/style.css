@@ -102,3 +102,13 @@ h4.tab-heading {
 .center-text {
 	text-align: center;
 }
+/*DATA VISUALIZATION stuff*/
+.data-vis {
+  text-align: center;
+}
+.male {
+  color: #56C7ED;
+}
+.female {
+  color: #DA7C8E;
+}
