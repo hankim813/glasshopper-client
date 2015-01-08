@@ -3,7 +3,7 @@
       <ion-tabs class="tabs-top" id="reviewTabs">
 
       <!-- NOISE -->
-        <ion-tab title="Noise" icon-on="fa fa-volume-up" icon-off="fa fa-volume-up" class="padding-vertical">
+        <ion-tab title="Noise" icon-on="fa fa-volume-up" icon-off="fa fa-volume-up" class="hook-review padding-vertical">
           <ion-header-bar class="bar-positive">
             <h1 class="title">Review {{bar.name}}</h1>
             <div class="button button-clear" ng-click="closeReview()">
@@ -22,7 +22,7 @@
       </ion-tab>
 
       <!-- CROWD -->
-      <ion-tab title="crowd" icon-on="fa fa-users" icon-off="fa fa-users"  class="padding-vertical">
+      <ion-tab title="crowd" icon-on="fa fa-users" icon-off="fa fa-users"  class="hook-review padding-vertical">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
           <div class="button button-clear" ng-click="closeReview()">
@@ -32,23 +32,23 @@
         <ion-content class="padding">
           <h4 class="tab-heading">How's the crowd?</h4>
           <div class="row">
-            <a class="col button" ng-class="{'button-calm': isCrowdActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
+            <a class="col button" ng-class="{'button-balanced': isCrowdActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-energized': isCrowdActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
+            <a class="col button" ng-class="{'button-balanced': isCrowdActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
           </div>
           <div class="row">
             <a class="col button" ng-class="{'button-balanced': isCrowdActive('poppin')}" ng-click="setActive('poppin')">It's Poppin!</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-assertive': isCrowdActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
+            <a class="col button" ng-class="{'button-balanced': isCrowdActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
           </div>
           <a href="#" class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab('reviewTabs', 2)">Next</a>
         </ion-content>
       </ion-tab>
 
       <!-- GIRL/GUY -->
-      <ion-tab title="gg" icon-on="ion-transgender" icon-off="ion-calm ion-transgender">
+      <ion-tab title="gg" icon-on="ion-transgender" icon-off="ion-calm ion-transgender" class="hook-review">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
           <div class="button button-clear" ng-click="closeReview()">
@@ -57,7 +57,7 @@
         </ion-header-bar>
 
         <ion-content class="padding">
-          <h4 class="tab-heading">What's male to female ratio?</h4>
+          <h4 class="tab-heading">Male to female ratio?</h4>
           <div class="item range range-stables padding-vertical">
             <i class="icon ion-man"></i>
             <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio" class="ratioRange" required>
@@ -68,7 +68,7 @@
       </ion-tab>
 
       <!-- AGE -->
-      <ion-tab title="age" icon-on="ion-clock" icon-off="ion-clock">
+      <ion-tab title="age" icon-on="ion-clock" icon-off="ion-clock" class="hook-review">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
           <div class="button button-clear" ng-click="closeReview()">
@@ -77,18 +77,18 @@
         </ion-header-bar>
 
         <ion-content class="padding">
-          <h4 class="tab-heading">Fresh hops or barrel-aged?</h4>
+          <h4 class="tab-heading">Fresh hops or Barrel-aged?</h4>
           <div class="row">
-            <a class="col button" ng-class="{'button-calm': isAgeActive(1)}" ng-click="setActive(1)">21-25 years</a>
+            <a class="col button" ng-class="{'button-balanced': isAgeActive(1)}" ng-click="setActive(1)">21-25 years</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-energized': isAgeActive(2)}" ng-click="setActive(2)">26-30 years</a>
+            <a class="col button" ng-class="{'button-balanced': isAgeActive(2)}" ng-click="setActive(2)">26-30 years</a>
           </div>
           <div class="row">
             <a class="col button" ng-class="{'button-balanced': isAgeActive(3)}" ng-click="setActive(3)">31-40 years</a>
           </div>
           <div class="row">
-            <a class="col button" ng-class="{'button-assertive': isAgeActive(4)}" ng-click="setActive(4)">40+ years</a>
+            <a class="col button" ng-class="{'button-balanced': isAgeActive(4)}" ng-click="setActive(4)">40+ years</a>
           </div>
 
           <button class="button button-block button-positive" type="submit"  ng-disabled="reviewForm.$invalid || buttonInvalid()">{{submissionText}}</button>

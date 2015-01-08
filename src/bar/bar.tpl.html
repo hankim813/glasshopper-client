@@ -1,6 +1,6 @@
 <ion-tabs class="tabs-top" id="barTabs">
 <!-- STATS TAB -->
-  <ion-tab title="Stats" icon-on="ion-beer" icon-off="ion-beer postitive">
+  <ion-tab title="Stats" icon-on="ion-beer" icon-off="ion-beer" class="hook-mug">
     <ion-view view-title="{{bar.name}}">
       <ion-content>
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
@@ -64,7 +64,7 @@
 </ion-tab>
 
 <!-- NEW COMMENTS -->
-<ion-tab title="New" icon-on="ion-chatboxes" icon-off="ion-chatboxes postitive">
+<ion-tab title="New" icon-on="ion-chatboxes" icon-off="ion-chatboxes" class="hook-chat">
   <ion-view view-title="{{bar.name}}">
     <ion-content>
       <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
@@ -102,7 +102,7 @@
   </ion-footer-bar>
 </ion-tab>
 <!-- HOT POSTS -->
-<ion-tab title="Hot" icon-on="ion-flame" icon-off="ion-flame postitive">
+<ion-tab title="Hot" icon-on="ion-flame" icon-off="ion-flame" class="hook-fire">
   <ion-view view-title="{{bar.name}}">
     <ion-content>
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">

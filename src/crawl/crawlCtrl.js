@@ -36,6 +36,14 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 .controller('CurrentCrawlController', function($scope, $timeout, $ionicActionSheet, $stateParams, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
 
 
+	$scope.noBars = $stateParams.ended || false;
+
+	(function() {
+		if ($localStorage.currentCrawl && $localStorage.currentCrawl.checkins.length !== 0) {
+			$scope.noBars = true;
+		}
+	})();
+
 	(function(){
 	  if ($localStorage.currentCrawl && $localStorage.currentCrawl.id === $stateParams.crawlId) {
 	    $scope.ifEnded = false;
