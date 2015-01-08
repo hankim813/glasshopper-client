@@ -5,11 +5,11 @@
 					{{crawl.name | date: 'EEEE, MMM d'}}
 			  </div>
 			  <div class="item item-text-wrap">
-					<!-- <p><strong>Bar Count:</strong> {{ (crawl._checkins.length()) }}</p> -->
+					<p><strong>Bar Count:</strong> {{ crawl._checkins.length }}</p>
 					<p><strong>When:</strong> {{ crawl.createdAt | date: 'EEEE, MMM d, h:mm a' }}</p>
 					<!-- <p><strong>Duration:</strong> {{ (crawl.createdAt - crawl.updatedAt) | date: 'H:mm' }}</p> -->
 			  </div>
-		  	<a class="item item-icon-left assertive" ui-sref="app.currentCrawl({crawlId: crawl._id, name: crawl.name})">
+		  	<a class="item item-icon-left assertive" ui-sref="app.currentCrawl({crawlId: crawl._id, name: crawl.name, ended: true})">
 		      <i class="icon ion-wineglass"></i>
 		      View Crawl Details
 		    </a>

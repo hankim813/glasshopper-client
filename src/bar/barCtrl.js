@@ -291,18 +291,16 @@ function shoveIntoArray (bar) {
   };
 
   // Voting feature
-  $scope.upvote = function(post, $event) {
-    $http.put("http://127.0.0.1:3000/api/votes/up/" + post._id).then(function (votes) {
+  $scope.upvote = function(postId) {
+    $http.put("http://127.0.0.1:3000/api/votes/up/" + postId).then(function (votes) {
       getPosts();
-      var element = document.getElementById(post._id + '-down');
-      angular.element($event.currentTarget).addClass('disabled');
     }, function (error) {
       alert('Failed: ' + error);
     });
   };
 
-  $scope.downvote = function(post, $event) {
-    $http.put("http://127.0.0.1:3000/api/votes/down/" + post._id).then(function (votes) {
+  $scope.downvote = function(postId) {
+    $http.put("http://127.0.0.1:3000/api/votes/down/" + postId).then(function (votes) {
       getPosts();
     }, function (error) {
       alert('Failed: ' + error);

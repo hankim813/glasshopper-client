@@ -31,7 +31,7 @@
 
   .state('app.currentCrawl', {
     cache   : false,
-  	url 		: "/crawls/:crawlId/:name",
+  	url 		: "/crawls/:crawlId/:name/:ended",
   	views	  : {
   		'menuContent'	: {
   			templateUrl : "crawl/show.tpl.html",

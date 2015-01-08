@@ -48,8 +48,20 @@ h4.tab-heading {
   padding: 5%;
 }
 
-.tab-item.tab-item-active {
+.hook-mug.tab-item.tab-item-active {
+  color: #E9BD5D;
+}
+
+.hook-chat.tab-item.tab-item-active {
+  color: #63EDCC;
+}
+
+.hook-fire.tab-item.tab-item-active {
   color: #DA4D3C;
+}
+
+.hook-review.tab-item.tab-item-active {
+	color: #63EDCC;
 }
 /* COLORS */
 
