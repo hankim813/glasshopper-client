@@ -89,23 +89,61 @@ function shoveIntoArray (bar) {
 .controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, $ionicScrollDelegate, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
   $scope.bar = bar;
   $scope.posts = posts.data;
-  $scope.aggregates = aggregate.data[0];
+  // default data for aggregates                      
+  $scope.aggregates = {
+                        avgAge: 1,
+                        crowdLevel: 1,
+                        ggRatio: 1,
+                        noiseLevel: 1,
+                        reviews: 0  
+                      }
+  if(aggregate.data[0]) {
+    $scope.aggregates = aggregate.data[0];
+  }                      
   
+  console.log('aggregate from resolve', aggregate)
+  console.log('aggregates at instantiation: ', $scope.aggregates);
   // if there is aggregate data, message is displayed in view
   
+  function getAggs () {
+    reviewFactory.fetchAggregate(review.bar)
+      .success(function (data) {
+        console.log('review controller - reviews get route:', data[0]);
+          if(data[0]) {
+            $scope.aggregates = data[0];
+          } else {
+             $scope.aggregates = {
+                        avgAge: 1,
+                        crowdLevel: 1,
+                        ggRatio: 1,
+                        noiseLevel: 1,
+                        reviews: 0  
+                      }
+          }
+        console.log('aggregates at getAggs(): ', $scope.aggregates);
+      })
+      .error(function (data) {
+        alert(data.message);
+      });
+  }
     // VISUALIZATIONS
   $scope.calculateNoise = function() {
     //determine the colors for our volume bar graph
-    var noiseLevel = 2// $scope.aggregates.noiseLevel || 0;
+    if ($scope.aggregates.noiseLevel) {
+      var noiseLevel = $scope.aggregates.noiseLevel;
+    } else {
+      var noiseLevel = 0;
+    }
+
     var fillColors = ["rgb(255, 158, 0)", 
-                  "rgb(255, 94, 0)",
-                  "rgb(232, 123, 12)",
-                  "rgb(232, 63, 12)", 
-                  "rgb(255, 41, 17)"];
+                      "rgb(255, 94, 0)",
+                      "rgb(232, 123, 12)",
+                      "rgb(232, 63, 12)", 
+                      "rgb(255, 41, 17)"];
     
-    for (i = 0; i < fillColors.length; i ++ ) {
+    for (i = 1; i < fillColors.length; i ++ ) {
       if (i >= noiseLevel) {
-        fillColors[i] = "grey";
+        fillColors[i] = "rgb(214,214,214)"; //faded blue
       }
     }
     
@@ -115,6 +153,7 @@ function shoveIntoArray (bar) {
   }
 
   $scope.visualize = function() {
+    //$scope.getAggs();
     var volumeColors = $scope.calculateNoise();
     console.log("volumeColors in visualize(): ", volumeColors);
     $('.crowd').peity('donut', { width: 48 });
@@ -219,8 +258,7 @@ function shoveIntoArray (bar) {
   // Can't check in unless you are you at least 200ft away from the bar
   
   (function(){
-    //$scope.visualize(); //visualize data on pageload
-    if ($stateParams.distance > 0.1) { //CHANGE THIS BACK BEFORE MERGE TO DEV
+    if ($stateParams.distance > 0.04) { //CHECK_IN_RADIUS
 
       $scope.ifNotNearBy = true;
       $scope.checkinButtonMsg = "Too far away to check in!";
@@ -429,21 +467,10 @@ function shoveIntoArray (bar) {
     } else {
       updateReview();
     }
+    console.log("visualizing from toggle");
+
   };
 
-  //Get Aggregates
-  function getAggs () {
-    reviewFactory.fetchAggregate(review.bar)
-      .success(function (data) {
-        console.log('review controller - reviews get route:', data);
-        $scope.aggregates = data[0];
-        console.log('aggregates at getAggs(): ', $scope.aggregates);
-        $scope.visualize(); //convert aggregate data on page to SVG graphics
-      })
-      .error(function (data) {
-        alert(data.message);
-      });
-  }
 
   // Create Review
   function createReview () {
