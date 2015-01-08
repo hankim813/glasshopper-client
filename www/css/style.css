@@ -15,6 +15,43 @@ input.ion-google-place[readonly]{
     cursor: text;
 }
 
+
+input[type="range"]{
+   -webkit-appearance:none !important;
+}
+
+input.ggRatioRange[type="range"]{
+  /*add gg ratio CSS here, use a progress bar with 2 colors?
+  pink on right and teal on the left.*/
+}
+
+input.noiseLevelRange[type="range"]{
+  /*add noise level CSS here, use orange to red gradient */
+}
+
+a.button.button-icon.icon.disabled {
+  color: #63EDCC;
+}
+
+
+.reviewForm.modal {
+  top: 25%;
+  font-family: "Helvetica Neue",Roboto,sans-serif;
+}
+
+.ion-content.padding {
+  margin-top: 5%;
+}
+
+h4.tab-heading {
+  color: rgb(106, 102, 102);
+  text-align: center;
+  padding: 5%;
+}
+
+.tab-item.tab-item-active {
+  color: #DA4D3C;
+}
 /* COLORS */
 
 .bg-home {

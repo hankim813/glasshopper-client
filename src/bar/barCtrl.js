@@ -89,7 +89,7 @@ function shoveIntoArray (bar) {
 
 })
 
-.controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
+.controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, $ionicScrollDelegate, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
@@ -102,6 +102,11 @@ function shoveIntoArray (bar) {
     } else {
       return "Check in to leave a review!";
     }
+  };
+
+  //scroll to bottom
+  $scope.scrollToBottom = function() {
+    $ionicScrollDelegate.scrollBottom();
   };
 
   //get all posts
@@ -480,6 +485,7 @@ function shoveIntoArray (bar) {
     } else {
       setAvgAgeValue(type);
       $scope.activeAge = type;
+      $scope.scrollToBottom();
     }
   };
 

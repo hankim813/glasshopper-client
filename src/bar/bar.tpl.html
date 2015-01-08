@@ -11,20 +11,24 @@
         </button>
       
   <!-- VISUALIZATIONS -->
-        <ion-slide-box show-pager="false" auto-play="true" does-continue="true" slide-interval="3000">
-          <ion-slide>
-            <div class="row">
+       <div class="list">
+
+        <div class="item item-thumbnail-left">
+          <span class="volume-bar">1,2,3,4,5</span>
+          <h2>Bar Noise</h2>
+          <p>Loud</p>
+        </a>
+
+      </div>
+<!--             <div class="row">
               <div class="col col-25 col-offset-25">
-                <span class="volume-bar">1,2,3,4,5</span>
               </div>
     
               <div class="col col-25">
                 <span class="crowd">23/100</span>
               </div>
             </div>
-          </ion-slide>
     
-          <ion-slide>
             <div class="row padding-vertical padding-left">
 
               <div class="col col-25 col-offset-25">
@@ -35,9 +39,7 @@
                 <span class="gender">60/100</span>
               </div>
             </div>
-          </ion-slide>
-        </ion-slide-box>
-
+ -->
         <div class="row">
           <button class="button" ng-click="visualize()">
             fire visualizations!
@@ -46,7 +48,8 @@
     </ion-content>
   </ion-view>
 <!-- FOOTER BAR -->
-  <ion-footer-bar ng-show="isCheckedIn()">
+  <!-- <ion-footer-bar ng-show="isCheckedIn()"> -->
+  <ion-footer-bar>
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
         <i class="icon ion-compose"></i>
@@ -71,13 +74,14 @@
         <div class="row item">
           <div class="col col-75 padding-vertical padding-horizontal">
               <p>{{ post.content }}</p>
-              <p>@{{ post.author }}</p>
-              <p>{{ post.createdAt | date: 'h:mm a' }}</p>
+              <p ng-hide="post.author">@GlassHopper at {{ post.createdAt | date : 'h:mm a' }}</p>
+              <p ng-show="post.author">@{{ post.author }} at {{ post.createdAt | date : 'h:mm a' }}</p>
           </div>
           <div class="col center padding-vertical">
-            <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>
+            <!-- ng-disabled="!(isCheckedIn())" -->
+            <a href="#" name="{{post._id}}-points-up" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)"><h3>{{ post.points }}</h3></a>
             <br>
-            <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="!(isCheckedIn())"></a>
+            <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)"></a>
           </div>
         </div>
       </div>
@@ -103,13 +107,12 @@
     <ion-content>
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
         </ion-refresher>
-        
         <div ng-repeat="post in posts | orderBy : 'points' : 'reverse'" class="list">
           <div class="row item">
             <div class="col col-75 padding-vertical padding-horizontal">
               <p>{{ post.content }}</p>
-              <p>@{{ post.author }}</p>
-              <p>{{ post.createdAt | date : 'h:mm a' }}</p>
+              <p ng-hide="post.author">@GlassHopper at {{ post.createdAt | date : 'h:mm a' }}</p>
+              <p ng-show="post.author">@{{ post.author }} at {{ post.createdAt | date : 'h:mm a' }}</p>
             </div>
             <div class="col center padding-vertical">
               <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>

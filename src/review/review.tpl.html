@@ -1,39 +1,38 @@
- <ion-modal-view ng-controller="ReviewController">
+ <ion-modal-view ng-controller="ReviewController" class="reviewForm">
     <form ng-submit='onReviewSubmit()' name="reviewForm">
-      <ion-tabs class="tabs-positive">
+      <ion-tabs class="tabs-top">
 
       <!-- NOISE -->
-        <ion-tab title="Noise" on-swipe-left="selectTab(1)">
+        <ion-tab title="Noise" icon-on="fa fa-volume-up" icon-off="fa fa-volume-up" class="padding-vertical">
           <ion-header-bar class="bar-positive">
             <h1 class="title">Review {{bar.name}}</h1>
             <div class="button button-clear" ng-click="closeReview()">
               <span class="icon ion-close"></span>
             </div>
-
           </ion-header-bar>
-          <ion-content>
-          <h1>HOW LOUD IS IT?</h1>
-          <div class="item range range-positive">
+          <ion-content class="padding">
+          <h4 class="tab-heading">How loud is it?</h4>
+          <div class="item range range-positive padding-vertical">
             <i class="icon ion-volume-low"></i>
-            <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel" required>
+            <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel" class="noiseLevelRange" required>
             <i class="icon ion-volume-high"></i>
           </div>
-          <a class="button button-outline icon-right ion-chevron-right button-calm p" ng-click="selectTab(1)">Next</a>
+          <a class="button button-block button-outline icon-right ion-chevron-right button-calm p" ng-click="selectTab(1)">Next</a>
         </ion-content>
       </ion-tab>
 
       <!-- CROWD -->
-      <ion-tab title="crowd" on-swipe-left="selectTab(2)">
+      <ion-tab title="crowd" icon-on="fa fa-users" icon-off="fa fa-users"  class="padding-vertical">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
           <div class="button button-clear" ng-click="closeReview()">
             <span class="icon ion-close"></span>
           </div>
         </ion-header-bar>
-        <ion-content>
-          <h1>How's the CROWD?</h1>
+        <ion-content class="padding">
+          <h4 class="tab-heading">How's the crowd?</h4>
           <div class="row">
-            <a class="col button" ng-class="{'button-dark': isCrowdActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
+            <a class="col button" ng-class="{'button-calm': isCrowdActive('dead')}" ng-click="setActive('dead')">Kinda Empty.</a>
           </div>
           <div class="row">
             <a class="col button" ng-class="{'button-energized': isCrowdActive('ok')}" ng-click="setActive('ok')">Good Leg Room</a>
@@ -44,12 +43,12 @@
           <div class="row">
             <a class="col button" ng-class="{'button-assertive': isCrowdActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
           </div>
-          <a class="button button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
+          <a class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
         </ion-content>
       </ion-tab>
 
       <!-- GIRL/GUY -->
-      <ion-tab title="gg" on-swipe-left="selectTab(3)">
+      <ion-tab title="gg" icon-on="ion-transgender" icon-off="ion-calm ion-transgender">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
           <div class="button button-clear" ng-click="closeReview()">
@@ -57,19 +56,19 @@
           </div>
         </ion-header-bar>
 
-        <ion-content>
-          <h1>What's the Raysh?!</h1>
-          <div class="item range range-stables">
+        <ion-content class="padding">
+          <h4 class="tab-heading">What's male to female ratio?</h4>
+          <div class="item range range-stables padding-vertical">
             <i class="icon ion-man"></i>
-            <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio" required>
+            <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio" class="ratioRange" required>
             <i class="icon ion-woman"></i>
           </div>
-          <a class="button button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(3)">Next</a>
+          <a class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(3)">Next</a>
         </ion-content>
       </ion-tab>
 
       <!-- AGE -->
-      <ion-tab title="age">
+      <ion-tab title="age" icon-on="ion-clock" icon-off="ion-clock">
         <ion-header-bar class="bar-positive">
           <h1 class="title">Review {{bar.name}}</h1>
           <div class="button button-clear" ng-click="closeReview()">
@@ -77,10 +76,10 @@
           </div>
         </ion-header-bar>
 
-        <ion-content>
-          <h1>Young & Hip or Old & Busted?</h1>
+        <ion-content class="padding">
+          <h4 class="tab-heading">Fresh hops or barrel-aged?</h4>
           <div class="row">
-            <a class="col button" ng-class="{'button-dark': isAgeActive(1)}" ng-click="setActive(1)">21-25 years</a>
+            <a class="col button" ng-class="{'button-calm': isAgeActive(1)}" ng-click="setActive(1)">21-25 years</a>
           </div>
           <div class="row">
             <a class="col button" ng-class="{'button-energized': isAgeActive(2)}" ng-click="setActive(2)">26-30 years</a>
