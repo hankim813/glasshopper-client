@@ -1,7 +1,6 @@
 angular.module('crawlCtrl', []).
 
-controller('CrawlController', function($scope, $http, $location, $localStorage, $ionicHistory, crawlFactory){
-	$scope.searchData = {};
+controller('CrawlController', function($scope, $http, $state, $location, $localStorage, $ionicHistory, crawlFactory){
 
 	$scope.startCrawl = function() {
 		crawlFactory.create({userId: $localStorage.user.id}).then(function(response) {
@@ -15,28 +14,19 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 
 			$localStorage.currentCrawl = crawl;
 
-			// process query
-			// findGeoloc($scope.barQuery);
-
-			// then clear form
-			$scope.searchData = {};
 			$ionicHistory.nextViewOptions({
 			    disableAnimate  : false,
 			    disableBack     : true
 			});
-			$location.path('/app/crawls/' + crawl.id);
+
+			$state.go('app.barsMap');
 
 		}, function(error) {
 			console.log(error.data.message);
-			$location.path('/app/crawls');
+			$state.go('app.crawls');
 		});
 	};
 
-	function findGeoloc(barQuery) {
-		// process query and find geo query then redirect
-		
-		// $location.path('/app/bars/findNextBar/' + desiredGeolocation);
-	};
 })
 
 .controller('CurrentCrawlController', function($scope, $stateParams, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {

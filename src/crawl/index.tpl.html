@@ -1,20 +1,11 @@
-<ion-view view-title="Bar Crawl">
+<ion-view view-title="Home">
   <ion-content>
-  <!-- THIS SHOULD BE HOMEPAGE -->
-  <!-- This part should have a map, with your location pinged, and nearby trending bars as well -->
 
 		<div class="row row-center">
 			<h1>Where do you want to start your crawl?</h1>
 		</div>
 
-  <!-- This shold be an input box on the bottom like chat -->
-			<form ng-submit="startCrawl()">
-			  <div class="list">
-			    <label class="item item-input">
-			      <input type="text" placeholder="enter a street, bar, address.." ng-model="searchData.bar">
-			      <button class="button button-positive" type="submit">Start and Search!</button>
-			    </label>
-			  </div>
-			</form>
+    <button class="button button-positive" ng-click="startCrawl()">Let's Drink!</button>
   </ion-content>
 </ion-view>
+

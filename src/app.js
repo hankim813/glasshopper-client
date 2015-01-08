@@ -69,7 +69,7 @@ if (window.cordova && window.cordova.plugins.Keyboard) {
 }
 if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.hide();
     };
 
     AuthenticationFactory.check();

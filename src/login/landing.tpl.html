@@ -1,15 +1,15 @@
-<ion-view view-title="Welcome">
-  <ion-nav-bar class="bar-stable">
-  </ion-nav-bar>
-  <ion-content>
-    <label class="item">
-      <button class="button button-block button-positive" ui-sref="login">Log in</button>
-    </label>
-    <label class="item">
-      <button class="button button-block button-positive" ui-sref="register">Create Account</button>
-    </label>
-    <label class="item">
-      <button class="button button-block button-positive" ng-click="facebookLogin()">Connect with Facebook</button>
-    </label>
+<ion-view>
+  <ion-content class="bg-home">
+
+    <div class="landing-logo">
+      <div class="row">
+        <div class="center-elm"><img src="./img/logo.png" alt="glasshopper logo"></div>
+      </div>
+    </div>
+    <div class="landing-buttons">
+      <button class="button button-block button-balanced" ui-sref="login">Sign In</button>
+      <button class="button button-block button-balanced" ui-sref="register">Create Account</button>
+      <button class="button button-block button-balanced facebook" ng-click="facebookLogin()">Connect with Facebook</button>
+    </div>
   </ion-content>
 </ion-view>

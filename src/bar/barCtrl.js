@@ -1,6 +1,6 @@
 angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, SearchData){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $state, $localStorage, $ionicLoading, barFactory, geo, SearchData){
 
 
   (function(geo) {
@@ -31,20 +31,21 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
 
   // refreshes dashboard information
   $scope.updateBars = function() {
-        geo.getHighAccuracyPosition().then(function(position) {
-          var pos = {lat: position.coords.latitude,
-                     lng: position.coords.longitude};
-          barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
-            $scope.bars = response.data;
-            bars = response.data;
-          }, function(error) {
-            console.log(error);
-          });
-        }, function(error) {
-          alert(JSON.stringify(error));
-        });
-    $scope.$broadcast('scroll.refreshComplete');
-    $scope.$apply();
+    $state.reload();
+    //     geo.getHighAccuracyPosition().then(function(position) {
+    //       var pos = {lat: position.coords.latitude,
+    //                  lng: position.coords.longitude};
+    //       barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
+    //         $scope.bars = response.data;
+    //         bars = response.data;
+    //       }, function(error) {
+    //         console.log(error);
+    //       });
+    //     }, function(error) {
+    //       alert(JSON.stringify(error));
+    //     });
+    // $scope.$broadcast('scroll.refreshComplete');
+    // $scope.$apply();
   };
 })
 
