@@ -2,12 +2,10 @@
 	<ion-content>
 		<div class="list">
 		<h1>past crawls!</h1>
-			<div ng-repeat="crawl in crawls" class="item item-thumbnail-left">
-				<div ng-repeat="bar in crawl.bars">
-				<p> {{bar.name}}</p>
-				<p> {{bar.address}}</p>
-				</div>
-			</div>
+			<a ng-repeat="crawl in crawls" ui-sref="app.currentCrawl({crawlId: crawl._id})" class="item item-thumbnail-left">
+				{{crawl.createdAt}}
+				{{crawl._id}}
+			</a>
 		</div>
 	</ion-content>
 </ion-view>

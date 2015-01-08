@@ -42,17 +42,39 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 .controller('CurrentCrawlController', function($scope, $stateParams, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
 
 	(function(){
-		$scope.checkins = [];
+	  if ($localStorage.currentCrawl && $localStorage.currentCrawl.id === $stateParams.crawlId) {
+	  	console.log("enable button")
+	    $scope.ifEnded = false;
+	    $scope.endCrawlButtonMsg = "End";
+
+	  } else {
+	  	console.log("disable button");
+	    $scope.ifEnded = true;
+	    console.log($scope.ifEnded);
+	    $scope.endCrawlButtonMsg = "Ended";
+
+	  }
+	})(); 
+
+	$scope.checkins = [];
+	(function(){
+		if ($localStorage.currentCrawl) {
 			crawlFactory.get($stateParams.crawlId).then(function(populatedCrawl) {
-				console.log(populatedCrawl.data._checkins.length);
-				console.log(populatedCrawl.data._checkins);
-				console.log(populatedCrawl.data._checkins[0]);
+				for (var i = 0; i < populatedCrawl.data._checkins.length; i++) {
+				  $scope.checkins.push(populatedCrawl.data._checkins[i]); 
+				}
+			}, function(error) {
+				console.log(error);
+			});
+		} else {
+			crawlFactory.getPast($stateParams.crawlId).then(function(populatedCrawl) {
         for (var i = 0; i < populatedCrawl.data._checkins.length; i++) {
           $scope.checkins.push(populatedCrawl.data._checkins[i]); 
         }
-      }, function(error) {
+			}, function(error) {
         console.log(error);
-      });
+			});
+		}
 	})();
 
 	// Confirmation Modal
@@ -70,9 +92,6 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 		$scope.confirmationModal.hide();
 	}
 
-
-
-	// be sure to implement the feature where it checks for idleness of the crawl. If the updatedAt date is more than 12 hours from now, then execute endCrawl()
 
 	$scope.endCrawl = function() {
 		crawlFactory.end($localStorage.currentCrawl.id).then(function(response) {
@@ -94,8 +113,6 @@ controller('CrawlController', function($scope, $http, $location, $localStorage, 
 .controller('CrawlHistoryController', function($scope, $http, $location, $localStorage, crawlFactory, crawls) {
 
 	$scope.crawls = crawls.data;
-	console.log($scope.crawls);
-
 
 });
 
