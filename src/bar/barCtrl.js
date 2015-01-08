@@ -99,12 +99,9 @@ function shoveIntoArray (bar) {
 })
 
 .controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
-
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
-  $scope.reviewButtonText = '';
-  $scope.isDisabled = false;
 
 
   // if there is aggregate data, message is displayed in view
@@ -299,12 +296,11 @@ function shoveIntoArray (bar) {
   $scope.upvote = function(postId) {
     $http.put("http://127.0.0.1:3000/api/votes/up/" + postId).then(function (votes) {
       getPosts();
+      var element = document.getElementById(postId + '-down');
+      angular.element(element).addClass('disabled');
     }, function (error) {
       alert('Failed: ' + error);
     });
-
-    $scope.isDisabled = true;
-    console.log($scope.isDisabled);
   };
 
   $scope.downvote = function(postId) {
@@ -313,13 +309,7 @@ function shoveIntoArray (bar) {
     }, function (error) {
       alert('Failed: ' + error);
     });
-
-    $scope.isDisabled = true;
-    console.log($scope.isDisabled);
   };
-
-
-
 
 
 
@@ -561,6 +551,4 @@ function shoveIntoArray (bar) {
         break;
     }
   }
-
-
 });

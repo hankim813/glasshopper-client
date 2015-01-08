@@ -1,5 +1,5 @@
 <ion-tabs class="tabs-top">
-  <ion-tab title="Stats" icon-on="ion-ios-pint" icon-off="ion-ios-pint-outline">
+  <ion-tab title="Stats" icon-on="ion-beer" icon-off="ion-beer postitive">
   <ion-view view-title="{{bar.name}}">
     <ion-content>
       <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
@@ -51,7 +51,7 @@
   </ion-footer-bar>
   </ion-tab>
 
-  <ion-tab title="New" icon-on="ion-ios-chatboxes" icon-off="ion-ios-chatboxes-outline">
+  <ion-tab title="New" icon-on="ion-chatboxes" icon-off="ion-chatboxes postitive">
   <ion-view view-title="{{bar.name}}">
   <ion-content>
     <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
@@ -63,9 +63,9 @@
             <p>@{{ post.author }}</p>
         </div>
         <div class="col center padding-vertical">
-          <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="isDisabled || !(isCheckedIn())"><h3>{{ post.points }}</h3></a>
+          <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>
           <br>
-          <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="isDisabled || !(isCheckedIn())"></a>
+          <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="!(isCheckedIn())"></a>
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@
   </ion-footer-bar>
   </ion-tab>
 
-  <ion-tab title="Hot" icon-on="ion-ios-flame" icon-off="ion-ios-flame-outline">
+  <ion-tab title="Hot" icon-on="ion-flame" icon-off="ion-flame postitive">
   <ion-view view-title="{{bar.name}}">
     <ion-content>
           <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
@@ -99,9 +99,9 @@
             <p>{{ post.createdAt | date : 'h:mm a' }}</p>
         </div>
         <div class="col center padding-vertical">
-          <a href="#" id="{{post._id}}" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="isDisabled || !(isCheckedIn())"><h3>{{ post.points }}</h3></a>
+          <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>
           <br>
-          <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="isDisabled || !(isCheckedIn())"></a>
+          <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="!(isCheckedIn())"></a>
         </div>
       </div>
     </div>
