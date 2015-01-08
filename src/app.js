@@ -28,49 +28,20 @@ angular.module('glassHopper', [ 'ionic',
                                 'uiGmapgoogle-maps',
                                 'searchModule',])
 
-.factory('BarData', function () {
-    var data = {};
-    return {
-      getBars: function () {
-        return data.bars;
-      },
-      clearBars: function () {
-        delete data.bars;
-      },
-      setBars: function (bars) {
-        return data.bars = bars;
-      }
-    }
-})
-
-.factory('SearchData', [ function(){
-    var data = {};
-    return {
-      getCoords: function () {
-        return data.coords;
-      },
-      clearCoords: function () {
-        delete data.coords;
-      },
-      setCoords: function (coords) {
-        return data.coords = coords;
-      }
-    }
-}])
-
 
 .run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, geo) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-if (window.cordova && window.cordova.plugins.Keyboard) {
-  cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-}
-if (window.StatusBar) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     };
+
 
     AuthenticationFactory.check();
 
@@ -82,9 +53,7 @@ if (window.StatusBar) {
 
     $cordovaSplashscreen.hide();
 
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-        console.log(fromParams);
-        console.log(toParams);
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
       if (toState.name !== 'login' && toState.name !== 'register' && toState.name !== 'landing') {
         if (!AuthenticationFactory.isLogged) {
           $ionicHistory.nextViewOptions({
@@ -96,22 +65,15 @@ if (window.StatusBar) {
       };
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // if the user is already logged in, take him to the home page
       if (AuthenticationFactory.isLogged == true && (toState.url === '/login' || toState.url === '/register' || toState.url === '/landing')) {
         $location.path("/app/home");
       }
     });
 
-    (function(geo) {
-      geo.getPosition().then(function(position) {
-        $localStorage.last_position = {latitude: position.coords.latitude,
-                                       longitude: position.coords.longitude};
-      }, function(error) {
-        alert(JSON.stringify(error));
-        alert("glassHopper needs your location to work");
-      })
-    })(geo);
+    geo.init();
+
   });
 })
 
@@ -145,5 +107,39 @@ if (window.StatusBar) {
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
-});
+})
 
+.factory('BarData', function () {
+    var data = {};
+    return {
+      getBars: function () {
+        return data.bars;
+      },
+      clearBars: function () {
+        delete data.bars;
+      },
+      setBars: function (bars) {
+        return data.bars = bars;
+      }
+    }
+})
+
+.factory('DeviceInfo', ['$window', function($window){
+    var data = {};
+
+    function init () {
+      data.height = $window.innerHeight;
+      data.width = $window.innerWidth;
+    };
+
+    init();
+
+    return {
+      width: function () {
+        return data.width;
+      },
+      height: function () {
+        return data.height;
+      }
+    }
+}]);

@@ -5,6 +5,7 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
 
   .state('app.bars', {
     url     : "/bars",
+    cache   : false,
     views   : {
       'menuContent': {
         templateUrl: "bar/bars.tpl.html",

@@ -1,6 +1,7 @@
 <style type="text/css">
-{{".angular-google-map-container { height: "+ window.innerHeight + "px;}"}}
+  .angular-google-map-container { height: {{device.height()}}px;}
 </style>
+
 <ion-view view-title="Bars">
 <ion-content>
 
@@ -22,6 +23,7 @@
 
     <ui-gmap-windows
       isIconVisibleOnClick="true"
+      templateUrl="infowindow.tpl.html"
       show="'show'">
       <div ng-non-bindable>{{name}}</div>
     </ui-gmap-windows>
