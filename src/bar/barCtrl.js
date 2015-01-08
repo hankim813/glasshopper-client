@@ -304,8 +304,7 @@ function shoveIntoArray (bar) {
 
   // VISUALIZATIONS
   $scope.visualize = function() {
-    console.log("visualize!");
-    $('.donut').peity('donut');
+    $('.donut').peity('donut', { width: 48 });
   };
 
 
