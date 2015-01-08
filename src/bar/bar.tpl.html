@@ -1,75 +1,139 @@
-<ion-view view-title="{{bar.name}}">
-<ion-content>
-<!-- Pull Refresh -->
-<ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
-</ion-refresher>
-<!-- BAR PICTURE -->
-<img class="col full-image" ng-src="{{bar.photoUrl}}">
+<ion-tabs class="tabs-top">
+<!-- STATS TAB -->
+  <ion-tab title="Stats" icon-on="ion-beer" icon-off="ion-beer postitive">
+    <ion-view view-title="{{bar.name}}">
+      <ion-content>
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
+        </ion-refresher>
+        
+        <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
+          {{ checkinButtonMsg }}
+        </button>
+      
+  <!-- VISUALIZATIONS -->
+        <ion-slide-box show-pager="false" auto-play="true" does-continue="true" slide-interval="3000">
+          <ion-slide>
+            <div class="row">
+              <div class="col col-25 col-offset-25">
+                <span class="volume-bar">1,2,3,4,5</span>
+              </div>
+    
+              <div class="col col-25">
+                <span class="crowd">23/100</span>
+              </div>
+            </div>
+          </ion-slide>
+    
+          <ion-slide>
+            <div class="row padding-vertical padding-left">
 
-<!-- CHECK-IN -->
-<div class="row">
-	<button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
-    {{ checkinButtonMsg }}
-	</button>
-</div>
+              <div class="col col-25 col-offset-25">
+                <span class="age">88/100</span>
+              </div>
 
-<!-- ACTIVITY FEED -->
-<div class="row-center">
-  <div class="list">
-  	<div ng-repeat="post in posts | reverse" class="item item-thumbnail-left">
-  		<p>{{ post.content }}</p>
-      <p>@{{ post.author }}</p>
-      <a href="#" ng-click="upvote(post._id)" ng-show="isCheckedIn()">up</a>
-      <a href="#" ng-click="downvote(post._id)" ng-show="isCheckedIn()">down</a>
-      <p>points: {{ post.points }}</p>
-      <!-- NOT UPDATING! FIX THIS -->
+              <div class="col col-25">
+                <span class="gender">60/100</span>
+              </div>
+            </div>
+          </ion-slide>
+        </ion-slide-box>
+
+        <div class="row">
+          <button class="button" ng-click="visualize()">
+            fire visualizations!
+          </button>
+        </div>
+    </ion-content>
+  </ion-view>
+<!-- FOOTER BAR -->
+  <ion-footer-bar ng-show="isCheckedIn()">
+    <div class="tabs tabs-icon-top">
+      <a class="tab-item" ng-click="openPostModal()">
+        <i class="icon ion-compose"></i>
+        Comment
+      </a>
+      <a class="tab-item" ng-click="reviewBar()">
+        <i class="icon ion-speedometer"></i>
+        Review
+      </a>
     </div>
-  </div>
-</div>
+  </ion-footer-bar>
+</ion-tab>
 
-
-<!-- AGGREGATES -->
-<div class="row">
-  <div class="item center" ng-hide="aggregates.noiseLevel">
-    <p>No reviews yet...</p>
-  </div>
-
-  <div class="list card" ng-show="aggregates.noiseLevel">
-
-    <a href="#" class="item item-icon-left">
-      <i class="icon ion-volume-high"></i>
-      noise = {{ aggregates.noiseLevel | rounded }}
-    </a>
-
-    <a href="#" class="item item-icon-left">
-      <i class="icon ion-person-stalker"></i>
-      crowd = {{aggregates.crowdLevel | rounded }}
-    </a>
-
-    <a href="#" class="item item-icon-left">
-      <i class="icon ion-clock"></i>
-      age = {{aggregates.avgAge | rounded }}
-    </a>
-
-    <a href="#" class="item item-icon-left">
-      <i class="icon ion-transgender"></i>
-      ratio = {{aggregates.ggRatio | rounded }}
-    </a>
-  </div>
-</div>
-</ion-content>
+<!-- NEW COMMENTS -->
+<ion-tab title="New" icon-on="ion-chatboxes" icon-off="ion-chatboxes postitive">
+  <ion-view view-title="{{bar.name}}">
+    <ion-content>
+      <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
+      </ion-refresher>
+<!-- FEED -->
+      <div ng-repeat="post in posts | reverse" class="list">
+        <div class="row item">
+          <div class="col col-75 padding-vertical padding-horizontal">
+              <p>{{ post.content }}</p>
+              <p>@{{ post.author }}</p>
+              <p>{{ post.createdAt | date: 'h:mm a' }}</p>
+          </div>
+          <div class="col center padding-vertical">
+            <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>
+            <br>
+            <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="!(isCheckedIn())"></a>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ion-view>
 <!-- FOOTER TOOLBAR -->
-<ion-footer-bar ng-show="isCheckedIn()">
-<div class="tabs tabs-icon-top">
-  <a class="tab-item" ng-click="openPostModal()">
-    <i class="icon ion-compose"></i>
-    Comment
-  </a>
-  <a class="tab-item" ng-click="reviewBar()">
-    <i class="icon ion-speedometer"></i>
-    Review
-  </a>
-</div>
-</ion-footer-bar>
+  <ion-footer-bar ng-show="isCheckedIn()">
+    <div class="tabs tabs-icon-top">
+      <a class="tab-item" ng-click="openPostModal()">
+        <i class="icon ion-compose"></i>
+        Comment
+      </a>
+      <a class="tab-item" ng-click="reviewBar()">
+        <i class="icon ion-speedometer"></i>
+        Review
+      </a>
+    </div>
+  </ion-footer-bar>
+</ion-tab>
+<!-- HOT POSTS -->
+<ion-tab title="Hot" icon-on="ion-flame" icon-off="ion-flame postitive">
+  <ion-view view-title="{{bar.name}}">
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
+        </ion-refresher>
+        
+        <div ng-repeat="post in posts | orderBy : 'points' : 'reverse'" class="list">
+          <div class="row item">
+            <div class="col col-75 padding-vertical padding-horizontal">
+              <p>{{ post.content }}</p>
+              <p>@{{ post.author }}</p>
+              <p>{{ post.createdAt | date : 'h:mm a' }}</p>
+            </div>
+            <div class="col center padding-vertical">
+              <a href="#" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>
+              <br>
+              <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="!(isCheckedIn())"></a>
+            </div>
+          </div>
+        </div>
+    </ion-content>
+  </ion-view>
+<!-- FOOTER BAR -->
+  <ion-footer-bar ng-show="isCheckedIn()">
+    <div class="tabs tabs-icon-top">
+      <a class="tab-item" ng-click="openPostModal()">
+        <i class="icon ion-compose"></i>
+        Comment
+      </a>
+      <a class="tab-item" ng-click="reviewBar()">
+        <i class="icon ion-speedometer"></i>
+        Review
+      </a>
+    </div>
+  </ion-footer-bar>
+  </ion-tab>
 
-</ion-view>
+
+</ion-tabs>

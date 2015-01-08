@@ -1,9 +1,10 @@
 angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $state, $localStorage, $ionicLoading, barFactory, geo, SearchData){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, SearchData){
 
 
-  (function(geo) {
+
+  function init () {
         if (SearchData.getCoords()) {
             barFactory.findNearby(SearchData.getCoords().lng, SearchData.getCoords().lat, $localStorage.user.searchRadius).then(function(response) {
               $scope.bars = response.data;
@@ -12,65 +13,54 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $s
             });
             SearchData.clearCoords();
         } else {
-          $ionicLoading.show();
-          geo.getHighAccuracyPosition().then(function(position) {
-            var pos = {lat: position.coords.latitude,
-                       lng: position.coords.longitude};
-           $ionicLoading.hide();
+          var pos = {lat: $localStorage.currentPosition.latitude,
+                     lng: $localStorage.currentPosition.longitude};
             barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
               $scope.bars = response.data;
             }, function(error) {
               console.log(error);
             });
-          }, function(error) {
-            alert(JSON.stringify(error));
-            $ionicLoading.hide();
-          });
         }
-    })(geo);
+    };
+
+    init();
 
   // refreshes dashboard information
   $scope.updateBars = function() {
-    $state.reload();
-    //     geo.getHighAccuracyPosition().then(function(position) {
-    //       var pos = {lat: position.coords.latitude,
-    //                  lng: position.coords.longitude};
-    //       barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
-    //         $scope.bars = response.data;
-    //         bars = response.data;
-    //       }, function(error) {
-    //         console.log(error);
-    //       });
-    //     }, function(error) {
-    //       alert(JSON.stringify(error));
-    //     });
-    // $scope.$broadcast('scroll.refreshComplete');
-    // $scope.$apply();
+    var pos = {lat: $localStorage.currentPosition.latitude,
+               lng: $localStorage.currentPosition.longitude};
+    barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
+      $scope.bars = response.data;
+      bars = response.data;
+    }, function(error) {
+      console.log(error);
+    });
+    $scope.$broadcast('scroll.refreshComplete');
+    $scope.$apply();
   };
+
 })
 
-.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
+.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, barFactory, geo, DeviceInfo){
 
-  $scope.window = $window;
+  $scope.device = DeviceInfo;
   $scope.bars = [];
 
-  (function(geo) {
-        $ionicLoading.show();
-        geo.getPosition().then(function(position) {
-          var pos = {latitude: position.coords.latitude,
-                     longitude: position.coords.longitude};
-         $ionicLoading.hide();
-          barFactory.findNearby(pos.longitude, pos.latitude, $localStorage.user.searchRadius).then(function(response) {
+  $scope.myPosition = $localStorage.currentPosition;
+  $scope.userId = $localStorage.user.id;
+
+  function init () {
+    var pos = {lat: $localStorage.currentPosition.latitude,
+               lng: $localStorage.currentPosition.longitude};
+        barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).
+          then(function(response) {
             $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
             console.log(error);
-           $ionicLoading.hide();
           });
-        }, function(error) {
-          alert(JSON.stringify(error));
-         $ionicLoading.hide();
-        });
-    })(geo);
+    };
+
+    init();
 
 function thaiMassageBars (bars) {
   var result = [];
@@ -100,22 +90,22 @@ function shoveIntoArray (bar) {
 })
 
 .controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
-
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
-  $scope.reviewButtonText = '';
 
-  // refreshes dashboard information
-  $scope.updateDash = function() {
-    reviewFactory.fetchAggregate($scope.bar._id)
-      .success(function (data) {
-        $scope.aggregates = data[0];
-      })
-      .error(function (data) {
-        alert(data.message);
-      });
 
+  // if there is aggregate data, message is displayed in view
+  $scope.emptyAggregateMessage = function () {
+    if($scope.isCheckedIn()) {
+      return "Be the first to review this bar!";
+    } else {
+      return "Check in to leave a review!";
+    }
+  };
+
+  //get all posts
+  function getPosts () {
     postFactory.getAll($scope.bar._id)
       .success(function (data) {
         $scope.posts = data;
@@ -123,7 +113,13 @@ function shoveIntoArray (bar) {
       .error(function (data) {
         alert(data.message);
       });
+  }
 
+
+  // refreshes dashboard information
+  $scope.updateDash = function() {
+    getAggs();
+    getPosts();
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
@@ -289,31 +285,44 @@ function shoveIntoArray (bar) {
 
   // Voting feature
   $scope.upvote = function(postId) {
-    $http.put("http://127.0.0.1:3000/api/votes/up/" + postId);
+    $http.put("http://127.0.0.1:3000/api/votes/up/" + postId).then(function (votes) {
+      getPosts();
+      var element = document.getElementById(postId + '-down');
+      angular.element(element).addClass('disabled');
+    }, function (error) {
+      alert('Failed: ' + error);
+    });
   };
 
   $scope.downvote = function(postId) {
-    $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
+    $http.put("http://127.0.0.1:3000/api/votes/down/" + postId).then(function (votes) {
+      getPosts();
+    }, function (error) {
+      alert('Failed: ' + error);
+    });
   };
 
 
+  // VISUALIZATIONS
+  $scope.visualize = function() {
+    $('.crowd').peity('donut', { width: 48 });
+    $('.age').peity('donut', { width: 48 });
+    $('.gender').peity('donut', 
+      { 
+        width: 48 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      });
+    $('.volume-bar').peity('bar', 
+      {
+        width: 48,
+        height: 48,
+        fill: ["rgb(255, 158, 0)", 
+               "rgb(232, 123, 12)",
+               "rgb(255, 94, 0)",
+               "rgb(232, 63, 12)", 
+               "rgb(255, 41, 17)"]
+      });
+  };
 
 
   //--------------- POST CONTROLLER START ----------------------
@@ -360,31 +369,6 @@ function shoveIntoArray (bar) {
   function postErrorCallback (error) {
     alert('error');
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //--------------- REVIEW START ----------------------
   $scope.rawData        = {};
@@ -539,6 +523,4 @@ function shoveIntoArray (bar) {
         break;
     }
   }
-
-
 });

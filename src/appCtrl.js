@@ -12,7 +12,7 @@ angular.module('appCtrl', [])
   $scope.doSearch = function(place){
     SearchData.setCoords({ lat: place.geometry.location.k,
                            lng: place.geometry.location.D});
-    $state.go("app.bars");
+    $state.go("app.bars",{},{reload: true});
   };
 
   $scope.fetchCurrentCrawl = function() {
