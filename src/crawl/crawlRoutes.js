@@ -3,16 +3,6 @@
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('app.crawls', {
-    url     : "/crawls",
-    views   : {
-      'menuContent' : {
-        templateUrl   : "crawl/index.tpl.html",
-        controller    : 'CrawlController'
-      }
-    }
-  })
-
   .state('app.crawlHistory', {
     cache   : false,
     url     : "/crawls/history",
@@ -29,9 +19,19 @@
     }
   })
 
+  .state('app.start', {
+    url     : '/start',
+    views   : {
+      'menuContent' : {
+        templateUrl : "crawl/index.tpl.html",
+        controller  : "CrawlController"
+      }
+    }
+  })
+
   .state('app.currentCrawl', {
     cache   : false,
-  	url 		: "/crawls/:crawlId",
+  	url 		: "/crawls/:crawlId/:name",
   	views	  : {
   		'menuContent'	: {
   			templateUrl : "crawl/show.tpl.html",

@@ -79,6 +79,14 @@ h4.tab-heading {
 	padding-top: 60%;
 }
 
+.home-logo {
+	padding-top: 38%;
+}
+
 .landing-buttons {
 	padding-top: 3%;
+}
+
+.center-text {
+	text-align: center;
 }

@@ -3,8 +3,8 @@ angular.module('crawlFactories',[])
 .factory('crawlFactory', function($localStorage, $http, $location) {
 	return {
 
-		create	: function(userId) {
-			return $http.post('http://127.0.0.1:3000/api/crawls/', {data: userId, access_token: $localStorage.token});
+		create	: function(crawlData) {
+			return $http.post('http://127.0.0.1:3000/api/crawls/', {data: crawlData, access_token: $localStorage.token});
 		},
 
 		get 		: function(crawlId) {
