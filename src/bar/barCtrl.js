@@ -37,6 +37,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
+
 })
 
 .controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, barFactory, geo, DeviceInfo){
@@ -301,6 +302,26 @@ function shoveIntoArray (bar) {
   };
 
 
+  // VISUALIZATIONS
+  $scope.visualize = function() {
+    $('.crowd').peity('donut', { width: 48 });
+    $('.age').peity('donut', { width: 48 });
+    $('.gender').peity('donut', 
+      { 
+        width: 48 
+
+      });
+    $('.volume-bar').peity('bar', 
+      {
+        width: 48,
+        height: 48,
+        fill: ["rgb(255, 158, 0)", 
+               "rgb(232, 123, 12)",
+               "rgb(255, 94, 0)",
+               "rgb(232, 63, 12)", 
+               "rgb(255, 41, 17)"]
+      });
+  };
 
 
 
@@ -310,6 +331,11 @@ function shoveIntoArray (bar) {
 
 
 
+// return "rgb(255, 158, 0)"
+// return "rgb(232, 123, 12)"
+// return "rgb(255, 94, 0)"
+// return "rgb(232, 63, 12)"
+// return "rgb(255, 41, 17)"
 
 
 

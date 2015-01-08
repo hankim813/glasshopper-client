@@ -14,7 +14,8 @@
     "ngstorage": "~0.3.0",
     "fontawesome": "~4.2.0",
     "angular-google-maps": "~2.0.12",
-    "ion-google-place": "git://github.com/stefanosc/ion-google-place.git#glasshopper"
+    "ion-google-place": "git://github.com/stefanosc/ion-google-place.git#glasshopper",
+    "piety": "https://github.com/neilcode/peity.git"
   },
   "resolutions": {
     "angular": "~1.3"
