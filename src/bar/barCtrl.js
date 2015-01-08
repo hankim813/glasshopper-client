@@ -1,9 +1,9 @@
 angular.module('barCtrl', ['ionic']).
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, geo, SearchData){
+controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, SearchData){
 
 
-  (function(geo) {
+  function init () {
         if (SearchData.getCoords()) {
             barFactory.findNearby(SearchData.getCoords().lng, SearchData.getCoords().lat, $localStorage.user.searchRadius).then(function(response) {
               $scope.bars = response.data;
@@ -12,37 +12,28 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
             });
             SearchData.clearCoords();
         } else {
-          $ionicLoading.show();
-          geo.getHighAccuracyPosition().then(function(position) {
-            var pos = {lat: position.coords.latitude,
-                       lng: position.coords.longitude};
-           $ionicLoading.hide();
+          var pos = {lat: $localStorage.currentPosition.latitude,
+                     lng: $localStorage.currentPosition.longitude};
             barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
               $scope.bars = response.data;
             }, function(error) {
               console.log(error);
             });
-          }, function(error) {
-            alert(JSON.stringify(error));
-            $ionicLoading.hide();
-          });
         }
-    })(geo);
+    };
+
+    init();
 
   // refreshes dashboard information
   $scope.updateBars = function() {
-        geo.getHighAccuracyPosition().then(function(position) {
-          var pos = {lat: position.coords.latitude,
-                     lng: position.coords.longitude};
-          barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
-            $scope.bars = response.data;
-            bars = response.data;
-          }, function(error) {
-            console.log(error);
-          });
-        }, function(error) {
-          alert(JSON.stringify(error));
-        });
+    var pos = {lat: $localStorage.currentPosition.latitude,
+               lng: $localStorage.currentPosition.longitude};
+    barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).then(function(response) {
+      $scope.bars = response.data;
+      bars = response.data;
+    }, function(error) {
+      console.log(error);
+    });
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
@@ -53,23 +44,21 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   $scope.device = DeviceInfo;
   $scope.bars = [];
 
-  (function(geo) {
-        $ionicLoading.show();
-        geo.getPosition().then(function(position) {
-          var pos = {latitude: position.coords.latitude,
-                     longitude: position.coords.longitude};
-         $ionicLoading.hide();
-          barFactory.findNearby(pos.longitude, pos.latitude, $localStorage.user.searchRadius).then(function(response) {
+  $scope.myPosition = $localStorage.currentPosition;
+  $scope.userId = $localStorage.user.id;
+
+  function init () {
+    var pos = {lat: $localStorage.currentPosition.latitude,
+               lng: $localStorage.currentPosition.longitude};
+        barFactory.findNearby(pos.lng, pos.lat, $localStorage.user.searchRadius).
+          then(function(response) {
             $scope.bars = thaiMassageBars(response.data);
           }, function(error) {
             console.log(error);
-           $ionicLoading.hide();
           });
-        }, function(error) {
-          alert(JSON.stringify(error));
-         $ionicLoading.hide();
-        });
-    })(geo);
+    };
+
+    init();
 
 function thaiMassageBars (bars) {
   var result = [];
