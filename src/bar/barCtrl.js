@@ -96,19 +96,18 @@ function shoveIntoArray (bar) {
   
     // VISUALIZATIONS
   $scope.calculateNoise = function() {
-    var noiseDataString = '';
+    var noiseDataString = [];
+    console.log("calculateNoise(): noiseLevel from server: ", $scope.aggregates.noiseLevel);
     var noiseLevel = $scope.aggregates.noiseLevel;
-    var dataToString = '';
+    
       for(var i = 1; i<= noiseLevel; i++){
-        dataToString = i.toString()
-        noiseDataString.concat(dataToString);
-        if (i < noiseLevel ) {
-          noiseDataString.concat(',');
-        }
+        noiseDataString.concat(i);
       }
-      console.log("noiseDataString in calculateNoise: ", noiseDataString)
-    return noiseDataString;
+
+      console.log("noiseDataString as array: ", noiseDataString)
+    return noiseDataString.toString();
   }
+  
   $scope.visualize = function() {
     $scope.massagedNoiseLevel = $scope.calculateNoise();
     $('.crowd').peity('donut', { width: 48 });
