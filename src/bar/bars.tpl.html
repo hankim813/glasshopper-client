@@ -5,7 +5,7 @@
 </ion-refresher>
 <div class="list">
 	<a class="item item-thumbnail-left" ng-repeat="bar in bars" ui-sref="app.barshow({ barId: bar.obj._id, distance: bar.dis })">
-		<img ng-src="{{bar.obj.photoUrl}}">
+		<img ng-src="{{(bar.obj.photoUrl || './img/bar-placeholder.png')}}">
 		<h2> {{bar.obj.name}} </h2>
 		<p> {{bar.obj.address}} </p>
 		<p> {{bar.dis.toFixed(3)}} mi. </p>
