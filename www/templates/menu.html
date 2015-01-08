@@ -25,8 +25,6 @@
         <h2>{{user.name}}</h2>
         <p>{{(user.rank || 'Cocktail Napkin')}}</p>
       </a>
-        <!-- <i class="icon ion-gear-a"></i> -->
-        <!-- <h3 class="padding-top">Neil</h3> -->
 
         <ion-item nav-clear menu-close ui-sref="app.settings" ui-sref-active="item-balanced">
           My Profile
@@ -36,9 +34,6 @@
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/bars/map">
           Bars Map
-        </ion-item>
-        <ion-item nav-clear menu-close ui-sref="app.crawls" ng-hide="crawlStarted()" ui-sref-active="item-balanced">
-          Start Your Crawl
         </ion-item>
         <ion-item nav-clear menu-close ng-show="crawlStarted()" ng-click="fetchCurrentCrawl()">
           Current Crawl
