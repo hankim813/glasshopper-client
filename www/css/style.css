@@ -35,7 +35,7 @@ a.button.button-icon.icon.disabled {
 
 
 .reviewForm.modal {
-  top: 40%;
+  top: 25%;
   font-family: "Helvetica Neue",Roboto,sans-serif;
 }
 
@@ -43,7 +43,7 @@ a.button.button-icon.icon.disabled {
   margin-top: 5%;
 }
 
-h1.tab-heading {
+h4.tab-heading {
   color: rgb(106, 102, 102);
   text-align: center;
   padding: 5%;
