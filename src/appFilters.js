@@ -10,7 +10,7 @@ angular.module('customFilters', [])
 .filter('rounded', function () {
 	return function(items) {
     if(typeof items == 'number') {
-  		return items.toFixed(2);
+        return items.toFixed(2);
     }else {
       return NaN;
     }
