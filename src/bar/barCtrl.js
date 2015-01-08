@@ -3,6 +3,7 @@ angular.module('barCtrl', ['ionic']).
 controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, SearchData){
 
 
+
   function init () {
         if (SearchData.getCoords()) {
             barFactory.findNearby(SearchData.getCoords().lng, SearchData.getCoords().lat, $localStorage.user.searchRadius).then(function(response) {
@@ -324,25 +325,6 @@ function shoveIntoArray (bar) {
   };
 
 
-
-
-
-
-
-
-
-// return "rgb(255, 158, 0)"
-// return "rgb(232, 123, 12)"
-// return "rgb(255, 94, 0)"
-// return "rgb(232, 63, 12)"
-// return "rgb(255, 41, 17)"
-
-
-
-
-
-
-
   //--------------- POST CONTROLLER START ----------------------
   $scope.postData     = {
     barId: $scope.bar._id,
@@ -387,31 +369,6 @@ function shoveIntoArray (bar) {
   function postErrorCallback (error) {
     alert('error');
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //--------------- REVIEW START ----------------------
   $scope.rawData        = {};

@@ -14,3 +14,35 @@ input.ion-google-place[readonly]{
     background-color: transparent;
     cursor: text;
 }
+
+/* COLORS */
+
+.bg-home {
+	background-color: #FCB015;
+}
+
+.facebook {
+	background-color: #3b5998 !important;
+	border-color: #8b9dc3 !important;
+}
+
+/* ALIGNMENT */
+
+.center-elm {
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+.button-block {
+	width: 65% !important;
+	margin: auto;
+}
+
+.landing-logo {
+	padding-top: 60%;
+}
+
+.landing-buttons {
+	padding-top: 3%;
+}

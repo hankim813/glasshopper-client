@@ -4,6 +4,7 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
   $stateProvider
 
   .state('app.bars', {
+    cache   : false,
     url     : "/bars",
     cache   : false,
     views   : {
