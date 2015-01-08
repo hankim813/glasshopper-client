@@ -90,9 +90,46 @@ function shoveIntoArray (bar) {
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
-
-
+  $scope.massagedNoiseLevel = '';
+  console.log("aggregate data at instantiation: ", $scope.aggregates)
   // if there is aggregate data, message is displayed in view
+  
+    // VISUALIZATIONS
+  $scope.calculateNoise = function() {
+    var noiseDataString = '';
+    var noiseLevel = $scope.aggregates.noiseLevel;
+    var dataToString = '';
+      for(var i = 1; i<= noiseLevel; i++){
+        dataToString = i.toString()
+        noiseDataString.concat(dataToString);
+        if (i < noiseLevel ) {
+          noiseDataString.concat(',');
+        }
+      }
+      console.log("noiseDataString in calculateNoise: ", noiseDataString)
+    return noiseDataString;
+  }
+  $scope.visualize = function() {
+    $scope.massagedNoiseLevel = $scope.calculateNoise();
+    $('.crowd').peity('donut', { width: 48 });
+    $('.age').peity('donut', { width: 48 });
+    $('.gender').peity('pie', 
+      { 
+        width: 48,
+        fill: ["#DA7C8E", "#56C7ED"]
+      });
+    $('.volume-bar').peity('bar', 
+      {
+        width: 48,
+        height: 48,
+        fill: ["rgb(255, 158, 0)", 
+               "rgb(255, 94, 0)",
+               "rgb(232, 123, 12)",
+               "rgb(232, 63, 12)", 
+               "rgb(255, 41, 17)"]
+      });
+  };
+
   $scope.emptyAggregateMessage = function () {
     if($scope.isCheckedIn()) {
       return "Be the first to review this bar!";
@@ -178,8 +215,10 @@ function shoveIntoArray (bar) {
 
   $scope.checkinButtonMsg = "Check In!";
   // Can't check in unless you are you at least 200ft away from the bar
+  
   (function(){
-    if ($stateParams.distance > 0.04) {
+    $scope.visualize(); //visualize data on pageload
+    if ($stateParams.distance > 0.1) { //CHANGE THIS BACK BEFORE MERGE TO DEV
 
       $scope.ifNotNearBy = true;
       $scope.checkinButtonMsg = "Too far away to check in!";
@@ -308,26 +347,6 @@ function shoveIntoArray (bar) {
   };
 
 
-  // VISUALIZATIONS
-  $scope.visualize = function() {
-    $('.crowd').peity('donut', { width: 48 });
-    $('.age').peity('donut', { width: 48 });
-    $('.gender').peity('donut', 
-      { 
-        width: 48 
-
-      });
-    $('.volume-bar').peity('bar', 
-      {
-        width: 48,
-        height: 48,
-        fill: ["rgb(255, 158, 0)", 
-               "rgb(232, 123, 12)",
-               "rgb(255, 94, 0)",
-               "rgb(232, 63, 12)", 
-               "rgb(255, 41, 17)"]
-      });
-  };
 
 
   //--------------- POST CONTROLLER START ----------------------
@@ -416,6 +435,8 @@ function shoveIntoArray (bar) {
       .success(function (data) {
         console.log('review controller - reviews get route:', data);
         $scope.aggregates = data[0];
+        console.log('aggregates at getAggs(): ', $scope.aggregates);
+        $scope.visualize(); //convert aggregate data on page to SVG graphics
       })
       .error(function (data) {
         alert(data.message);

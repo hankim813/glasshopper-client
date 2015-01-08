@@ -11,40 +11,46 @@
         </button>
       
   <!-- VISUALIZATIONS -->
-       <div class="list">
-
-        <div class="item item-thumbnail-left">
-          <span class="volume-bar">1,2,3,4,5</span>
-          <h2>Bar Noise</h2>
-          <p>Loud</p>
-        </a>
-
+  <div class="row" ng-show"aggregates.noiseLevel">
+      <div class="col card padding-bottom data-vis">
+        <div class="item item-text-wrap">
+          <span class="volume-bar">{{massagedNoiseLevel}}</span>
+        </div>
+        <div class="item item-divider">
+          <h3>Noise: {{descriptions.noiseLevel}}</h3>
+        </div>
       </div>
-<!--             <div class="row">
-              <div class="col col-25 col-offset-25">
-              </div>
-    
-              <div class="col col-25">
-                <span class="crowd">23/100</span>
-              </div>
-            </div>
-    
-            <div class="row padding-vertical padding-left">
-
-              <div class="col col-25 col-offset-25">
-                <span class="age">88/100</span>
-              </div>
-
-              <div class="col col-25">
-                <span class="gender">60/100</span>
-              </div>
-            </div>
- -->
+      <div class="col card padding-bottom data-vis">
+        <div class="item item-text-wrap">
+          <span class="crowd">{{aggregates.crowdLevel}}/4</span>
+        </div>
+        <div class="item item-divider ">
+          <h3>Crowd: {{descriptions.crowdLevel}}</h3>
+        </div>
+      </div>
+  </div>
+  <div class="row" ng-show"aggregates.ggRatio">
+      <div class="col col-50 card padding-bottom data-vis">
+        <div class="item item-text-wrap">
+          <span class="gender">{{aggregates.ggRatio}}/100</span>
+        </div>
+        <div class="item item-divider">
+          <h3><span class="male">male</span>:<span class="female">female</span></h3>
+        </div>
+      </div>
+  </div>
+  <div class="row" ng-show"aggregates">
+    <div class="card col report-card data-vis">
+      Based on {{aggregates.reviewsCount}} glasshoppers.
+    </div>
+  </div>
+<!-- INIT VISUALIZATIONS -->
         <div class="row">
           <button class="button" ng-click="visualize()">
             fire visualizations!
           </button>
         </div>
+
     </ion-content>
   </ion-view>
 <!-- FOOTER BAR -->
