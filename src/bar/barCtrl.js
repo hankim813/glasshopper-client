@@ -48,9 +48,9 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
   };
 })
 
-.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, $window, barFactory, geo){
+.controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, barFactory, geo, DeviceInfo){
 
-  $scope.window = $window;
+  $scope.device = DeviceInfo;
   $scope.bars = [];
 
   (function(geo) {

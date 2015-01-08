@@ -43,17 +43,22 @@ angular.module('glassHopper', [ 'ionic',
     }
 })
 
-.factory('SearchData', [ function(){
+.factory('DeviceInfo', ['$window', function($window){
     var data = {};
+
+    function init () {
+      data.height = $window.innerHeight;
+      data.width = $window.innerWidth;
+    };
+
+    init();
+
     return {
-      getCoords: function () {
-        return data.coords;
+      width: function () {
+        return data.width;
       },
-      clearCoords: function () {
-        delete data.coords;
-      },
-      setCoords: function (coords) {
-        return data.coords = coords;
+      height: function () {
+        return data.height;
       }
     }
 }])
