@@ -1,4 +1,4 @@
-<ion-tabs class="tabs-top">
+<ion-tabs class="tabs-top" id="barTabs">
 <!-- STATS TAB -->
   <ion-tab title="Stats" icon-on="ion-beer" icon-off="ion-beer postitive">
     <ion-view view-title="{{bar.name}}">
@@ -49,7 +49,7 @@
   </ion-view>
 <!-- FOOTER BAR -->
   <!-- <ion-footer-bar ng-show="isCheckedIn()"> -->
-  <ion-footer-bar>
+  <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
         <i class="icon ion-compose"></i>
@@ -124,6 +124,7 @@
     </ion-content>
   </ion-view>
 <!-- FOOTER BAR -->
+<!-- ng-show="isCheckedIn()" -->
   <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">

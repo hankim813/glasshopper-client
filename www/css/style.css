@@ -29,10 +29,9 @@ input.noiseLevelRange[type="range"]{
   /*add noise level CSS here, use orange to red gradient */
 }
 
-a.button.button-icon.icon.disabled {
-  color: #63EDCC;
+.postForm.modal {
+  top: 60%;
 }
-
 
 .reviewForm.modal {
   top: 25%;
