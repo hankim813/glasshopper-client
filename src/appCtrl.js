@@ -1,12 +1,18 @@
 angular.module('appCtrl', [])
 
-.controller('AppController', function($scope, $location, $state, $stateParams, $ionicHistory, $localStorage, AuthenticationFactory, UserAuthFactory) {
+.controller('AppController', function($scope, $location, $state, $stateParams, $ionicHistory, $localStorage, AuthenticationFactory, UserAuthFactory, SearchData) {
 
   $scope.bars;
   $scope.logout = UserAuthFactory.logout;
   // Validation to see if you have initialized the crawl
   $scope.crawlStarted = function() {
     return ($localStorage.currentCrawl !== undefined)
+  };
+
+  $scope.doSearch = function(place){
+    SearchData.setCoords({ lat: place.geometry.location.k,
+                           lng: place.geometry.location.D});
+    $state.go("app.bars");
   };
 
   $scope.fetchCurrentCrawl = function() {
