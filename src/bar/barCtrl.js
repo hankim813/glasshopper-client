@@ -171,7 +171,7 @@ function shoveIntoArray (bar) {
   $scope.checkinButtonMsg = "Check In!";
   // Can't check in unless you are you at least 200ft away from the bar
   (function(){
-    if ($stateParams.distance > 0.94) { //CHANGE THIS BACK TO 0.04 on merge to DEV
+    if ($stateParams.distance > 0.04) { //CHANGE THIS BACK TO 0.04 on merge to DEV
 
       $scope.ifNotNearBy = true;
       $scope.checkinButtonMsg = "Too far away to check in!";
