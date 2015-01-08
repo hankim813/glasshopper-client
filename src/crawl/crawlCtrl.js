@@ -33,7 +33,8 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 
 })
 
-.controller('CurrentCrawlController', function($scope, $stateParams, $state, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
+.controller('CurrentCrawlController', function($scope, $timeout, $ionicActionSheet, $stateParams, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
+
 
 	(function(){
 	  if ($localStorage.currentCrawl && $localStorage.currentCrawl.id === $stateParams.crawlId) {
@@ -71,19 +72,45 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 	})();
 
 	// Confirmation Modal
-	$ionicModal.fromTemplateUrl('crawl/confirmationModal.tpl.html', {
-		scope: $scope
-	}).then(function(modal) {
-		$scope.confirmationModal = modal;
-	});
+	// $ionicModal.fromTemplateUrl('crawl/confirmationModal.tpl.html', {
+	// 	scope: $scope
+	// }).then(function(modal) {
+	// 	$scope.confirmationModal = modal;
+	// });
 
-	$scope.openConfirmationModal = function() {
-		$scope.confirmationModal.show();
-	};
+	// $scope.openConfirmationModal = function() {
+	// 	$scope.confirmationModal.show();
+	// };
 
-	$scope.closeConfirmationModal = function() {
-		$scope.confirmationModal.hide();
-	}
+	// $scope.closeConfirmationModal = function() {
+	// 	$scope.confirmationModal.hide();
+	// }
+
+
+	//ACTIONSHEET CODE
+	// Triggered on a button click, or some other target
+ 	$scope.showActionSheet = function() {
+
+   // Show the action sheet
+   var hideSheet = $ionicActionSheet.show({
+     destructiveText: 'End Crawl',
+     titleText: 'Are you sure you want to end your crawl?',
+     cancelText: 'Cancel',
+     cancel: function() {
+          // $ionicActionSheet.hide();
+          console.log('canceling...');
+        },
+     destructiveButtonClicked: function() {
+       $scope.endCrawl();
+     }
+   });
+
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+     hideSheet();
+   }, 2000);
+
+ };
 
 
 	$scope.endCrawl = function() {
