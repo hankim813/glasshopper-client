@@ -11,6 +11,10 @@ angular.module('crawlFactories',[])
 			return $http.get('http://127.0.0.1:3000/api/crawls/' + crawlId);
 		},
 
+		getPast : function(crawlId) {
+			return $http.get('http://127.0.0.1:3000/api/crawls/' + crawlId + '/closed');
+		},
+
 		getAll	: function() {
 			return $http.get('http://127.0.0.1:3000/api/crawls/users/' + $localStorage.user.id);
 		},
