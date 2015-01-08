@@ -71,6 +71,10 @@
     </div>
   </ion-content>
   </ion-view>
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-volume-high"></i>
+      <span class="donut">{{ aggregates.noiseLevel | rounded }}/100</span>
+    </a>
 
   <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
@@ -121,5 +125,31 @@
     </div>
   </ion-footer-bar>
   </ion-tab>
+    <a href="#" class="item item-icon-left">
+      <i class="icon ion-transgender"></i>
+      ratio = {{aggregates.ggRatio | rounded }}
+    </a>
+  </div>
+</div>
+<div class="row">
+  <button class="button" ng-click="visualize()">
+    fire visualizations
+  </button>
+  <span class="donut">40/100</span>
+</div>
+</ion-content>
+<!-- FOOTER TOOLBAR -->
+<ion-footer-bar ng-show="isCheckedIn()">
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="openPostModal()">
+    <i class="icon ion-compose"></i>
+    Comment
+  </a>
+  <a class="tab-item" ng-click="reviewBar()">
+    <i class="icon ion-speedometer"></i>
+    Review
+  </a>
+</div>
+</ion-footer-bar>
 
 </ion-tabs>

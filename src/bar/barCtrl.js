@@ -37,6 +37,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
+
 })
 
 .controller('BarMapController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, uiGmapGoogleMapApi, barFactory, geo, DeviceInfo){
@@ -170,7 +171,7 @@ function shoveIntoArray (bar) {
   $scope.checkinButtonMsg = "Check In!";
   // Can't check in unless you are you at least 200ft away from the bar
   (function(){
-    if ($stateParams.distance > 0.04) {
+    if ($stateParams.distance > 0.94) { //CHANGE THIS BACK TO 0.04 on merge to DEV
 
       $scope.ifNotNearBy = true;
       $scope.checkinButtonMsg = "Too far away to check in!";
@@ -300,6 +301,12 @@ function shoveIntoArray (bar) {
     });
   };
 
+
+  // VISUALIZATIONS
+  $scope.visualize = function() {
+    console.log("visualize!");
+    $('.donut').peity('donut');
+  };
 
 
 
