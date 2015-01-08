@@ -104,17 +104,20 @@ function shoveIntoArray (bar) {
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
   $scope.reviewButtonText = '';
+  $scope.isDisabled = false;
 
-  // refreshes dashboard information
-  $scope.updateDash = function() {
-    reviewFactory.fetchAggregate($scope.bar._id)
-      .success(function (data) {
-        $scope.aggregates = data[0];
-      })
-      .error(function (data) {
-        alert(data.message);
-      });
 
+  // if there is aggregate data, message is displayed in view
+  $scope.emptyAggregateMessage = function () {
+    if($scope.isCheckedIn()) {
+      return "Be the first to review this bar!";
+    } else {
+      return "Check in to leave a review!";
+    }
+  };
+
+  //get all posts
+  function getPosts () {
     postFactory.getAll($scope.bar._id)
       .success(function (data) {
         $scope.posts = data;
@@ -122,7 +125,13 @@ function shoveIntoArray (bar) {
       .error(function (data) {
         alert(data.message);
       });
+  }
 
+
+  // refreshes dashboard information
+  $scope.updateDash = function() {
+    getAggs();
+    getPosts();
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
@@ -288,11 +297,25 @@ function shoveIntoArray (bar) {
 
   // Voting feature
   $scope.upvote = function(postId) {
-    $http.put("http://127.0.0.1:3000/api/votes/up/" + postId);
+    $http.put("http://127.0.0.1:3000/api/votes/up/" + postId).then(function (votes) {
+      getPosts();
+    }, function (error) {
+      alert('Failed: ' + error);
+    });
+
+    $scope.isDisabled = true;
+    console.log($scope.isDisabled);
   };
 
   $scope.downvote = function(postId) {
-    $http.put("http://127.0.0.1:3000/api/votes/down/" + postId);
+    $http.put("http://127.0.0.1:3000/api/votes/down/" + postId).then(function (votes) {
+      getPosts();
+    }, function (error) {
+      alert('Failed: ' + error);
+    });
+
+    $scope.isDisabled = true;
+    console.log($scope.isDisabled);
   };
 
 
