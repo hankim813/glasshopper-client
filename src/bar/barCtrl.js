@@ -90,26 +90,33 @@ function shoveIntoArray (bar) {
   $scope.bar = bar;
   $scope.posts = posts.data;
   $scope.aggregates = aggregate.data[0];
-  $scope.massagedNoiseLevel = '';
-  console.log("aggregate data at instantiation: ", $scope.aggregates)
+  
   // if there is aggregate data, message is displayed in view
   
     // VISUALIZATIONS
   $scope.calculateNoise = function() {
-    var noiseDataString = [];
-    console.log("calculateNoise(): noiseLevel from server: ", $scope.aggregates.noiseLevel);
-    var noiseLevel = $scope.aggregates.noiseLevel;
+    //determine the colors for our volume bar graph
+    var noiseLevel = 2// $scope.aggregates.noiseLevel || 0;
+    var fillColors = ["rgb(255, 158, 0)", 
+                  "rgb(255, 94, 0)",
+                  "rgb(232, 123, 12)",
+                  "rgb(232, 63, 12)", 
+                  "rgb(255, 41, 17)"];
     
-      for(var i = 1; i<= noiseLevel; i++){
-        noiseDataString.concat(i);
+    for (i = 0; i < fillColors.length; i ++ ) {
+      if (i >= noiseLevel) {
+        fillColors[i] = "grey";
       }
-
-      console.log("noiseDataString as array: ", noiseDataString)
-    return noiseDataString.toString();
+    }
+    
+    
+    console.log("fillColors at end of calculateNoise(): ", fillColors)
+    return fillColors;
   }
-  
+
   $scope.visualize = function() {
-    $scope.massagedNoiseLevel = $scope.calculateNoise();
+    var volumeColors = $scope.calculateNoise();
+    console.log("volumeColors in visualize(): ", volumeColors);
     $('.crowd').peity('donut', { width: 48 });
     $('.age').peity('donut', { width: 48 });
     $('.gender').peity('pie', 
@@ -121,11 +128,7 @@ function shoveIntoArray (bar) {
       {
         width: 48,
         height: 48,
-        fill: ["rgb(255, 158, 0)", 
-               "rgb(255, 94, 0)",
-               "rgb(232, 123, 12)",
-               "rgb(232, 63, 12)", 
-               "rgb(255, 41, 17)"]
+        fill: volumeColors
       });
   };
 
@@ -216,7 +219,7 @@ function shoveIntoArray (bar) {
   // Can't check in unless you are you at least 200ft away from the bar
   
   (function(){
-    $scope.visualize(); //visualize data on pageload
+    //$scope.visualize(); //visualize data on pageload
     if ($stateParams.distance > 0.1) { //CHANGE THIS BACK BEFORE MERGE TO DEV
 
       $scope.ifNotNearBy = true;
