@@ -1,6 +1,6 @@
  <ion-modal-view ng-controller="ReviewController" class="reviewForm">
     <form ng-submit='onReviewSubmit()' name="reviewForm">
-      <ion-tabs class="tabs-top">
+      <ion-tabs class="tabs-top" id="reviewTabs">
 
       <!-- NOISE -->
         <ion-tab title="Noise" icon-on="fa fa-volume-up" icon-off="fa fa-volume-up" class="padding-vertical">
@@ -17,7 +17,7 @@
             <input type="range" name="noiseLevel" min="0" max="100" ng-model="rawData.noiseLevel" class="noiseLevelRange" required>
             <i class="icon ion-volume-high"></i>
           </div>
-          <a class="button button-block button-outline icon-right ion-chevron-right button-calm p" ng-click="selectTab(1)">Next</a>
+          <a href="#" class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab('reviewTabs', 1)">Next</a>
         </ion-content>
       </ion-tab>
 
@@ -43,7 +43,7 @@
           <div class="row">
             <a class="col button" ng-class="{'button-assertive': isCrowdActive('ugh')}" ng-click="setActive('ugh')">I Can't Moooove!</a>
           </div>
-          <a class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(2)">Next</a>
+          <a href="#" class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab('reviewTabs', 2)">Next</a>
         </ion-content>
       </ion-tab>
 
@@ -63,7 +63,7 @@
             <input type="range" name="ggRatio" min="0" max="100" ng-model="rawData.ggRatio" class="ratioRange" required>
             <i class="icon ion-woman"></i>
           </div>
-          <a class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab(3)">Next</a>
+          <a href="#" class="button button-block button-outline icon-right ion-chevron-right button-calm" ng-click="selectTab('reviewTabs', 3)">Next</a>
         </ion-content>
       </ion-tab>
 

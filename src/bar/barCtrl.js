@@ -1,9 +1,6 @@
 angular.module('barCtrl', ['ionic']).
 
 controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, SearchData){
-
-
-
   function init () {
         if (SearchData.getCoords()) {
             barFactory.findNearby(SearchData.getCoords().lng, SearchData.getCoords().lat, $localStorage.user.searchRadius).then(function(response) {
@@ -140,8 +137,13 @@ function shoveIntoArray (bar) {
   };
 
   // Sets active tab
-  $scope.selectTab = function(index){
-    $ionicTabsDelegate.select(index);
+  $scope.selectTab = function(id, index){
+    if(id == "barTabs"){
+      $ionicTabsDelegate._instances[0].select(index);
+    }else {
+      $ionicTabsDelegate._instances[1].select(index);
+    }
+    
   };
 
   // Review Modal
@@ -340,6 +342,7 @@ function shoveIntoArray (bar) {
   $scope.onPostSubmit = function () {
     $scope.uploadPost();
     $scope.closePostModal();
+    $scope.selectTab("barTabs", 1);
   };
 
   // makes request to POST route
@@ -393,7 +396,8 @@ function shoveIntoArray (bar) {
   $scope.onReviewSubmit = function() {
     $scope.formSubmissionToggle();
     $scope.closeReview();
-    $scope.selectTab(0);
+    $scope.selectTab("reviewTabs", 0);
+    $scope.selectTab("barTabs", 0);
   };
 
 
