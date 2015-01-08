@@ -29,7 +29,7 @@ angular.module('glassHopper', [ 'ionic',
                                 'searchModule',])
 
 
-.run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, geo) {
+.run(function ($rootScope, $ionicPlatform, $cordovaSplashscreen, $location, $ionicHistory, AuthenticationFactory, $localStorage, $state, geo) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -48,7 +48,7 @@ angular.module('glassHopper', [ 'ionic',
     if (!AuthenticationFactory.isLogged) {
       $location.path("/landing");
     } else {
-      $location.path("/app/home");
+      $state.go('app.start');
     };
 
     $cordovaSplashscreen.hide();
@@ -68,7 +68,7 @@ angular.module('glassHopper', [ 'ionic',
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // if the user is already logged in, take him to the home page
       if (AuthenticationFactory.isLogged == true && (toState.url === '/login' || toState.url === '/register' || toState.url === '/landing')) {
-        $location.path("/app/home");
+        $state.go('app.start');
       }
     });
 
@@ -96,17 +96,8 @@ angular.module('glassHopper', [ 'ionic',
     controller: 'AppController'
   })
 
-  .state('app.home', {
-    url: "/home",
-    views   : {
-      'menuContent': {
-        templateUrl: "index.tpl.html"
-      }
-    }
-  })
-
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/bars/map');
 })
 
 .factory('BarData', function () {

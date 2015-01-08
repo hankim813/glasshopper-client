@@ -19,9 +19,19 @@
     }
   })
 
+  .state('app.start', {
+    url     : '/start',
+    views   : {
+      'menuContent' : {
+        templateUrl : "crawl/index.tpl.html",
+        controller  : "CrawlController"
+      }
+    }
+  })
+
   .state('app.currentCrawl', {
     cache   : false,
-  	url 		: "/crawls/:crawlId",
+  	url 		: "/crawls/:crawlId/:name",
   	views	  : {
   		'menuContent'	: {
   			templateUrl : "crawl/show.tpl.html",

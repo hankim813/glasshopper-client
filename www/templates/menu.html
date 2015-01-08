@@ -26,14 +26,14 @@
         <p>{{(user.rank || 'Cocktail Napkin')}}</p>
       </a>
 
-        <ion-item nav-clear menu-close ui-sref="app.settings" ui-sref-active="item-balanced">
-          My Profile
+        <ion-item nav-clear menu-close ui-sref="app.start" ui-sref-active="item-balanced">
+          Home
         </ion-item>
         <ion-item nav-clear menu-close ui-sref="app.bars" ui-sref-active="item-balanced">
-          Bars Nearby
+          Nearby Bars
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/bars/map">
-          Bars Map
+        <ion-item nav-clear menu-close ui-sref="app.barsMap" ui-sref-active="item-balanced">
+          Map
         </ion-item>
         <ion-item nav-clear menu-close ng-show="crawlStarted()" ng-click="fetchCurrentCrawl()">
           Current Crawl

@@ -1,11 +1,26 @@
 <ion-view view-title="Home">
   <ion-content>
 
-		<div class="row row-center">
-			<h1>Where do you want to start your crawl?</h1>
-		</div>
+  	<div class="home-logo">
+  	  <div class="row">
+  	    <div class="center-elm">
+	  	    <img ng-src="./img/barglasses.png">
+	  	    <h3>Name your next GlassHop!</h3>
+  	    </div>
+  	  </div>
+  	</div>
 
-    <button class="button button-positive" ng-click="startCrawl()">Let's Drink!</button>
+		<div class="list list-inset">
+			<form ng-submit="startCrawl()">
+			  <label class="item item-input">
+			    <i class="icon ion-beer placeholder-icon"></i>
+			    <input type="text" placeholder="Graduation Party, Tuesday Turnup...">
+			  </label>
+			  <div class="landing-buttons">
+			    <button type="submit" class="button button-block button-balanced">Let's Drink!</button>
+		    </div>
+		  </form>
+		</div>
   </ion-content>
 </ion-view>
 

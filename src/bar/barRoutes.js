@@ -15,6 +15,7 @@ angular.module('barRoutes', ['ionic', 'barModel', 'reviewModel', 'postFactories'
   })
 
   .state('app.barsMap', {
+    cache   : false,
     url     : "/bars/map",
     views   : {
       'menuContent': {

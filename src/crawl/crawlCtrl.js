@@ -1,15 +1,17 @@
 angular.module('crawlCtrl', []).
 
 controller('CrawlController', function($scope, $http, $state, $location, $localStorage, $ionicHistory, crawlFactory){
+	$scope.crawlData = {};
 
 	$scope.startCrawl = function() {
-		crawlFactory.create({userId: $localStorage.user.id}).then(function(response) {
-
+		crawlFactory.create({userId: $localStorage.user.id, name: $scope.crawlData.name}).then(function(response) {
+			console.log(response);
 			// save current crawl data to localstorage for easy access across the app
 			var crawl = {
-				id 			: response.data._id,
-				leader	: response.data._leader,
-				checkins 		: response.data._checkins
+				id 					: response.data._id,
+				leader			: response.data._leader,
+				checkins 		: response.data._checkins,
+				name				: response.data.name
 			};
 
 			$localStorage.currentCrawl = crawl;
@@ -19,28 +21,27 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 			    disableBack     : true
 			});
 
+			$scope.crawlData = {};
+
 			$state.go('app.barsMap');
 
 		}, function(error) {
 			console.log(error.data.message);
-			$state.go('app.crawls');
+			$state.go('app.start');
 		});
 	};
 
 })
 
-.controller('CurrentCrawlController', function($scope, $stateParams, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
+.controller('CurrentCrawlController', function($scope, $stateParams, $state, $http, $location, $localStorage, $ionicModal, $ionicHistory, crawlFactory) {
 
 	(function(){
 	  if ($localStorage.currentCrawl && $localStorage.currentCrawl.id === $stateParams.crawlId) {
-	  	console.log("enable button")
 	    $scope.ifEnded = false;
 	    $scope.endCrawlButtonMsg = "End";
 
 	  } else {
-	  	console.log("disable button");
 	    $scope.ifEnded = true;
-	    console.log($scope.ifEnded);
 	    $scope.endCrawlButtonMsg = "Ended";
 
 	  }
@@ -49,6 +50,7 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 	$scope.checkins = [];
 	(function(){
 		if ($localStorage.currentCrawl) {
+			$scope.crawlTitle = $localStorage.currentCrawl.name;
 			crawlFactory.get($stateParams.crawlId).then(function(populatedCrawl) {
 				for (var i = 0; i < populatedCrawl.data._checkins.length; i++) {
 				  $scope.checkins.push(populatedCrawl.data._checkins[i]); 
@@ -58,6 +60,7 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 			});
 		} else {
 			crawlFactory.getPast($stateParams.crawlId).then(function(populatedCrawl) {
+
         for (var i = 0; i < populatedCrawl.data._checkins.length; i++) {
           $scope.checkins.push(populatedCrawl.data._checkins[i]); 
         }
@@ -93,7 +96,7 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 			    disableBack     : true
 			});
 			$scope.confirmationModal.hide();
-			$location.path('/app/crawls');
+			$state.go('app.start', {}, {reload: true});
 		}, function(error) {
 			console.log(error);
 		})
@@ -101,9 +104,8 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 })
 
 .controller('CrawlHistoryController', function($scope, $http, $location, $localStorage, crawlFactory, crawls) {
-
+	console.log(crawls)
 	$scope.crawls = crawls.data;
-
 });
 
 

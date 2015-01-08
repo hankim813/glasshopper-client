@@ -1,6 +1,6 @@
 angular.module('loginCtrl', [])
 
-.controller('LoginController', function($scope, $http, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, UserAuthFactory, AuthenticationFactory, UserProfileFactory) {
+.controller('LoginController', function($scope, $http, $state, $location, $localStorage, $ionicHistory, $cordovaOauth, $ionicLoading, UserAuthFactory, AuthenticationFactory, UserProfileFactory) {
 
   // Form data for the login modal
   $scope.loginData      = {};
@@ -68,7 +68,7 @@ angular.module('loginCtrl', [])
     $scope.loginData = {};
     $scope.profileData = {};
     
-    $location.path("/app/home");
+    $state.go('app.start');
   }
 
   function authErrorCallback (data, status, headers, config) {
