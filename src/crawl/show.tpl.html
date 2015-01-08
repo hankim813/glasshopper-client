@@ -1,0 +1,37 @@
+<ion-view view-title="Current Crawl">
+  <ion-content>
+
+		<div class="row">
+			<!-- MAP of your CRAWL ROUTE -->
+		</div>
+
+		<h1>Bars You've Checked Into</h1>
+
+			<div class="row" ng-repeat="checkin in checkins | reverse">
+				<img ng-src="{{ checkin._bar.photoUrl }}">
+				<p>Checked In At: {{ checkin.createdAt | date: 'EEEE, MMM d, h:mm a' }}</p>
+				<p>Name: {{ checkin._bar.name }}</p>
+				<p>Address: {{ checkin._bar.address }}</p>
+			</div>
+
+
+	<!-- FOOTER TOOLBAR -->
+		<!-- <div class="bar bar-footer">
+			<div class="tabs tabs-icon-top">
+				<a class="tab-item" ng-click="">
+					<i class="icon ion-compose"></i>
+					Map
+				</a>
+				<a class="tab-item" ng-click="openConfirmationModal()">
+					<i class="icon ion-speedometer"></i>
+					End Crawl
+				</a>
+			</div>
+		</div> -->
+		<div class="row">
+			<button class="button button-assertive button-full" ng-disabled="ifEnded" ng-click="openConfirmationModal()">
+	    {{ endCrawlButtonMsg }}
+			</button>
+		</div>
+  </ion-content>
+</ion-view>

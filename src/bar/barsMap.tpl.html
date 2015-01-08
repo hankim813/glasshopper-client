@@ -1,0 +1,39 @@
+<style type="text/css">
+  .angular-google-map-container { height: {{device.height()}}px;}
+</style>
+
+<ion-view view-title="Bars">
+<ion-content>
+
+<ui-gmap-google-map
+  center='mapOptions.center'
+  zoom='mapOptions.zoom'
+  options='{disableDefaultUI:true}'
+>
+
+  <ui-gmap-markers
+    models="bars"
+    coords="'loc'"
+    idKey="'_id'"
+    icon="'icon'"
+    click="'onClick'"
+    pan="true"
+    doRebuildAll="true"
+    fit='true'>
+
+    <ui-gmap-windows
+      isIconVisibleOnClick="true"
+      templateUrl="infowindow.tpl.html"
+      show="'show'">
+      <div ng-non-bindable>{{name}}</div>
+    </ui-gmap-windows>
+
+  </ui-gmap-markers>
+
+
+</ui-gmap-google-map>
+
+</ion-content>
+</ion-view>
+    <!-- clusterOptions="map.clusterOptions" -->
+    <!-- doCluster="map.doClusterRandomMarkers" -->
