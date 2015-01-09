@@ -18,7 +18,7 @@ controller('BarController', function($scope, $http, $location, $ionicHistory, $l
               console.log(error);
             });
         }
-    };
+    }
 
     init();
 
@@ -101,26 +101,17 @@ function shoveIntoArray (bar) {
     $scope.aggregates = aggregate.data[0];
   }
 
-  console.log('aggregate from resolve', aggregate);
-  console.log('aggregates at instantiation: ', $scope.aggregates);
+  // console.log('aggregate from resolve', aggregate);
+  // console.log('aggregates at instantiation: ', $scope.aggregates);
   // if there is aggregate data, message is displayed in view
 
   function getAggs () {
     reviewFactory.fetchAggregate(review.bar)
       .success(function (data) {
-        console.log('review controller - reviews get route:', data[0]);
           if(data[0]) {
             $scope.aggregates = data[0];
-          } else {
-             $scope.aggregates = {
-                        avgAge: 1,
-                        crowdLevel: 1,
-                        ggRatio: 1,
-                        noiseLevel: 1,
-                        reviews: 0
-                      };
           }
-        console.log('aggregates at getAggs(): ', $scope.aggregates);
+        $scope.visualize();
       })
       .error(function (data) {
         alert(data.message);
@@ -147,30 +138,24 @@ function shoveIntoArray (bar) {
       }
     }
 
-    console.log("fillColors at end of calculateNoise(): ", fillColors);
     return fillColors;
   };
 
   $scope.visualize = function() {
     var volumeColors = $scope.calculateNoise();
-    console.log('volume updated');
     $('.crowd').peity('donut', { width: 48 });
-    console.log('crowd updated');
     $('.age').peity('donut', { width: 48 });
-    console.log('age updated');
     $('.gender').peity('pie',
       {
         width: 48,
         fill: ["#DA7C8E", "#56C7ED"]
       });
-    console.log('gender updated');
     $('.volume-bar').peity('bar',
       {
         width: 48,
         height: 48,
         fill: volumeColors
       });
-    console.log('volume updated');
   };
 
   $scope.emptyAggregateMessage = function () {
@@ -461,6 +446,7 @@ function shoveIntoArray (bar) {
     $scope.closeReview();
     $scope.selectTab("reviewTabs", 0);
     $scope.selectTab("barTabs", 0);
+    // $scope.updateDash();
   };
 
 
