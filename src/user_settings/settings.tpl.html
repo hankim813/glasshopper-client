@@ -3,7 +3,7 @@
 		<div class="list card">
 
 	  <div class="item item-avatar">
-	    <img ng-src="{{user.profilePhotoUrl}}">
+	    <img ng-src="{{user.profilePhotoUrl || './img/profile.png'}}">
 	    <h2>Default Search Radius: {{newSettings.radiusDefinition}} mi.</h2>
 	    <p>{{user.name}}</p>
 	  </div>

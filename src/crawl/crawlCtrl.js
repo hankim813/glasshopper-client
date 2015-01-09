@@ -109,7 +109,9 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
           console.log('canceling...');
         },
      destructiveButtonClicked: function() {
-       $scope.endCrawl();
+	   	$scope.ifEnded = true;
+     	$scope.endCrawlButtonMsg = "Ended";
+      $scope.endCrawl();
      }
    });
 
