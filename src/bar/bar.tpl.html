@@ -5,12 +5,9 @@
       <ion-content>
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
         </ion-refresher>
-        <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
-          {{ checkinButtonMsg }}
-        </button>
 
   <!-- VISUALIZATIONS -->
-<div class="row" ng-show"aggregates.noiseLevel" >
+<div class="row" ng-show"aggregates.noiseLevel">
   <div class="col card data-vis">
     <div class="item item-text-wrap">
       <span class="volume-bar">1,2,3,4,5</span>
@@ -35,7 +32,7 @@
       <span class="gender">{{aggregates.ggRatio}}/100</span>
     </div>
     <div class="item item-divider">
-      <h3><span class="male">male</span>&nbsp;:&nbsp;<span class="female">female</span></h3>
+      <h3><span class="male">Male</span>&nbsp;:&nbsp;<span class="female">Female</span></h3>
     </div>
   </div>
   <div class="col card data-vis">
@@ -49,15 +46,18 @@
 </div>
   <div class="row" ng-show"aggregates">
     <div class="card col report-card data-vis">
-      Based on {{aggregates.reviewsCount}} glasshoppers.
+      Based on {{(aggregates.reviewsCount || 0)}} glasshoppers.
     </div>
   </div>
+        <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
+          {{ checkinButtonMsg }}
+        </button>
 <!-- INIT VISUALIZATIONS -->
-<div class="row">
+<!-- <div class="row">
   <button class="button" ng-click="visualize()">
     fire visualizations!
   </button>
-</div>
+</div> -->
 
 </ion-content>
 </ion-view>
