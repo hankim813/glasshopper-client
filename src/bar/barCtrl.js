@@ -1,6 +1,6 @@
-angular.module('barCtrl', ['ionic']).
+angular.module('barCtrl', ['ionic'])
 
-controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, SearchData){
+.controller('BarController', function($scope, $http, $location, $ionicHistory, $localStorage, $ionicLoading, barFactory, SearchData){
   function init () {
         if (SearchData.getCoords()) {
             barFactory.findNearby(SearchData.getCoords().lng, SearchData.getCoords().lat, $localStorage.user.searchRadius).then(function(response) {
@@ -120,11 +120,11 @@ function shoveIntoArray (bar) {
     // VISUALIZATIONS
   $scope.calculateNoise = function() {
     //determine the colors for our volume bar graph
-    var noiseLevel = 0;
+    var noiseLevel = 1;
     if ($scope.aggregates.noiseLevel) {
       noiseLevel = $scope.aggregates.noiseLevel;
     } else {
-      noiseLevel = 0;
+      noiseLevel = 1;
     }
 
     var fillColors = ["rgb(255, 158, 0)",
@@ -141,8 +141,32 @@ function shoveIntoArray (bar) {
     return fillColors;
   };
 
+  $scope.calculateAge = function() {
+    //determine the colors for our volume bar graph
+    var ageLevel = 1;
+    if ($scope.aggregates.avgAge) {
+      ageLevel = $scope.aggregates.avgAve;
+    } else {
+      ageLevel = 1;
+    }
+
+    var fillColors = ["rgb(79, 247, 194)",
+                      "rgb(66, 214, 210)",
+                      "rgb(80, 200, 237)",
+                      "rgb(70, 112, 247)",
+                      "rgb(8, 111, 214)"];
+    for (i = 1; i < fillColors.length; i ++ ) {
+      if (i >= ageLevel) {
+        fillColors[i] = "rgb(214,214,214)"; //faded blue
+      }
+    }
+
+    return fillColors;
+  };
+
   $scope.visualize = function() {
     var volumeColors = $scope.calculateNoise();
+    var ageColors = $scope.calculateAge();
     $('.crowd').peity('donut', { width: 48 });
     $('.age').peity('donut', { width: 48 });
     $('.gender').peity('pie',
@@ -155,6 +179,12 @@ function shoveIntoArray (bar) {
         width: 48,
         height: 48,
         fill: volumeColors
+      });
+    $('.age-bar').peity('bar',
+      {
+        width: 48,
+        height: 48,
+        fill: ageColors
       });
   };
 
@@ -245,7 +275,8 @@ function shoveIntoArray (bar) {
   // Can't check in unless you are you at least 200ft away from the bar
 
   (function(){
-    if ($stateParams.distance > 0.04) { //CHECK_IN_RADIUS
+    $scope.visualize();
+    if ($stateParams.distance > 0.1) { //CHECK_IN_RADIUS
 
       $scope.ifNotNearBy = true;
       $scope.checkinButtonMsg = "Too far away to check in!";

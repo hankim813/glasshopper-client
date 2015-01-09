@@ -5,53 +5,62 @@
       <ion-content>
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
         </ion-refresher>
+
+  <!-- VISUALIZATIONS -->
+<div class="row" ng-show"aggregates.noiseLevel">
+  <div class="col card data-vis">
+    <div class="item item-text-wrap">
+      <span class="volume-bar">1,2,3,4,5</span>
+    </div>
+    <div class="item item-divider">
+      <h3>Noise: {{descriptions.noiseLevel}}</h3>
+    </div>
+  </div>
+  <div class="col card data-vis">
+    <div class="item item-text-wrap">
+      <span class="crowd">{{aggregates.crowdLevel}}/4</span>
+    </div>
+    <div class="item item-divider">
+      <h3>Crowd: {{descriptions.crowdLevel}}</h3>
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-show"aggregates.ggRatio">
+  <div class="col card data-vis">
+    <div class="item item-text-wrap">
+      <span class="gender">{{aggregates.ggRatio}}/100</span>
+    </div>
+    <div class="item item-divider">
+      <h3><span class="male">Male</span>&nbsp;:&nbsp;<span class="female">Female</span></h3>
+    </div>
+  </div>
+  <div class="col card data-vis">
+    <div class="item item-text-wrap">
+      <span class="age-bar">1,2,3,4,5</span>
+    </div>
+    <div class="item item-divider">
+      <h3>Average Age</h3>
+    </div>
+  </div>
+</div>
+  <div class="row" ng-show"aggregates">
+    <div class="card col report-card data-vis">
+      Based on {{(aggregates.reviewsCount || 0)}} glasshoppers.
+    </div>
+  </div>
         <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
           {{ checkinButtonMsg }}
         </button>
-
-  <!-- VISUALIZATIONS -->
-  <div class="row" ng-show"aggregates.noiseLevel">
-      <div class="col card padding-bottom data-vis">
-        <div class="item item-text-wrap">
-          <span class="volume-bar">1,2,3,4,5</span>
-        </div>
-        <div class="item item-divider">
-          <h3>Noise: {{descriptions.noiseLevel}}</h3>
-        </div>
-      </div>
-      <div class="col card padding-bottom data-vis">
-        <div class="item item-text-wrap">
-          <span class="crowd">{{aggregates.crowdLevel}}/4</span>
-        </div>
-        <div class="item item-divider ">
-          <h3>Crowd: {{descriptions.crowdLevel}}</h3>
-        </div>
-      </div>
-  </div>
-  <div class="row" ng-show"aggregates.ggRatio">
-      <div class="col col-50 card padding-bottom data-vis">
-        <div class="item item-text-wrap">
-          <span class="gender">{{aggregates.ggRatio}}/100</span>
-        </div>
-        <div class="item item-divider">
-          <h3><span class="male">male</span>&nbsp;:&nbsp;<span class="female">female</span></h3>
-        </div>
-      </div>
-  </div>
-  <div class="row" ng-show"aggregates">
-    <div class="card col report-card data-vis">
-      Based on {{aggregates.reviewsCount}} glasshoppers.
-    </div>
-  </div>
 <!-- INIT VISUALIZATIONS -->
-<!--         <div class="row">
-          <button class="button" ng-click="visualize()">
-            fire visualizations!
-          </button>
-        </div> -->
+<!-- <div class="row">
+  <button class="button" ng-click="visualize()">
+    fire visualizations!
+  </button>
+</div> -->
 
-    </ion-content>
-  </ion-view>
+</ion-content>
+</ion-view>
 <!-- FOOTER BAR -->
   <!-- <ion-footer-bar ng-show="isCheckedIn()"> -->
   <ion-footer-bar ng-show="isCheckedIn()">
