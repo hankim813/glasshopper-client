@@ -92,7 +92,7 @@ h4.tab-heading {
 }
 
 .home-logo {
-	padding-top: 38%;
+	padding-top: 25%;
 }
 .landing-buttons {
 	padding-top: 3%;
@@ -123,6 +123,10 @@ a.button.button-icon.icon.disabled {
 
 .ion-content.padding {
   margin-top: 5%;
+}
+
+.ion-content.margin-xl {
+	margin-top: 10%;
 }
 
 .landing-buttons {
