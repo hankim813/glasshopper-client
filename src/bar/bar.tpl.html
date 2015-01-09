@@ -5,11 +5,10 @@
       <ion-content>
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
         </ion-refresher>
-        
         <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
           {{ checkinButtonMsg }}
         </button>
-      
+
   <!-- VISUALIZATIONS -->
   <div class="row" ng-show"aggregates.noiseLevel">
       <div class="col card padding-bottom data-vis">
@@ -35,7 +34,7 @@
           <span class="gender">{{aggregates.ggRatio}}/100</span>
         </div>
         <div class="item item-divider">
-          <h3><span class="male">male</span>:<span class="female">female</span></h3>
+          <h3><span class="male">male</span>&nbsp;:&nbsp;<span class="female">female</span></h3>
         </div>
       </div>
   </div>
@@ -45,11 +44,11 @@
     </div>
   </div>
 <!-- INIT VISUALIZATIONS -->
-        <div class="row">
+<!--         <div class="row">
           <button class="button" ng-click="visualize()">
             fire visualizations!
           </button>
-        </div>
+        </div> -->
 
     </ion-content>
   </ion-view>
@@ -80,21 +79,21 @@
         <div class="row item">
           <div class="col col-75 padding-vertical padding-horizontal">
               <p>{{ post.content }}</p>
-              <p ng-hide="post.author">@GlassHopper at {{ post.createdAt | date : 'h:mm a' }}</p>
+              <p ng-hide="post.author">@anonymous at {{ post.createdAt | date : 'h:mm a' }}</p>
               <p ng-show="post.author">@{{ post.author }} at {{ post.createdAt | date : 'h:mm a' }}</p>
           </div>
           <div class="col center padding-vertical">
-            <!-- ng-disabled="!(isCheckedIn())" -->
-            <a href="#" name="{{post._id}}-points-up" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)"><h3>{{ post.points }}</h3></a>
+            <a href="#" name="{{post._id}}-points-up" class="button button-icon icon ion-chevron-up" ng-click="upvote(post._id)" ng-disabled="!(isCheckedIn())"><h3>{{ post.points }}</h3></a>
             <br>
-            <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)"></a>
+            <a href="#" class="button button-icon icon ion-chevron-down" ng-click="downvote(post._id)" ng-disabled="!(isCheckedIn())"></a>
           </div>
         </div>
       </div>
     </ion-content>
   </ion-view>
 <!-- FOOTER TOOLBAR -->
-  <ion-footer-bar ng-show="isCheckedIn()">
+<!-- ng-show="isCheckedIn()" -->
+  <ion-footer-bar>
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
         <i class="icon ion-compose"></i>
@@ -114,7 +113,7 @@
         <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
         </ion-refresher>
         <div ng-repeat="post in posts | orderBy : 'points' : 'reverse'" class="list">
-          <div class="item padding">
+          <div class="row item">
             <div class="col col-75 padding-vertical padding-horizontal">
               <p>{{ post.content }}</p>
               <p ng-hide="post.author">@anonymous at {{ post.createdAt | date : 'h:mm a' }}</p>
@@ -130,7 +129,6 @@
     </ion-content>
   </ion-view>
 <!-- FOOTER BAR -->
-<!-- ng-show="isCheckedIn()" -->
   <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">

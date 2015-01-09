@@ -54,7 +54,7 @@ controller('CrawlController', function($scope, $http, $state, $location, $localS
 	    $scope.endCrawlButtonMsg = "Ended";
 
 	  }
-	})(); 
+	})();
 
 	$scope.checkins = [];
 	(function(){

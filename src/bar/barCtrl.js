@@ -89,22 +89,22 @@ function shoveIntoArray (bar) {
 .controller('BarSingleController', function($scope, $http, $location, $stateParams, $ionicHistory, $localStorage, $ionicLoading, $ionicTabsDelegate, $ionicModal, $ionicScrollDelegate, barFactory, checkinFactory, reviewFactory, postFactory, crawlFactory, bar, posts, aggregate, geo){
   $scope.bar = bar;
   $scope.posts = posts.data;
-  // default data for aggregates                      
+  // default data for aggregates
   $scope.aggregates = {
                         avgAge: 1,
                         crowdLevel: 1,
                         ggRatio: 1,
                         noiseLevel: 1,
-                        reviews: 0  
-                      }
+                        reviews: 0
+                      };
   if(aggregate.data[0]) {
     $scope.aggregates = aggregate.data[0];
-  }                      
-  
-  console.log('aggregate from resolve', aggregate)
+  }
+
+  console.log('aggregate from resolve', aggregate);
   console.log('aggregates at instantiation: ', $scope.aggregates);
   // if there is aggregate data, message is displayed in view
-  
+
   function getAggs () {
     reviewFactory.fetchAggregate(review.bar)
       .success(function (data) {
@@ -117,8 +117,8 @@ function shoveIntoArray (bar) {
                         crowdLevel: 1,
                         ggRatio: 1,
                         noiseLevel: 1,
-                        reviews: 0  
-                      }
+                        reviews: 0
+                      };
           }
         console.log('aggregates at getAggs(): ', $scope.aggregates);
       })
@@ -129,46 +129,48 @@ function shoveIntoArray (bar) {
     // VISUALIZATIONS
   $scope.calculateNoise = function() {
     //determine the colors for our volume bar graph
+    var noiseLevel = 0;
     if ($scope.aggregates.noiseLevel) {
-      var noiseLevel = $scope.aggregates.noiseLevel;
+      noiseLevel = $scope.aggregates.noiseLevel;
     } else {
-      var noiseLevel = 0;
+      noiseLevel = 0;
     }
 
-    var fillColors = ["rgb(255, 158, 0)", 
+    var fillColors = ["rgb(255, 158, 0)",
                       "rgb(255, 94, 0)",
                       "rgb(232, 123, 12)",
-                      "rgb(232, 63, 12)", 
+                      "rgb(232, 63, 12)",
                       "rgb(255, 41, 17)"];
-    
     for (i = 1; i < fillColors.length; i ++ ) {
       if (i >= noiseLevel) {
         fillColors[i] = "rgb(214,214,214)"; //faded blue
       }
     }
-    
-    
-    console.log("fillColors at end of calculateNoise(): ", fillColors)
+
+    console.log("fillColors at end of calculateNoise(): ", fillColors);
     return fillColors;
-  }
+  };
 
   $scope.visualize = function() {
-    //$scope.getAggs();
     var volumeColors = $scope.calculateNoise();
-    console.log("volumeColors in visualize(): ", volumeColors);
+    console.log('volume updated');
     $('.crowd').peity('donut', { width: 48 });
+    console.log('crowd updated');
     $('.age').peity('donut', { width: 48 });
-    $('.gender').peity('pie', 
-      { 
+    console.log('age updated');
+    $('.gender').peity('pie',
+      {
         width: 48,
         fill: ["#DA7C8E", "#56C7ED"]
       });
-    $('.volume-bar').peity('bar', 
+    console.log('gender updated');
+    $('.volume-bar').peity('bar',
       {
         width: 48,
         height: 48,
         fill: volumeColors
       });
+    console.log('volume updated');
   };
 
   $scope.emptyAggregateMessage = function () {
@@ -200,6 +202,7 @@ function shoveIntoArray (bar) {
   $scope.updateDash = function() {
     getAggs();
     getPosts();
+    $scope.visualize();
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
@@ -221,7 +224,6 @@ function shoveIntoArray (bar) {
     }else {
       $ionicTabsDelegate._instances[1].select(index);
     }
-    
   };
 
   // Review Modal
@@ -256,7 +258,7 @@ function shoveIntoArray (bar) {
 
   $scope.checkinButtonMsg = "Check In!";
   // Can't check in unless you are you at least 200ft away from the bar
-  
+
   (function(){
     if ($stateParams.distance > 0.04) { //CHECK_IN_RADIUS
 
@@ -451,7 +453,11 @@ function shoveIntoArray (bar) {
 
   // Submit review, close modal, and set tab index to 0
   $scope.onReviewSubmit = function() {
+    // console.log("in onReviewSubmit");
     $scope.formSubmissionToggle();
+    // getAggs();
+    // console.log("visualizing from onReviewSubmit");
+    // $scope.visualize();
     $scope.closeReview();
     $scope.selectTab("reviewTabs", 0);
     $scope.selectTab("barTabs", 0);
@@ -467,8 +473,6 @@ function shoveIntoArray (bar) {
     } else {
       updateReview();
     }
-    console.log("visualizing from toggle");
-
   };
 
 
