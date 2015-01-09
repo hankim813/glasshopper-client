@@ -141,8 +141,32 @@ function shoveIntoArray (bar) {
     return fillColors;
   };
 
+  $scope.calculateAge = function() {
+    //determine the colors for our volume bar graph
+    var ageLevel = 0;
+    if ($scope.aggregates.ageLevel) {
+      ageLevel = $scope.aggregates.ageLevel;
+    } else {
+      ageLevel = 0;
+    }
+
+    var fillColors = ["rgb(255, 158, 0)",
+                      "rgb(255, 94, 0)",
+                      "rgb(232, 123, 12)",
+                      "rgb(232, 63, 12)",
+                      "rgb(255, 41, 17)"];
+    for (i = 1; i < fillColors.length; i ++ ) {
+      if (i >= ageLevel) {
+        fillColors[i] = "rgb(214,214,214)"; //faded blue
+      }
+    }
+
+    return fillColors;
+  };
+
   $scope.visualize = function() {
     var volumeColors = $scope.calculateNoise();
+    var ageColors = $scope.calculateAge();
     $('.crowd').peity('donut', { width: 48 });
     $('.age').peity('donut', { width: 48 });
     $('.gender').peity('pie',
@@ -155,6 +179,12 @@ function shoveIntoArray (bar) {
         width: 48,
         height: 48,
         fill: volumeColors
+      });
+    $('.age-bar').peity('bar',
+      {
+        width: 48,
+        height: 48,
+        fill: ageColors
       });
   };
 
