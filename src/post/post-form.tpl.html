@@ -1,0 +1,22 @@
+<ion-modal-view ng-controller="PostController" class="postForm">
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Comment on {{bar.name}}</h1>
+    <div class="button button-clear" ng-click="closePostModal()">
+      <span class="icon ion-close"></span>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="margin-xl">
+    <div class="list landing-buttons">
+      <form ng-submit="onPostSubmit()" name="postForm">
+        <label class="item item-input">
+          <textarea placeholder="What do you think of this bar?" ng-model="postData.content"></textarea>
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Nickname" ng-model="postData.author">
+        </label>
+        <button class="button button-block button-balanced" type="submit" ng-disabled="postForm.$invalid">Post</button>
+      </form>
+    </div>
+  </ion-content>
+</ion-modal-view>

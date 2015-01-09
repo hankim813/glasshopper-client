@@ -1,0 +1,39 @@
+<ion-view view-title="Home">
+  <ion-content>
+	<div ng-hide="crawlStarted()">
+  	<div class="home-logo">
+  	  <div class="row">
+  	    <div class="center-elm">
+	  	    <img ng-src="./img/logo.png">
+	  	    <h3>Name your next GlassHop!</h3>
+  	    </div>
+  	  </div>
+  	</div>
+
+		<div class="list list-inset">
+			<form ng-submit="startCrawl()">
+			  <label class="item item-input">
+			    <i class="icon ion-beer placeholder-icon"></i>
+			    <input type="text" ng-model="crawlData.name" placeholder="Graduation Party, Tuesday Turnup...">
+			  </label>
+			  <div class="landing-buttons">
+			    <button type="submit" class="button button-block button-balanced">Let's Drink!</button>
+		    </div>
+		  </form>
+		</div>
+	</div>
+
+	<div ng-show="crawlStarted()">
+  	<div class="home-logo">
+  	  <div class="row">
+  	    <div class="center-elm">
+	  	    <img ng-src="./img/barglasses.png">
+	  	    <h3>Keep Glasshopping!</h3>
+			    <button class="button button-block button-balanced" ng-click="fetchCurrentCrawl()">Let's Keep Drinking!</button>
+  	    </div>
+  	  </div>
+  	</div>
+	</div>
+  </ion-content>
+</ion-view>
+

@@ -1,0 +1,161 @@
+/* Empty. Add your own CSS if you like */
+.ion-google-place-container{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    display: none;
+}
+
+
+input.ion-google-place[readonly]{
+    background-color: transparent;
+    cursor: text;
+}
+
+
+input[type="range"]{
+   -webkit-appearance:none !important;
+}
+
+input.ggRatioRange[type="range"]{
+  /*add gg ratio CSS here, use a progress bar with 2 colors?
+  pink on right and teal on the left.*/
+}
+
+input.noiseLevelRange[type="range"]{
+  /*add noise level CSS here, use orange to red gradient */
+}
+
+.postForm.modal {
+  top: 60%;
+}
+
+.reviewForm.modal {
+  top: 25%;
+  font-family: "Helvetica Neue",Roboto,sans-serif;
+}
+
+.ion-content.padding {
+  margin-top: 5%;
+}
+
+h4.tab-heading {
+  color: rgb(106, 102, 102);
+  text-align: center;
+  padding: 5%;
+}
+
+.hook-mug.tab-item.tab-item-active {
+  color: #E9BD5D;
+}
+
+.hook-chat.tab-item.tab-item-active {
+  color: #63EDCC;
+}
+
+.hook-fire.tab-item.tab-item-active {
+  color: #DA4D3C;
+}
+
+.hook-review.tab-item.tab-item-active {
+	color: #63EDCC;
+}
+/* COLORS */
+
+.bg-home {
+	background-color: #FCB015;
+}
+
+.facebook {
+	background-color: #3b5998 !important;
+	border-color: #8b9dc3 !important;
+}
+
+/* ALIGNMENT */
+
+.center-elm {
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+.button-block {
+	width: 65% !important;
+	margin: auto;
+}
+
+.landing-logo {
+	padding-top: 60%;
+}
+
+.home-logo {
+	padding-top: 25%;
+}
+.landing-buttons {
+	padding-top: 3%;
+}
+
+input[type="range"]{
+   -webkit-appearance:none !important;
+}
+
+input.ggRatioRange[type="range"]{
+  /*add gg ratio CSS here, use a progress bar with 2 colors?
+  pink on right and teal on the left.*/
+}
+
+input.noiseLevelRange[type="range"]{
+  /*add noise level CSS here, use orange to red gradient */
+}
+
+a.button.button-icon.icon.disabled {
+  color: #63EDCC;
+}
+
+
+.reviewForm.modal {
+  top: 25%;
+  font-family: "Helvetica Neue",Roboto,sans-serif;
+}
+
+.ion-content.padding {
+  margin-top: 5%;
+}
+
+.ion-content.margin-xl {
+	margin-top: 10%;
+}
+
+.landing-buttons {
+	padding-top: 3%;
+}
+
+.center-text {
+	text-align: center;
+}
+/*DATA VISUALIZATION stuff*/
+.data-vis {
+  text-align: center;
+}
+.male {
+  color: #56C7ED;
+}
+.female {
+  color: #DA7C8E;
+}
+/*FUCK YOU ON.PAGELOAD*/
+.gender {
+  color: #FFFFFF;
+}
+.age-bar {
+  color: #FFFFFF;
+}
+.crowd {
+  color: #FFFFFF;
+}
+.volume-bar {
+  color: #FFFFFF;
+}

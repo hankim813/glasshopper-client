@@ -1,0 +1,27 @@
+<ion-view view-title="Register">
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <form ng-submit="createUser()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input type="text" ng-model="profileData.name">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="profileData.email">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="profileData.password">
+        </label>
+      <div class="landing-buttons">
+        <button class="button button-block button-balanced" type="submit">Let's GlassHop!</button>
+      </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
