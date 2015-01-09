@@ -62,7 +62,6 @@
 </ion-content>
 </ion-view>
 <!-- FOOTER BAR -->
-  <!-- <ion-footer-bar ng-show="isCheckedIn()"> -->
   <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
@@ -83,7 +82,7 @@
     <ion-content>
       <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
       </ion-refresher>
-<!-- FEED -->
+      <!-- FEED -->
       <div ng-repeat="post in posts | reverse" class="card">
           <div class="item item-text-wrap">
             <div class="row">
@@ -103,8 +102,7 @@
       </div>
     </ion-content>
   </ion-view>
-<!-- FOOTER TOOLBAR -->
-<!-- ng-show="isCheckedIn()" -->
+  <!-- FOOTER TOOLBAR -->
   <ion-footer-bar>
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
@@ -159,6 +157,4 @@
     </div>
   </ion-footer-bar>
   </ion-tab>
-
-
 </ion-tabs>
