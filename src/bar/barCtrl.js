@@ -167,23 +167,23 @@ function shoveIntoArray (bar) {
   $scope.visualize = function() {
     var volumeColors = $scope.calculateNoise();
     var ageColors = $scope.calculateAge();
-    $('.crowd').peity('donut', { width: 48 });
-    $('.age').peity('donut', { width: 48 });
+    $('.crowd').peity('donut', { width: 50, height: 60, radius: 10 });
     $('.gender').peity('pie',
       {
-        width: 48,
+        width: 55,
+        height: 55,
         fill: ["#DA7C8E", "#56C7ED"]
       });
     $('.volume-bar').peity('bar',
       {
-        width: 48,
-        height: 48,
+        width: 55,
+        height: 55,
         fill: volumeColors
       });
     $('.age-bar').peity('bar',
       {
-        width: 48,
-        height: 48,
+        width: 55,
+        height: 55,
         fill: ageColors
       });
   };

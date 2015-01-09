@@ -49,20 +49,13 @@
       Based on {{(aggregates.reviewsCount || 0)}} glasshoppers.
     </div>
   </div>
-        <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
-          {{ checkinButtonMsg }}
-        </button>
-<!-- INIT VISUALIZATIONS -->
-<!-- <div class="row">
-  <button class="button" ng-click="visualize()">
-    fire visualizations!
+  <button class="button button-balanced button-full" ng-disabled="ifNotNearBy" ng-click="checkInToBar()">
+    {{ checkinButtonMsg }}
   </button>
-</div> -->
 
 </ion-content>
 </ion-view>
 <!-- FOOTER BAR -->
-  <!-- <ion-footer-bar ng-show="isCheckedIn()"> -->
   <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
@@ -83,7 +76,7 @@
     <ion-content>
       <ion-refresher pulling-text="Pull to refresh" on-refresh="updateDash()">
       </ion-refresher>
-<!-- FEED -->
+      <!-- FEED -->
       <div ng-repeat="post in posts | reverse" class="card">
           <div class="item item-text-wrap">
             <div class="row">
@@ -103,9 +96,8 @@
       </div>
     </ion-content>
   </ion-view>
-<!-- FOOTER TOOLBAR -->
-<!-- ng-show="isCheckedIn()" -->
-  <ion-footer-bar>
+  <!-- FOOTER TOOLBAR -->
+  <ion-footer-bar ng-show="isCheckedIn()">
     <div class="tabs tabs-icon-top">
       <a class="tab-item" ng-click="openPostModal()">
         <i class="icon ion-compose"></i>
@@ -145,20 +137,18 @@
         </div>
     </ion-content>
   </ion-view>
-<!-- FOOTER BAR -->
-  <ion-footer-bar ng-show="isCheckedIn()">
-    <div class="tabs tabs-icon-top">
-      <a class="tab-item" ng-click="openPostModal()">
-        <i class="icon ion-compose"></i>
-        Comment
-      </a>
-      <a class="tab-item" ng-click="reviewBar()">
-        <i class="icon ion-speedometer"></i>
-        Review
-      </a>
-    </div>
-  </ion-footer-bar>
+  <!-- FOOTER BAR -->
+    <ion-footer-bar ng-show="isCheckedIn()">
+      <div class="tabs tabs-icon-top">
+        <a class="tab-item" ng-click="openPostModal()">
+          <i class="icon ion-compose"></i>
+          Comment
+        </a>
+        <a class="tab-item" ng-click="reviewBar()">
+          <i class="icon ion-speedometer"></i>
+          Review
+        </a>
+      </div>
+    </ion-footer-bar>
   </ion-tab>
-
-
 </ion-tabs>
