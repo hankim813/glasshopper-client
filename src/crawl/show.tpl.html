@@ -2,14 +2,14 @@
 <ion-view view-title="{{crawlTitle | date: 'EEEE, MMM d'}}">
   <ion-content>
   	<div class="row" ng-hide="noBars"><h4 class="center-elm">You haven't checked into any bars yet!</h4></div>
-  	
+
 			<div class="list card" ng-repeat="checkin in checkins | reverse" ui-sref="app.barshow({barId: checkin._bar._id})">
 				<div class="item item-avatar">
 				  <img ng-src="{{ (checkin._bar.photoUrl || './img/bar-placeholder.png') }}">
 				  <h2>{{ checkin._bar.name }}</h2>
 				  <p>{{ checkin._bar.address }}</p>
 				</div>
-				
+
 				<div class="item item-image">
 				  <img ng-src="{{ (checkin._bar.photoUrl || './img/bar-placeholder.png') }}">
 			  </div>

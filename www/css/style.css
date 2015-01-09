@@ -94,6 +94,36 @@ h4.tab-heading {
 .home-logo {
 	padding-top: 38%;
 }
+.landing-buttons {
+	padding-top: 3%;
+}
+
+input[type="range"]{
+   -webkit-appearance:none !important;
+}
+
+input.ggRatioRange[type="range"]{
+  /*add gg ratio CSS here, use a progress bar with 2 colors?
+  pink on right and teal on the left.*/
+}
+
+input.noiseLevelRange[type="range"]{
+  /*add noise level CSS here, use orange to red gradient */
+}
+
+a.button.button-icon.icon.disabled {
+  color: #63EDCC;
+}
+
+
+.reviewForm.modal {
+  top: 25%;
+  font-family: "Helvetica Neue",Roboto,sans-serif;
+}
+
+.ion-content.padding {
+  margin-top: 5%;
+}
 
 .landing-buttons {
 	padding-top: 3%;
@@ -101,4 +131,14 @@ h4.tab-heading {
 
 .center-text {
 	text-align: center;
+}
+/*DATA VISUALIZATION stuff*/
+.data-vis {
+  text-align: center;
+}
+.male {
+  color: #56C7ED;
+}
+.female {
+  color: #DA7C8E;
 }
