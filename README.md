@@ -7,9 +7,9 @@ Ever find yourself stuck at a boring empty bar?
 GlassHopper gives you a snapshot of the current state of bars around you via geolocation search. Get realtime data such as girl to guy ratio, number of people, noise level, and more!
 
 ###Dependencies: 
-- Xcode
-- Ionic: [](http://ionicframework.com/getting-started/)
-- AngularJS: [](https://github.com/angular/angular.js)
+- Xcode: [https://developer.apple.com/xcode/downloads/](https://developer.apple.com/xcode/downloads/)
+- Ionic: [http://ionicframework.com/getting-started/](http://ionicframework.com/getting-started/)
+- AngularJS: [https://github.com/angular/angular.js](https://github.com/angular/angular.js)
 
 ###Initial Installation:
 `````
